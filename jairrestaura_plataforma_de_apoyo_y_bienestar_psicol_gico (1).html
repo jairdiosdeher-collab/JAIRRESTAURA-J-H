@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAIRRESTAURA - Plataforma Integral de Apoyo y Bienestar Psicológico</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome & Lucide for comprehensive icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        indigoBrand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .whatsapp-float {
+            animation: pulse-wa 2s infinite;
+        }
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 font-sans flex flex-col antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('inicio')">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500 text-white flex items-center justify-center text-xl shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <div>
+                    <span class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">JAIRRESTAURA</span>
+                    <span class="block text-[11px] text-brand-600 font-semibold tracking-wider uppercase">Apoyo y Bienestar Psicológico</span>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-1">
+                <button onclick="switchTab('inicio')" id="nav-btn-inicio" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition">Inicio</button>
+                <button onclick="switchTab('cribado')" id="nav-btn-cribado" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition">1. Diagnóstico</button>
+                <button onclick="switchTab('tratamiento')" id="nav-btn-tratamiento" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition">2. Tratamiento</button>
+                <button onclick="switchTab('refuerzo')" id="nav-btn-refuerzo" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition">3. Refuerzo & Hábitos</button>
+                <button onclick="switchTab('asistente')" id="nav-btn-asistente" class="px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-brand-50 transition">Asistente IA</button>
+                <button onclick="switchTab('pastor')" id="nav-btn-pastor" class="px-3 py-2 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition flex items-center space-x-1.5">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                    <span>Pastor y Psicólogo Jair</span>
+                </button>
+                <button onclick="switchTab('salida')" id="nav-btn-salida" class="px-3.5 py-2 rounded-xl text-sm font-semibold bg-rose-50 text-rose-600 hover:bg-rose-100 transition border border-rose-200 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-life-ring"></i>
+                    <span>4. Crisis & Salida</span>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="lg:hidden flex items-center space-x-2">
+                <button onclick="switchTab('pastor')" class="p-2.5 text-emerald-600 bg-emerald-50 rounded-xl border border-emerald-200">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </button>
+                <button onclick="switchTab('salida')" class="p-2.5 text-rose-600 bg-rose-50 rounded-xl border border-rose-200">
+                    <i class="fa-solid fa-life-ring"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="p-2.5 text-slate-600 hover:bg-slate-100 rounded-xl">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-2">
+            <button onclick="switchTab('inicio'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-brand-50">Inicio</button>
+            <button onclick="switchTab('cribado'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-brand-50">1. Diagnóstico y Tamizaje</button>
+            <button onclick="switchTab('tratamiento'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-brand-50">2. Tratamiento y Regulación</button>
+            <button onclick="switchTab('refuerzo'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-brand-50">3. Refuerzo y Hábitos</button>
+            <button onclick="switchTab('asistente'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-brand-50">Asistente Emocional IA</button>
+            <button onclick="switchTab('pastor'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50 border border-emerald-200">Pastor y Psicólogo Jair (+WhatsApp)</button>
+            <button onclick="switchTab('salida'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold text-rose-600 bg-rose-50 border border-rose-200">4. Crisis, Apoyo y Plan de Salida</button>
+        </div>
+    </header>
+
+    <!-- Ethical Medical Disclaimer Banner -->
+    <div class="bg-amber-50 border-b border-amber-200 text-amber-800 text-xs sm:text-sm py-2.5 px-4 text-center flex items-center justify-center space-x-2 shadow-inner">
+        <i class="fa-solid fa-triangle-exclamation text-amber-600 shrink-0 text-base"></i>
+        <span><strong>Aviso Clínico JAIRRESTAURA:</strong> Esta plataforma ofrece herramientas de psicoeducación, tamizaje y autogestión emocional. No reemplaza la consulta, diagnóstico o tratamiento con un profesional de la salud mental certificado.</span>
+    </div>
+
+    <!-- Floating WhatsApp Action Button -->
+    <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20y%20apoyo%20emocional%20a%20través%20de%20JAIRRESTAURA." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 flex items-center justify-center text-3xl" title="Contactar por WhatsApp con Pastor y Psicólogo Jair">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: INICIO / DASHBOARD -->
+        <section id="tab-inicio" class="tab-content space-y-8 fade-in">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-brand-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 translate-x-12 translate-y-12">
+                    <i class="fa-solid fa-seedling text-[16rem]"></i>
+                </div>
+                <div class="max-w-3xl relative z-10 space-y-5">
+                    <span class="inline-flex items-center space-x-2 bg-brand-500/20 border border-brand-400/30 text-brand-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-heart"></i>
+                        <span>Centro Integral JAIRRESTAURA</span>
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Restaurando tu equilibrio emocional, un paso a la vez</h1>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                        Bienvenido a JAIRRESTAURA. Un espacio clínico y humano diseñado para acompañarte desde el cribado y diagnóstico preliminar, pasando por técnicas efectivas de tratamiento, hasta el acompañamiento personalizado con el Pastor y Psicólogo Jair.
+                    </p>
+                    <div class="pt-3 flex flex-wrap gap-4">
+                        <button onclick="switchTab('pastor')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg transition flex items-center space-x-2 text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Hablar con Pastor y Psicólogo Jair</span>
+                        </button>
+                        <button onclick="switchTab('cribado')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3.5 rounded-2xl border border-white/20 transition flex items-center space-x-2 text-sm backdrop-blur-sm">
+                            <i class="fa-solid fa-stethoscope"></i>
+                            <span>Iniciar Autoevaluación</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cycle Grid including Pastor & Psychologist Jair feature -->
+            <div>
+                <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Ciclo Completo de Atención JAIRRESTAURA</h2>
+                        <p class="text-sm text-slate-500 mt-1">Navega a través de las fases clínicas y el acompañamiento humano y espiritual especializado.</p>
+                    </div>
+                    <div class="mt-4 sm:mt-0">
+                        <button onclick="switchTab('pastor')" class="px-5 py-2.5 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded-2xl font-bold text-xs hover:bg-emerald-100 transition shadow-sm flex items-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                            <span>Atención Directa WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <!-- Phase 1 -->
+                    <div onclick="switchTab('cribado')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
+                                <i class="fa-solid fa-clipboard-question"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-brand-600 uppercase tracking-wider">Fase 1</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1 mb-2">Tamizaje & Diagnóstico</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">Cuestionarios PHQ-9 y GAD-7 para evaluar niveles de ansiedad y ánimo.</p>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs font-semibold text-brand-600 group-hover:translate-x-1 transition">
+                            <span>Realizar Test</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div onclick="switchTab('tratamiento')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">Fase 2</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1 mb-2">Tratamiento & Regulación</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">Respiración 4-7-8, grounding y diario de reestructuración cognitiva.</p>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs font-semibold text-indigo-600 group-hover:translate-x-1 transition">
+                            <span>Ver Herramientas</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div onclick="switchTab('refuerzo')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Fase 3</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1 mb-2">Refuerzo & Hábitos</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">Seguimiento diario de estado de ánimo, gratitud y rachas de bienestar.</p>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs font-semibold text-emerald-600 group-hover:translate-x-1 transition">
+                            <span>Mis Métricas</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </div>
+                    </div>
+
+                    <!-- Special Pastor & Psychologist Highlight -->
+                    <div onclick="switchTab('pastor')" class="bg-emerald-50/80 p-6 rounded-3xl border-2 border-emerald-300 shadow-md hover:shadow-lg transition cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-md">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Atención Especializada</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1 mb-2">Pastor y Psicólogo Jair</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Orientación psicológica y espiritual integrativa por WhatsApp.</p>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition">
+                            <span>Contactar Ahora</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </div>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div onclick="switchTab('salida')" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
+                                <i class="fa-solid fa-life-ring"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Fase 4</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1 mb-2">Crisis & Salida</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">Líneas de ayuda globales y nacionales en Colombia, y plan de seguridad.</p>
+                        </div>
+                        <div class="mt-4 flex items-center text-xs font-semibold text-rose-600 group-hover:translate-x-1 transition">
+                            <span>Red de Apoyo</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Psychoeducation Quote -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-start space-x-5">
+                    <div class="p-4 bg-brand-50 text-brand-600 rounded-2xl shrink-0">
+                        <i class="fa-solid fa-quote-left text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Reflexión Clínica del Día</span>
+                        <p class="text-slate-700 italic mt-2 text-base sm:text-lg leading-relaxed">"La sanación no consiste en borrar el dolor, sino en aprender a sostener nuestro propio corazón con compasión mientras atravesamos la tormenta."</p>
+                        <span class="block text-xs text-slate-400 mt-2">— Pastor y Psicólogo Jair</span>
+                    </div>
+                </div>
+                <button onclick="switchTab('pastor')" class="whitespace-nowrap px-6 py-3 bg-emerald-600 text-white font-semibold text-sm rounded-2xl hover:bg-emerald-700 transition shadow-md flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Escribir al WhatsApp</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- TAB 1: CRIBADO Y DIAGNÓSTICO -->
+        <section id="tab-cribado" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Módulo 1 · JAIRRESTAURA</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Tamizaje y Diagnóstico Inicial</h2>
+                    <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+                        Selecciona la escala clínica que deseas completar. Estas herramientas estandarizadas internacionalmente (PHQ-9 para depresión y GAD-7 para ansiedad) permiten evaluar tus síntomas en las últimas 2 semanas.
+                    </p>
+                </div>
+
+                <!-- Scale Switcher Tabs -->
+                <div class="flex border-b border-slate-200 mt-8 space-x-6">
+                    <button onclick="switchScale('phq9')" id="scale-btn-phq9" class="pb-3.5 text-sm font-bold border-b-2 border-brand-500 text-brand-600 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-face-frown"></i>
+                        <span>Escala PHQ-9 (Depresión / Ánimo)</span>
+                    </button>
+                    <button onclick="switchScale('gad7')" id="scale-btn-gad7" class="pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Escala GAD-7 (Ansiedad Generalizada)</span>
+                    </button>
+                </div>
+
+                <!-- PHQ-9 Form -->
+                <div id="scale-phq9" class="mt-8 space-y-6">
+                    <div class="bg-brand-50/70 border border-brand-200 p-5 rounded-2xl text-xs sm:text-sm text-brand-900 leading-relaxed">
+                        <strong>Instrucciones:</strong> Durante las <strong>últimas 2 semanas</strong>, ¿con qué frecuencia te han afectado los siguientes problemas?
+                    </div>
+                    <div id="phq9-questions" class="space-y-4">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <button onclick="calculatePHQ9()" class="px-8 py-4 bg-brand-600 text-white font-bold rounded-2xl hover:bg-brand-700 transition shadow-lg shadow-brand-600/20 text-sm">
+                            Calcular Resultado Clínico (PHQ-9)
+                        </button>
+                        <button onclick="switchTab('pastor')" class="px-6 py-4 bg-emerald-50 text-emerald-700 border border-emerald-300 font-bold rounded-2xl hover:bg-emerald-100 transition text-sm flex items-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                            <span>Analizar resultado con Pastor Jair</span>
+                        </button>
+                    </div>
+                    <div id="phq9-result" class="hidden mt-6 p-6 rounded-2xl border"></div>
+                </div>
+
+                <!-- GAD-7 Form -->
+                <div id="scale-gad7" class="mt-8 space-y-6 hidden">
+                    <div class="bg-indigo-50/70 border border-indigo-200 p-5 rounded-2xl text-xs sm:text-sm text-indigo-900 leading-relaxed">
+                        <strong>Instrucciones:</strong> Durante las <strong>últimas 2 semanas</strong>, ¿con qué frecuencia te has sentido afectado/a por los siguientes síntomas de nerviosismo o tensión?
+                    </div>
+                    <div id="gad7-questions" class="space-y-4">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <button onclick="calculateGAD7()" class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/20 text-sm">
+                            Calcular Resultado Clínico (GAD-7)
+                        </button>
+                        <button onclick="switchTab('pastor')" class="px-6 py-4 bg-emerald-50 text-emerald-700 border border-emerald-300 font-bold rounded-2xl hover:bg-emerald-100 transition text-sm flex items-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                            <span>Analizar resultado con Pastor Jair</span>
+                        </button>
+                    </div>
+                    <div id="gad7-result" class="hidden mt-6 p-6 rounded-2xl border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: TRATAMIENTO Y REGULACIÓN -->
+        <section id="tab-tratamiento" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Módulo 2 · JAIRRESTAURA</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Tratamiento y Técnicas de Regulación</h2>
+                <p class="text-slate-500 text-sm mt-2">Herramientas basadas en Terapia Cognitivo-Conductual (TCC) y neurociencia para calmar el sistema nervioso.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+                    <!-- Tool A: Breathing 4-7-8 -->
+                    <div class="bg-slate-50 p-7 rounded-3xl border border-slate-200 flex flex-col items-center justify-between text-center shadow-sm">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto text-2xl mb-4 shadow-sm">
+                                <i class="fa-solid fa-wind"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-lg">Respiración 4-7-8</h3>
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Regulación autonómica profunda. Inhala en 4s, sostén 7s y exhala en 8s.</p>
+                        </div>
+
+                        <!-- Circle Animation Container -->
+                        <div class="my-8 relative flex items-center justify-center w-40 h-40">
+                            <div id="breathing-circle" class="w-28 h-28 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm shadow-lg transition-all duration-1000">
+                                Preparado
+                            </div>
+                        </div>
+                        <div id="breathing-instruction" class="text-xs font-bold text-indigo-700 mb-6 h-6">Presiona Iniciar para comenzar</div>
+
+                        <div class="flex space-x-3 w-full">
+                            <button onclick="startBreathing()" id="breath-start-btn" class="flex-1 py-3 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-700 transition shadow">Iniciar</button>
+                            <button onclick="stopBreathing()" id="breath-stop-btn" class="py-3 px-5 bg-slate-200 text-slate-700 text-xs font-bold rounded-xl hover:bg-slate-300 transition">Detener</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool B: Grounding 5-4-3-2-1 -->
+                    <div class="bg-slate-50 p-7 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-hand-sparkles"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-lg">Técnica Grounding 5-4-3-2-1</h3>
+                                    <p class="text-xs text-slate-500">Anclaje sensorial para ataques de pánico o rumiación.</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2.5 mt-4 text-xs">
+                                <label class="flex items-start space-x-3 p-3 bg-white rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                                    <input type="checkbox" class="mt-0.5 w-4 h-4 text-brand-600 rounded">
+                                    <span><strong>5 cosas</strong> que puedas ver a tu alrededor.</span>
+                                </label>
+                                <label class="flex items-start space-x-3 p-3 bg-white rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                                    <input type="checkbox" class="mt-0.5 w-4 h-4 text-brand-600 rounded">
+                                    <span><strong>4 cosas</strong> que puedas tocar o sentir físicamente.</span>
+                                </label>
+                                <label class="flex items-start space-x-3 p-3 bg-white rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                                    <input type="checkbox" class="mt-0.5 w-4 h-4 text-brand-600 rounded">
+                                    <span><strong>3 cosas</strong> que puedas escuchar en el entorno.</span>
+                                </label>
+                                <label class="flex items-start space-x-3 p-3 bg-white rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                                    <input type="checkbox" class="mt-0.5 w-4 h-4 text-brand-600 rounded">
+                                    <span><strong>2 cosas</strong> que puedas oler.</span>
+                                </label>
+                                <label class="flex items-start space-x-3 p-3 bg-white rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                                    <input type="checkbox" class="mt-0.5 w-4 h-4 text-brand-600 rounded">
+                                    <span><strong>1 cosa</strong> que puedas saborear.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tool C: Cognitive Restructuring ABC Journal -->
+                    <div class="bg-slate-50 p-7 rounded-3xl border border-slate-200 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-pen-nib"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-lg">Diario Cognitivo ABC</h3>
+                                    <p class="text-xs text-slate-500">Reestructura pensamientos automáticos negativos.</p>
+                                </div>
+                            </div>
+
+                            <form id="thought-form" onsubmit="saveThought(event)" class="space-y-3 mt-3">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-slate-700 mb-1">A. Situación desencadenante:</label>
+                                    <input type="text" id="thought-sit" required placeholder="Ej. Presenté un informe y me equivoqué" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-slate-700 mb-1">B. Pensamiento automático negativo:</label>
+                                    <input type="text" id="thought-neg" required placeholder="Ej. Soy un fracaso total (Ansiedad 9/10)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-slate-700 mb-1">C. Pensamiento alternativo equilibrado:</label>
+                                    <input type="text" id="thought-alt" required placeholder="Ej. Todos cometemos errores, puedo corregirlo" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+                                </div>
+                                <button type="submit" class="w-full py-3 bg-brand-600 text-white font-bold text-xs rounded-xl hover:bg-brand-700 transition shadow">
+                                    Registrar Pensamiento
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: REFUERZO Y HÁBITOS -->
+        <section id="tab-refuerzo" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Módulo 3 · JAIRRESTAURA</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Refuerzo, Hábitos y Crecimiento</h2>
+                <p class="text-slate-500 text-sm mt-2">Monitorea tu estado anímico diario, cultiva la gratitud y mantén rachas de bienestar.</p>
+
+                <!-- Metrics Overview Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-3xl text-center shadow-sm">
+                        <div class="text-4xl font-extrabold text-emerald-700" id="stat-streak">5</div>
+                        <div class="text-xs font-bold text-emerald-800 uppercase tracking-wider mt-2">Racha de Bienestar (Días)</div>
+                    </div>
+                    <div class="bg-brand-50 border border-brand-200 p-6 rounded-3xl text-center shadow-sm">
+                        <div class="text-4xl font-extrabold text-brand-700" id="stat-thoughts">0</div>
+                        <div class="text-xs font-bold text-brand-800 uppercase tracking-wider mt-2">Pensamientos Registrados</div>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl text-center shadow-sm">
+                        <div class="text-4xl font-extrabold text-indigo-700" id="stat-habits">0%</div>
+                        <div class="text-xs font-bold text-indigo-800 uppercase tracking-wider mt-2">Cumplimiento Hábitos Hoy</div>
+                    </div>
+                </div>
+
+                <!-- Daily Mood Check-in & Gratitude Journal -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-slate-50 p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="font-bold text-slate-900 text-base">¿Cómo te sientes hoy? (Check-in Anímico)</h3>
+                        <p class="text-xs text-slate-500">Selecciona el estado que mejor refleje tu energía actual:</p>
+                        <div class="grid grid-cols-5 gap-3 pt-2">
+                            <button onclick="setMood('Muy Bajo', '😢')" class="p-3 bg-white rounded-2xl border text-center hover:border-brand-500 transition shadow-sm">
+                                <span class="text-2xl block">😢</span>
+                                <span class="text-[10px] text-slate-600 font-bold mt-1 block">Muy Bajo</span>
+                            </button>
+                            <button onclick="setMood('Triste / Bajo', '🙁')" class="p-3 bg-white rounded-2xl border text-center hover:border-brand-500 transition shadow-sm">
+                                <span class="text-2xl block">🙁</span>
+                                <span class="text-[10px] text-slate-600 font-bold mt-1 block">Bajo</span>
+                            </button>
+                            <button onclick="setMood('Neutral / Calmo', '😐')" class="p-3 bg-white rounded-2xl border text-center hover:border-brand-500 transition shadow-sm">
+                                <span class="text-2xl block">😐</span>
+                                <span class="text-[10px] text-slate-600 font-bold mt-1 block">Neutral</span>
+                            </button>
+                            <button onclick="setMood('Bien / Estable', '🙂')" class="p-3 bg-white rounded-2xl border text-center hover:border-brand-500 transition shadow-sm">
+                                <span class="text-2xl block">🙂</span>
+                                <span class="text-[10px] text-slate-600 font-bold mt-1 block">Estable</span>
+                            </button>
+                            <button onclick="setMood('Muy Bien / Animado', '🌟')" class="p-3 bg-white rounded-2xl border text-center hover:border-brand-500 transition shadow-sm">
+                                <span class="text-2xl block">🌟</span>
+                                <span class="text-[10px] text-slate-600 font-bold mt-1 block">Excelente</span>
+                            </button>
+                        </div>
+                        <div id="mood-status-display" class="p-3 bg-white rounded-xl border text-xs text-slate-700 font-medium text-center">
+                            Estado registrado hoy: <strong id="current-mood-text">Ninguno aún</strong>
+                        </div>
+                    </div>
+
+                    <!-- Daily Habits Checklist -->
+                    <div class="bg-slate-50 p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="font-bold text-slate-900 text-base">Hábitos de Autocuidado Diario</h3>
+                        <p class="text-xs text-slate-500">Marca tus logros de salud mental de hoy:</p>
+                        <div id="habits-checklist" class="space-y-2.5">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements & Anchoring -->
+                <div class="mt-8 bg-slate-50 p-7 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-base mb-2">Anclaje de Logros y Fortalezas Personales</h3>
+                    <p class="text-xs text-slate-500 mb-4">Escribe un logro o cualidad que reconozcas en ti hoy:</p>
+                    <div class="flex space-x-3">
+                        <input type="text" id="achievement-input" placeholder="Ej. Fui perseverante ante una dificultad" class="flex-1 text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                        <button onclick="saveAchievement()" class="px-6 py-3 bg-emerald-600 text-white font-bold text-xs rounded-xl hover:bg-emerald-700 transition shadow">Guardar Logro</button>
+                    </div>
+                    <div id="achievements-list" class="space-y-2.5 mt-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB ASISTENTE VIRTUAL IA -->
+        <section id="tab-asistente" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm max-w-4xl mx-auto flex flex-col h-[700px]">
+                <div class="flex items-center space-x-4 pb-6 border-b border-slate-200">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-500 text-white flex items-center justify-center text-2xl shadow-md">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Asistente Emocional IA · JAIRRESTAURA</span>
+                        <h2 class="text-2xl font-bold text-slate-900">Guía de Orientación Psicoemocional</h2>
+                        <p class="text-xs text-slate-500">Conversa con nuestro asistente entrenado en principios de TCC y apoyo empático.</p>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Container -->
+                <div id="chat-messages" class="flex-grow overflow-y-auto py-6 space-y-4 pr-2">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-sm">JR</div>
+                        <div class="bg-slate-100 text-slate-800 p-4 rounded-2xl max-w-lg text-xs sm:text-sm leading-relaxed shadow-sm">
+                            ¡Hola! Soy el Asistente Virtual de <strong>JAIRRESTAURA</strong>. ¿Cómo te sientes en este momento? Si requieres atención personalizada, recuerda que puedes contactar directamente al <strong>Pastor y Psicólogo Jair</strong> por WhatsApp.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Prompts -->
+                <div class="py-2 flex flex-wrap gap-2">
+                    <button onclick="sendQuickPrompt('Tengo mucha ansiedad en este momento')" class="px-3 py-1.5 bg-brand-50 text-brand-700 font-medium text-xs rounded-xl hover:bg-brand-100 transition border border-brand-200">
+                        ⚡ Tengo mucha ansiedad
+                    </button>
+                    <button onclick="sendQuickPrompt('Me siento triste y sin energía')" class="px-3 py-1.5 bg-brand-50 text-brand-700 font-medium text-xs rounded-xl hover:bg-brand-100 transition border border-brand-200">
+                        🌧️ Me siento triste y sin energía
+                    </button>
+                    <button onclick="switchTab('pastor')" class="px-3 py-1.5 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl hover:bg-emerald-100 transition border border-emerald-200">
+                        💬 Hablar con Pastor Jair (WhatsApp)
+                    </button>
+                </div>
+
+                <!-- Chat Input Form -->
+                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-4 pt-4 border-t border-slate-200 flex space-x-3">
+                    <input type="text" id="chat-input" required placeholder="Escribe aquí cómo te sientes o tu consulta..." class="flex-1 text-xs sm:text-sm p-3.5 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <button type="submit" class="px-6 py-3.5 bg-brand-600 text-white font-bold text-xs sm:text-sm rounded-2xl hover:bg-brand-700 transition shadow flex items-center space-x-2">
+                        <span>Enviar</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB DEDICADA: PASTOR Y PSICÓLOGO JAIR -->
+        <section id="tab-pastor" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-8 sm:p-12 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10">
+                    <i class="fa-brands fa-whatsapp text-[18rem]"></i>
+                </div>
+                <div class="max-w-3xl relative z-10 space-y-6">
+                    <span class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                        <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                        <span>Atención Pastoral y Psicológica Profesional</span>
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Pastor y Psicólogo Jair</h2>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                        Un espacio seguro y confidencial donde integramos la ciencia psicológica profesional con el apoyo espiritual y pastoral. No tienes que atravesar tus dificultades solo/a; estamos listos para escucharte, guiarte y restaurar tu paz interior.
+                    </p>
+                    
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 space-y-4 max-w-xl">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl font-bold shadow">
+                                <i class="fa-solid fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs text-emerald-300 uppercase tracking-wider font-semibold block">Línea Directa WhatsApp</span>
+                                <span class="text-xl sm:text-2xl font-extrabold tracking-wide">+57 312 471 0702</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Disponible para consejería individual, orientación psicológica, resolución de crisis emocionales y acompañamiento espiritual.
+                        </p>
+                    </div>
+
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20visitando%20JAIRRESTAURA%20y%20necesito%20orientación%20y%20apoyo%20emocional." target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition flex items-center space-x-3 text-base">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <span>Abrir WhatsApp y Escribir Ahora (+57 312 471 0702)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Grid under Pastor Jair -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Consejería Psicológica</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Abordaje clínico profesional enfocado en la gestión de ansiedad, depresión, duelo y regulación emocional.</p>
+                </div>
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-book-bible"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Orientación Pastoral</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Fortalecimiento espiritual, restauración de la esperanza, paz interior y guía basada en principios de fe.</p>
+                </div>
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-lg">Atención en Crisis</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Primera respuesta empática y contención emocional inmediata ante momentos de alta vulnerabilidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: CRISIS, APOYO Y PLAN DE SALIDA -->
+        <section id="tab-salida" class="tab-content hidden space-y-8 fade-in">
+            <div class="bg-white p-8 sm:p-10 rounded-3xl border border-rose-200 shadow-sm">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl shadow-sm">
+                        <i class="fa-solid fa-life-ring"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Módulo 4 · JAIRRESTAURA</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900">Red de Apoyo, Crisis y Plan de Salida</h2>
+                    </div>
+                </div>
+                <p class="text-slate-500 text-sm mt-3 leading-relaxed">
+                    Si estás atravesando una crisis aguda, recuerda que cuentas con la línea directa del <strong>Pastor y Psicólogo Jair (+57 312 471 0702)</strong> y líneas de emergencia 24/7.
+                </p>
+
+                <!-- Emergency Helplines Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                    <!-- Direct WhatsApp Pastor Jair Urgent -->
+                    <div class="bg-emerald-50 border border-emerald-300 p-6 rounded-3xl flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-3 py-1 bg-emerald-200 text-emerald-900 rounded-full">Pastor y Psicólogo Jair</span>
+                                <i class="fa-brands fa-whatsapp text-emerald-600 text-xl"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-xl">+57 312 471 0702</h3>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">Contacto directo por WhatsApp para consejería y apoyo en momentos de dificultad.</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="https://wa.me/573124710702?text=URGENTE:%20Necesito%20apoyo%20emocional%20inmediato%20a%20través%20de%20JAIRRESTAURA." target="_blank" class="block w-full py-3 bg-emerald-600 text-white font-bold text-xs text-center rounded-xl hover:bg-emerald-700 transition shadow">Escribir por WhatsApp</a>
+                        </div>
+                    </div>
+
+                    <!-- Colombia National -->
+                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-3xl flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-3 py-1 bg-rose-200 text-rose-900 rounded-full">Colombia (Nacional)</span>
+                                <i class="fa-solid fa-phone-volume text-rose-600 text-lg"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-xl">Línea 106 / 192</h3>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">Línea de apoyo emocional gratuito en Bogotá y cobertura nacional (MinSalud).</p>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <a href="tel:106" class="flex-1 py-3 bg-rose-600 text-white font-bold text-xs text-center rounded-xl hover:bg-rose-700 transition shadow">Llamar 106</a>
+                            <a href="tel:192" class="flex-1 py-3 bg-rose-700 text-white font-bold text-xs text-center rounded-xl hover:bg-rose-800 transition shadow">Llamar 192</a>
+                        </div>
+                    </div>
+
+                    <!-- Colombia Linea 123 -->
+                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-3xl flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold px-3 py-1 bg-rose-200 text-rose-900 rounded-full">Emergencias 123</span>
+                                <i class="fa-solid fa-hospital text-rose-600 text-lg"></i>
+                            </div>
+                            <h3 class="font-extrabold text-slate-900 text-xl">Línea de Emergencia 123</h3>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">Atención médica, policial o psiquiátrica urgente en cualquier ciudad de Colombia.</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="tel:123" class="block w-full py-3 bg-rose-600 text-white font-bold text-xs text-center rounded-xl hover:bg-rose-700 transition shadow">Llamar 123 Urgencias</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Safety Plan Builder -->
+                <div class="mt-10 bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-lg mb-1">Plan Personalizado de Prevención de Recaídas</h3>
+                    <p class="text-xs text-slate-500 mb-6">Completa esta guía de autocontrol para tenerla a mano en momentos difíciles:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">1. Señales de alerta temprana:</label>
+                            <textarea id="safety-warning" rows="3" placeholder="Ej. Insomnio, irritabilidad, aislamiento..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">2. Estrategias de afrontamiento:</label>
+                            <textarea id="safety-coping" rows="3" placeholder="Ej. Respirar 5 minutos, escribir, orar..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2">3. Contacto de confianza / Pastor Jair:</label>
+                            <textarea id="safety-contact" rows="3" placeholder="Ej. Escribir al Pastor Jair al +57 312 471 0702..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white"></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <button onclick="saveSafetyPlan()" class="px-8 py-3.5 bg-rose-600 text-white font-bold text-xs rounded-xl hover:bg-rose-700 transition shadow">
+                            Guardar mi Plan de Seguridad
+                        </button>
+                        <div id="safety-saved-msg" class="hidden text-xs text-emerald-600 font-bold flex items-center space-x-1.5">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Plan guardado de forma segura en tu dispositivo.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-4 sm:space-y-0">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">JR</div>
+                <span class="font-bold text-slate-900 text-sm">JAIRRESTAURA</span>
+                <span>— Pastor y Psicólogo Jair (+57 312 471 0702)</span>
+            </div>
+            <div class="text-center sm:text-right">
+                <span>Optimizado para despliegue en GitHub y Vercel. Todos los derechos reservados.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- Navigation / Tab Switching ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- Data Persistence ---
+        let appData = JSON.parse(localStorage.getItem('jairrestaura_data')) || {
+            thoughts: [],
+            achievements: [],
+            habits: { date: new Date().toDateString(), items: [false, false, false, false] },
+            streak: 5,
+            currentMood: 'No registrado',
+            safetyPlan: { warning: '', coping: '', contact: '' }
+        };
+
+        function saveAppData() {
+            localStorage.setItem('jairrestaura_data', JSON.stringify(appData));
+            updateMetrics();
+        }
+
+        // --- Módulo 1: Cribado (PHQ-9 & GAD-7) ---
+        const phq9QuestionsData = [
+            "Tener poco interés o placer en hacer las cosas.",
+            "Sentirse desanimado/a, deprimido/a o sin esperanza.",
+            "Problemas para dormir o mantenerse dormido/a, o dormir demasiado.",
+            "Sentirse cansado/a o con poca energía.",
+            "Sin apetito o con comer en exceso.",
+            "Sentir malestar con uno/a mismo/a (sentirse fracasado/a).",
+            "Dificultad para concentrarse en cosas como leer o ver televisión.",
+            "Moverse o hablar tan lento que otros podrían haberlo notado.",
+            "Pensamientos de que estarías mejor muerto/a o de lastimarte."
+        ];
+
+        const gad7QuestionsData = [
+            "Sentirse nervioso/a, ansioso/a o con los nervios de punta.",
+            "No poder dejar de controlar la preocupación.",
+            "Preocuparse demasiado por diferentes cosas.",
+            "Dificultad para relajarse.",
+            "Estar tan inquieto/a que es difícil quedarse quieto/a.",
+            "Fácilmente irritable o molesto/a.",
+            "Sentir miedo como si algo terrible fuera a pasar."
+        ];
+
+        const optionsText = ["Nunca (0)", "Varios días (1)", "Más de la mitad (2)", "Casi todos los días (3)"];
+
+        function initScales() {
+            const phqContainer = document.getElementById('phq9-questions');
+            phqContainer.innerHTML = '';
+            phq9QuestionsData.forEach((q, idx) => {
+                let html = `<div class="p-4 sm:p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                    <p class="text-xs sm:text-sm font-semibold text-slate-900 mb-3">${idx + 1}. ${q}</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">`;
+                for(let i=0; i<4; i++) {
+                    html += `<label class="flex items-center space-x-2 text-xs text-slate-700 bg-white p-2.5 rounded-xl border cursor-pointer hover:bg-brand-50 transition">
+                        <input type="radio" name="phq_${idx}" value="${i}" ${i===0?'checked':''}>
+                        <span>${optionsText[i]}</span>
+                    </label>`;
+                }
+                html += `</div></div>`;
+                phqContainer.innerHTML += html;
+            });
+
+            const gadContainer = document.getElementById('gad7-questions');
+            gadContainer.innerHTML = '';
+            gad7QuestionsData.forEach((q, idx) => {
+                let html = `<div class="p-4 sm:p-5 bg-slate-50 rounded-2xl border border-slate-200">
+                    <p class="text-xs sm:text-sm font-semibold text-slate-900 mb-3">${idx + 1}. ${q}</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">`;
+                for(let i=0; i<4; i++) {
+                    html += `<label class="flex items-center space-x-2 text-xs text-slate-700 bg-white p-2.5 rounded-xl border cursor-pointer hover:bg-indigo-50 transition">
+                        <input type="radio" name="gad_${idx}" value="${i}" ${i===0?'checked':''}>
+                        <span>${optionsText[i]}</span>
+                    </label>`;
+                }
+                html += `</div></div>`;
+                gadContainer.innerHTML += html;
+            });
+        }
+
+        function switchScale(scale) {
+            if(scale === 'phq9') {
+                document.getElementById('scale-phq9').classList.remove('hidden');
+                document.getElementById('scale-gad7').classList.add('hidden');
+                document.getElementById('scale-btn-phq9').className = "pb-3.5 text-sm font-bold border-b-2 border-brand-500 text-brand-600 transition flex items-center space-x-2";
+                document.getElementById('scale-btn-gad7').className = "pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center space-x-2";
+            } else {
+                document.getElementById('scale-gad7').classList.remove('hidden');
+                document.getElementById('scale-phq9').classList.add('hidden');
+                document.getElementById('scale-btn-gad7').className = "pb-3.5 text-sm font-bold border-b-2 border-indigo-500 text-indigo-600 transition flex items-center space-x-2";
+                document.getElementById('scale-btn-phq9').className = "pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition flex items-center space-x-2";
+            }
+        }
+
+        function calculatePHQ9() {
+            let total = 0;
+            for(let i=0; i<9; i++) {
+                const radios = document.getElementsByName(`phq_${i}`);
+                for(let r of radios) {
+                    if(r.checked) total += parseInt(r.value);
+                }
+            }
+            let interp = "";
+            let color = "";
+            if(total <= 4) { interp = "Mínimos o nulos síntomas depresivos detectados."; color = "bg-emerald-50 text-emerald-900 border-emerald-200"; }
+            else if(total <= 9) { interp = "Síntomas depresivos leves. Recomendable autocuidado y apoyo pastoral."; color = "bg-amber-50 text-amber-900 border-amber-200"; }
+            else if(total <= 14) { interp = "Síntomas depresivos moderados. Es aconsejable contactar al Pastor y Psicólogo Jair."; color = "bg-orange-50 text-orange-900 border-orange-200"; }
+            else { interp = "Síntomas moderadamente graves a severos. Se recomienda apoyo directo con especialista y Pastor Jair."; color = "bg-rose-50 text-rose-900 border-rose-200"; }
+
+            const resDiv = document.getElementById('phq9-result');
+            resDiv.className = `mt-6 p-6 rounded-2xl border ${color}`;
+            resDiv.innerHTML = `<strong class="text-base">Puntuación Total PHQ-9: ${total} / 27</strong><p class="mt-2 text-xs sm:text-sm leading-relaxed">${interp}</p>`;
+            resDiv.classList.remove('hidden');
+        }
+
+        function calculateGAD7() {
+            let total = 0;
+            for(let i=0; i<7; i++) {
+                const radios = document.getElementsByName(`gad_${i}`);
+                for(let r of radios) {
+                    if(r.checked) total += parseInt(r.value);
+                }
+            }
+            let interp = "";
+            let color = "";
+            if(total <= 4) { interp = "Ansiedad mínima detectada."; color = "bg-emerald-50 text-emerald-900 border-emerald-200"; }
+            else if(total <= 9) { interp = "Ansiedad leve. Recomendable práctica de respiración guiada y consejería."; color = "bg-amber-50 text-amber-900 border-amber-200"; }
+            else if(total <= 14) { interp = "Ansiedad moderada. Sugerimos hablar con el Pastor y Psicólogo Jair."; color = "bg-orange-50 text-orange-900 border-orange-200"; }
+            else { interp = "Ansiedad severa. Importante consultar con un profesional y escribir al Pastor Jair por WhatsApp."; color = "bg-rose-50 text-rose-900 border-rose-200"; }
+
+            const resDiv = document.getElementById('gad7-result');
+            resDiv.className = `mt-6 p-6 rounded-2xl border ${color}`;
+            resDiv.innerHTML = `<strong class="text-base">Puntuación Total GAD-7: ${total} / 21</strong><p class="mt-2 text-xs sm:text-sm leading-relaxed">${interp}</p>`;
+            resDiv.classList.remove('hidden');
+        }
+
+        // --- Módulo 2: Tratamiento (Respiración 4-7-8) ---
+        let breathTimer = null;
+        let isBreathingActive = false;
+
+        function startBreathing() {
+            if(isBreathingActive) return;
+            isBreathingActive = true;
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breathing-instruction');
+            const startBtn = document.getElementById('breath-start-btn');
+            startBtn.disabled = true;
+            startBtn.classList.add('opacity-50');
+
+            let phase = 0;
+            const phases = [
+                { text: "Inhala profundamente (4s)", scale: "scale-125 bg-indigo-500", duration: 4000 },
+                { text: "Sostén el aire (7s)", scale: "scale-125 bg-indigo-700", duration: 7000 },
+                { text: "Exhala despacio (8s)", scale: "scale-90 bg-indigo-300", duration: 8000 }
+            ];
+
+            function runCycle() {
+                if(!isBreathingActive) return;
+                instruction.innerText = phases[phase].text;
+                circle.className = `w-28 h-28 rounded-full text-white flex items-center justify-center font-bold text-sm shadow-lg transition-all duration-1000 ${phases[phase].scale}`;
+                let dur = phases[phase].duration;
+                phase = (phase + 1) % 3;
+                breathTimer = setTimeout(runCycle, dur);
+            }
+            runCycle();
+        }
+
+        function stopBreathing() {
+            isBreathingActive = false;
+            clearTimeout(breathTimer);
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breathing-instruction');
+            const startBtn = document.getElementById('breath-start-btn');
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-50');
+            circle.className = "w-28 h-28 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm shadow-lg transition-all duration-1000";
+            instruction.innerText = "Presiona Iniciar para comenzar";
+        }
+
+        function saveThought(e) {
+            e.preventDefault();
+            const sit = document.getElementById('thought-sit').value;
+            const neg = document.getElementById('thought-neg').value;
+            const alt = document.getElementById('thought-alt').value;
+
+            appData.thoughts.unshift({ sit, neg, alt, date: new Date().toLocaleDateString() });
+            saveAppData();
+            document.getElementById('thought-form').reset();
+            alertCustom("Pensamiento registrado con éxito en tu diario cognitivo.");
+        }
+
+        // --- Módulo 3: Refuerzo y Hábitos ---
+        const habitNames = ["Práctica de respiración o oración", "Caminata o actividad física (20m)", "Sueño reparador (+7 horas)", "Conexión positiva con un ser querido"];
+
+        function initHabits() {
+            const todayStr = new Date().toDateString();
+            if(appData.habits.date !== todayStr) {
+                appData.habits = { date: todayStr, items: [false, false, false, false] };
+                saveAppData();
+            }
+
+            const container = document.getElementById('habits-checklist');
+            container.innerHTML = '';
+            habitNames.forEach((name, idx) => {
+                const checked = appData.habits.items[idx];
+                container.innerHTML += `
+                    <label class="flex items-center space-x-3 p-3.5 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleHabit(${idx})" class="w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500">
+                        <span class="text-xs sm:text-sm text-slate-700 font-semibold">${name}</span>
+                    </label>
+                `;
+            });
+        }
+
+        function toggleHabit(idx) {
+            appData.habits.items[idx] = !appData.habits.items[idx];
+            saveAppData();
+            initHabits();
+        }
+
+        function setMood(moodText, emoji) {
+            appData.currentMood = `${emoji} ${moodText}`;
+            saveAppData();
+            document.getElementById('current-mood-text').innerText = appData.currentMood;
+            alertCustom("Estado de ánimo guardado para hoy.");
+        }
+
+        function saveAchievement() {
+            const input = document.getElementById('achievement-input');
+            if(!input.value.trim()) return;
+            appData.achievements.unshift({ text: input.value, date: new Date().toLocaleDateString() });
+            saveAppData();
+            renderAchievements();
+            input.value = '';
+        }
+
+        function renderAchievements() {
+            const list = document.getElementById('achievements-list');
+            if(appData.achievements.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 italic">Aún no has registrado logros o fortalezas.</p>`;
+                return;
+            }
+            list.innerHTML = '';
+            appData.achievements.forEach(a => {
+                list.innerHTML += `
+                    <div class="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between text-xs shadow-sm">
+                        <span class="text-slate-800 font-medium"><i class="fa-solid fa-star text-amber-400 mr-2"></i>${a.text}</span>
+                        <span class="text-[10px] text-slate-400">${a.date}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function updateMetrics() {
+            document.getElementById('stat-streak').innerText = appData.streak;
+            document.getElementById('stat-thoughts').innerText = appData.thoughts.length;
+            
+            const completedCount = appData.habits.items.filter(Boolean).length;
+            const pct = Math.round((completedCount / habitNames.length) * 100);
+            document.getElementById('stat-habits').innerText = pct + '%';
+            if(appData.currentMood) {
+                document.getElementById('current-mood-text').innerText = appData.currentMood;
+            }
+        }
+
+        // --- Asistente Virtual IA Simulado ---
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            appendChatMessage(text, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                let response = generateBotResponse(text);
+                appendChatMessage(response, 'bot');
+            }, 800);
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('chat-input').value = promptText;
+        }
+
+        function appendChatMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            if(sender === 'user') {
+                container.innerHTML += `
+                    <div class="flex items-start justify-end space-x-3">
+                        <div class="bg-brand-600 text-white p-4 rounded-2xl max-w-lg text-xs sm:text-sm leading-relaxed shadow-sm">
+                            ${text}
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 font-bold text-xs">Tú</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML += `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 font-bold text-sm">JR</div>
+                        <div class="bg-slate-100 text-slate-800 p-4 rounded-2xl max-w-lg text-xs sm:text-sm leading-relaxed shadow-sm">
+                            ${text}
+                        </div>
+                    </div>
+                `;
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateBotResponse(query) {
+            const q = query.toLowerCase();
+            if(q.includes('ansiedad') || q.includes('nervios') || q.includes('pánico')) {
+                return "Entiendo que sientas ansiedad. Te sugiero realizar el ejercicio de respiración 4-7-8 o contactar directamente al Pastor y Psicólogo Jair por WhatsApp al +57 312 471 0702 para una atención más cercana.";
+            } else if(q.includes('triste') || q.includes('ánimo') || q.includes('depre')) {
+                return "Lamento que te sientas así hoy. Recuerda que cuentas con el acompañamiento integral de nuestro Pastor y Psicólogo Jair. Puedes escribirle directamente haciendo clic en el botón de WhatsApp.";
+            } else {
+                return "Te escucho con atención. JAIRRESTAURA está diseñado para acompañarte. Si necesitas orientación humana y espiritual, te invito a visitar la sección 'Pastor y Psicólogo Jair' o escribirle a su WhatsApp.";
+            }
+        }
+
+        // --- Módulo 4: Salida & Seguridad ---
+        function saveSafetyPlan() {
+            const warning = document.getElementById('safety-warning').value;
+            const coping = document.getElementById('safety-coping').value;
+            const contact = document.getElementById('safety-contact').value;
+
+            appData.safetyPlan = { warning, coping, contact };
+            saveAppData();
+            const msg = document.getElementById('safety-saved-msg');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 3500);
+        }
+
+        function loadSafetyPlan() {
+            if(appData.safetyPlan) {
+                document.getElementById('safety-warning').value = appData.safetyPlan.warning || '';
+                document.getElementById('safety-coping').value = appData.safetyPlan.coping || '';
+                document.getElementById('safety-contact').value = appData.safetyPlan.contact || '';
+            }
+        }
+
+        function alertCustom(message) {
+            const banner = document.createElement('div');
+            banner.className = "fixed bottom-6 left-6 bg-slate-900 text-white text-xs sm:text-sm px-5 py-3.5 rounded-2xl shadow-xl z-50 flex items-center space-x-3 fade-in border border-slate-700";
+            banner.innerHTML = `<i class="fa-solid fa-circle-check text-brand-400 text-base"></i><span>${message}</span>`;
+            document.body.appendChild(banner);
+            setTimeout(() => banner.remove(), 3500);
+        }
+
+        window.onload = function() {
+            initScales();
+            initHabits();
+            renderAchievements();
+            updateMetrics();
+            loadSafetyPlan();
+        };
+    </script>
+</body>
+</html>
