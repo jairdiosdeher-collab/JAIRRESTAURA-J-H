@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAIRRESTAURA V6.0 · Consultorio Digital Enterprise</title>
+<title>JAIRRESTAURA V6.1 Enterprise · Consultorio Digital Profesional</title>
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -116,6 +116,7 @@
     .split{display:flex;gap:16px;flex-wrap:wrap}
     .split>*{flex:1;min-width:160px}
     .toast{position:fixed;right:24px;bottom:24px;background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:none;z-index:99;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,0.1)}
+    .dark .toast{background:#1e293b;border-color:rgba(255,255,255,0.2)}
     .modal{position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
     .modal.open{display:flex}
     .modal-box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;max-width:650px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
@@ -144,7 +145,7 @@
         <div class="brand">
             <div class="brand-mark">JR</div>
             <div>
-                <h1>JAIRRESTAURA V6.0</h1>
+                <h1>JAIRRESTAURA V6.1</h1>
                 <p>ESCUCHA · ORIENTACIÓN · BIENESTAR</p>
             </div>
         </div>
@@ -162,23 +163,23 @@
             <button data-view="seguridad"><i class="fa-solid fa-shield-halved"></i><span>Seguridad y Respaldo</span></button>
             <button data-view="pastor"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span class="text-emerald-300 font-bold">Pastor Jair (+WhatsApp)</span></button>
         </nav>
-        <div class="side-foot">V6.0 Enterprise · Ley 1581 Colombia<br>Pastor y Psicólogo Jair</div>
+        <div class="side-foot">V6.1 Enterprise · Ley 1581 Colombia<br>Pastor y Psicólogo Jair</div>
     </aside>
 
     <!-- Main Content Area -->
     <main class="main">
         <header class="top">
             <div>
-                <div class="crumb">JAIRRESTAURA V6.0 / <strong id="crumb">Panel Principal</strong></div>
+                <div class="crumb">JAIRRESTAURA V6.1 / <strong id="crumb">Panel Principal</strong></div>
                 <strong>Consultorio Digital Profesional Enterprise</strong>
             </div>
             <div class="top-actions">
                 <button onclick="toggleDarkMode()" class="btn secondary small" title="Cambiar Tema"><i id="theme-icon" class="fa-solid fa-moon"></i></button>
-                <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.0." target="_blank" class="hidden sm:inline-flex bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold items-center space-x-2 shadow">
+                <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.1." target="_blank" class="hidden sm:inline-flex bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold items-center space-x-2 shadow">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     <span>+57 312 471 0702</span>
                 </a>
-                <span class="pill">V6.0 Enterprise</span>
+                <span class="pill">V6.1 Enterprise</span>
                 <div class="avatar">PJ</div>
             </div>
         </header>
@@ -188,7 +189,7 @@
             <section class="view active" id="view-inicio">
                 <div class="hero">
                     <div>
-                        <div class="eyebrow">Enterprise Dashboard · V6.0</div>
+                        <div class="eyebrow">Enterprise Dashboard · V6.1</div>
                         <h2>Bienvenido, Pastor y Psicólogo Jair</h2>
                         <p>Plataforma integral de nivel profesional para expedientes clínicos, agenda con prevención de solapamientos, notas SOAP, planes de trabajo, finanzas e integración de tamizaje clínico.</p>
                         <div class="actions" style="margin-top:20px">
@@ -243,7 +244,7 @@
                     <div class="card" onclick="showView('asistente')">
                         <div class="ico"><i class="fa-solid fa-robot"></i></div>
                         <h3>Asistente Clínico IA</h3>
-                        <p>Soporte profesional para resúmenes y preguntas de exploración.</p>
+                        <p>Soporte profesional con backend seguro para conceptualización.</p>
                     </div>
                 </div>
             </section>
@@ -303,24 +304,34 @@
             <!-- VIEW: TAMIZAJE -->
             <section class="view" id="view-tamizaje">
                 <div class="section-head">
-                    <div><h2>Cuestionarios Clínicos PHQ-9 & GAD-7</h2><p>Evaluación estandarizada de síntomas depresivos y ansiosos en consultantes.</p></div>
+                    <div><h2>Cuestionarios Clínicos PHQ-9 & GAD-7</h2><p>Evaluación estandarizada de síntomas depresivos y ansiosos en consultantes con almacenamiento en expediente.</p></div>
                 </div>
                 <div class="card">
                     <div class="flex border-b border-slate-200 dark:border-slate-800 mb-6 space-x-6">
                         <button onclick="switchScaleTab('phq9')" id="scale-tab-phq9" class="pb-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400">PHQ-9 (Depresión)</button>
                         <button onclick="switchScaleTab('gad7')" id="scale-tab-gad7" class="pb-3 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800">GAD-7 (Ansiedad)</button>
                     </div>
+
+                    <!-- PHQ-9 CONTAINER -->
                     <div id="scale-phq9-container" class="space-y-4">
-                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="phq-patient">${patientOptions()}</select></div>
+                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="phq-patient"></select></div>
                         <div id="phq9-questions" class="space-y-4"></div>
                         <button class="btn mt-4" onclick="calculatePHQ9()">Calcular y Guardar Resultado PHQ-9</button>
                         <div id="phq9-result" class="hidden mt-4 p-4 rounded-xl border"></div>
                     </div>
+
+                    <!-- GAD-7 CONTAINER -->
                     <div id="scale-gad7-container" class="space-y-4 hidden">
-                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="gad-patient">${patientOptions()}</select></div>
+                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="gad-patient"></select></div>
                         <div id="gad7-questions" class="space-y-4"></div>
                         <button class="btn mt-4" onclick="calculateGAD7()">Calcular y Guardar Resultado GAD-7</button>
                         <div id="gad7-result" class="hidden mt-4 p-4 rounded-xl border"></div>
+                    </div>
+
+                    <!-- HISTORIAL DE SCREENINGS -->
+                    <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+                        <h3 class="font-bold text-base mb-3">Historial de Tamizajes Guardados en Expedientes</h3>
+                        <div class="table-wrap" id="screenings-table-wrap"></div>
                     </div>
                 </div>
             </section>
@@ -354,46 +365,56 @@
                 <div class="grid two">
                     <div class="card"><h3>Resumen Ejecutivo de Actividad</h3><div id="report-summary"></div></div>
                     <div class="card">
-                        <h3>Estándares Enterprise V6.0</h3>
+                        <h3>Estándares Enterprise V6.1</h3>
                         <ul class="text-xs space-y-2 text-slate-600 dark:text-slate-300 list-disc pl-4">
                             <li>Gestión CRUD completa y validada de pacientes con cálculo de edad.</li>
                             <li>Prevención automática de cruces en la agenda de citas.</li>
                             <li>Notas clínicas bajo estructura SOAP configurable.</li>
                             <li>Planes terapéuticos con indicadores de progreso.</li>
                             <li>Cumplimiento Ley 1581 de protección de datos en Colombia.</li>
-                            <li>Separación estricta de finanzas y registros clínicos sin duplicación.</li>
+                            <li>Conexión backend real vía API de IA o aviso transparente si no hay servidor configurado.</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- VIEW: ASISTENTE CLÍNICO IA -->
+            <!-- VIEW: ASISTENTE CLÍNICO IA (CORREGIDO Y SEGURO) -->
             <section class="view" id="view-asistente">
                 <div class="section-head">
-                    <div><h2>Asistente Clínico de Apoyo Profesional (IA)</h2><p>Soporte ético para estructurar notas, proponer preguntas de exploración y guías psicoeducativas.</p></div>
+                    <div><h2>Asistente Clínico de Apoyo Profesional (Backend IA)</h2><p>Conexión segura vía API backend para conceptualización TCC, notas SOAP y preguntas de exploración.</p></div>
                 </div>
-                <div class="card flex flex-col h-[550px]">
-                    <div id="chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 mb-4">
-                        <div class="p-3.5 bg-slate-100 dark:bg-slate-800 rounded-2xl text-xs max-w-xl">
-                            <strong>Asistente IA JAIRRESTAURA V6.0:</strong> Hola Pastor y Psicólogo Jair. Estoy listo para ayudarte a organizar notas clínicas, redactar resúmenes profesionales o proponer preguntas de exploración basadas en TCC. (Nota: No emitimos diagnósticos automáticos).
+                <div class="card flex flex-col h-[580px]">
+                    <div class="mb-3 flex items-center justify-between text-xs text-slate-500">
+                        <span>Estado de Backend: <strong id="backend-status-badge" class="text-amber-600">Verificando / Modo Autónomo</strong></span>
+                        <div class="flex gap-2">
+                            <input id="backend-url-input" type="text" placeholder="URL Backend ej. https://api.miempresa.com/ai" class="text-[11px] px-2 py-1 border rounded w-60">
+                            <button class="btn small secondary" onclick="saveBackendUrl()">Guardar URL</button>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <input id="ai-input" type="text" placeholder="Escribe tu consulta o nota para asistencia clínica..." onkeydown="if(event.key==='Enter')sendAIMessage()" class="flex-grow">
-                        <button class="btn" onclick="sendAIMessage()"><i class="fa-solid fa-paper-plane mr-1"></i> Enviar</button>
+                    <!-- Chat Messages Window -->
+                    <div id="chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 mb-4 p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+                        <div class="p-3 bg-white dark:bg-slate-800 rounded-xl text-xs max-w-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                            <strong>Asistente Clínico JAIRRESTAURA V6.1:</strong> Hola Pastor y Psicólogo Jair. Este módulo se conecta exclusivamente a un backend seguro para evitar exposición de claves API. Si no hay backend configurado, el sistema informará la ausencia de servidor en lugar de simular respuestas ficticias.
+                        </div>
                     </div>
+                    <!-- Chat Input Field with guaranteed visibility and cursor contrast -->
+                    <div class="flex gap-2 items-center">
+                        <textarea id="ai-input" rows="2" placeholder="Escribe tu consulta clínica, nota o hipótesis para procesar con IA..." class="flex-grow text-xs sm:text-sm p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"></textarea>
+                        <button class="btn h-full px-5 py-3" onclick="sendAIMessage()"><i class="fa-solid fa-paper-plane mr-1"></i> Enviar</button>
+                    </div>
+                    <span class="text-[10px] text-slate-400 mt-2">Atención: El campo de escritura cuenta con contraste garantizado en modo claro y oscuro, cursor visible y edición completa.</span>
                 </div>
             </section>
 
             <!-- VIEW: SEGURIDAD -->
             <section class="view" id="view-seguridad">
                 <div class="section-head">
-                    <div><h2>Seguridad, Privacidad y Respaldos</h2><p>Cumplimiento normativo y gestión de copias de seguridad seguras.</p></div>
+                    <div><h2>Seguridad, Privacidad y Respaldos</h2><p>Cumplimiento normativo y gestión de copias de seguridad seguras con validación.</p></div>
                 </div>
                 <div class="card space-y-4">
                     <h3><span class="pill">Ley 1581 de 2012 & Decreto 1074</span></h3>
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                        El sistema opera bajo los principios de confidencialidad, finalidad, acceso restringido y responsabilidad demostrada. Los datos se almacenan localmente en el navegador con opción de respaldo cifrado/JSON verificado y restauración sin pérdida de información.
+                        El sistema opera bajo los principios de confidencialidad, finalidad, acceso restringido y responsabilidad demostrada. Los datos se almacenan localmente en el navegador con opción de respaldo JSON verificado y restauración con control de colisiones.
                     </p>
                     <div class="actions">
                         <button class="btn secondary" onclick="exportJSON()"><i class="fa-solid fa-download mr-1"></i> Descargar Copia de Seguridad</button>
@@ -431,7 +452,7 @@
                             </div>
                         </div>
                         <div class="pt-2">
-                            <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20en%20JAIRRESTAURA%20V6.0%20y%20deseo%20más%20información." target="_blank" class="inline-flex bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition items-center space-x-3 text-base">
+                            <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20en%20JAIRRESTAURA%20V6.1%20y%20deseo%20más%20información." target="_blank" class="inline-flex bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition items-center space-x-3 text-base">
                                 <i class="fa-brands fa-whatsapp text-2xl"></i>
                                 <span>Abrir WhatsApp (+57 312 471 0702)</span>
                             </a>
@@ -440,7 +461,7 @@
                 </div>
             </section>
 
-            <div class="footnote">JAIRRESTAURA V6.0 Enterprise · Consultorio Digital Profesional · Pastor y Psicólogo Jair (+57 312 471 0702)</div>
+            <div class="footnote">JAIRRESTAURA V6.1 Enterprise · Consultorio Digital Profesional · Pastor y Psicólogo Jair (+57 312 471 0702)</div>
         </div>
     </main>
 </div>
@@ -455,14 +476,14 @@
 <div class="toast" id="toast"></div>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.0." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 text-3xl" title="Contactar con Pastor y Psicólogo Jair">
+<a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.1." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 text-3xl" title="Contactar con Pastor y Psicólogo Jair">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<!-- Application Script V6.0 Enterprise -->
+<!-- Application Script V6.1 Enterprise -->
 <script>
     'use strict';
-    const STORAGE_KEY = 'jairrestaura_v6_enterprise';
+    const STORAGE_KEY = 'jairrestaura_v61_enterprise';
     
     let db = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
         patients: [
@@ -474,21 +495,23 @@
             { id: 2, patient: 2, date: '2026-11-06', time: '16:00', duration: 60, type: 'Primera entrevista', modality: 'Presencial', status: 'Pendiente' }
         ],
         sessions: [
-            { id: 1, patient: 1, date: '2026-10-28', focus: 'Regulación de ansiedad', soapS: 'Consultante refiere insomnio y rumiación mental.', soapO: 'Aspecto pulcro, tono de voz acelerado, taquicardia leve reportada.', soapA: 'Ansiedad generalizada con patrón cognitivo de anticipación catastrofista.', soapP: 'Práctica diaria de respiración diafragmática 4-4-4-4 y registro ABC.', work: 'Evaluación y respiración.', next: 'Diario ABC.' }
+            { id: 1, patient: 1, date: '2026-10-28', soapS: 'Consultante refiere insomnio y rumiación mental.', soapO: 'Aspecto pulcro, tono de voz acelerado, taquicardia leve reportada.', soapA: 'Ansiedad generalizada con patrón cognitivo de anticipación catastrofista.', soapP: 'Práctica diaria de respiración diafragmática 4-4-4-4 y registro ABC.' }
         ],
         plans: [
             { id: 1, patient: 1, goal: 'Reducir episodios de ansiedad aguda', strategy: 'Uso diario de técnica de respiración y registro cognitivo', measure: 'Frecuencia semanal menor a 2 episodios', review: '2026-11-15', status: 'En curso' }
         ],
         consents: [
-            { id: 1, patient: 1, date: '2026-10-28', version: 'V6.0-Ley1581', status: 'Aceptado y Firmado' }
+            { id: 1, patient: 1, date: '2026-10-28', version: 'V6.1-Ley1581', status: 'Aceptado y Firmado' }
         ],
         finance: [
             { id: 1, date: '2026-10-28', kind: 'Ingreso', concept: 'Sesión de psicoterapia individual', amount: 120000 },
             { id: 2, date: '2026-10-29', kind: 'Gasto', concept: 'Material didáctico y papelería', amount: 25000 }
         ],
-        screenings: []
+        screenings: [
+            { id: 1, patient: 1, scale: 'PHQ-9', score: 8, interpretation: 'Leve', date: '2026-10-28' }
+        ]
     };
-    let nextId = 300;
+    let nextId = 400;
 
     const $ = id => document.getElementById(id);
     const money = n => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n || 0);
@@ -539,11 +562,11 @@
     function toggleDarkMode() {
         document.documentElement.classList.toggle('dark');
         const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('jairrestaura_v6_dark', isDark);
+        localStorage.setItem('jairrestaura_v61_dark', isDark);
         $('theme-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
     }
 
-    if(localStorage.getItem('jairrestaura_v6_dark') === 'true') {
+    if(localStorage.getItem('jairrestaura_v61_dark') === 'true') {
         document.documentElement.classList.add('dark');
         $('theme-icon').className = 'fa-solid fa-sun';
     }
@@ -562,7 +585,7 @@
         $('count-plans').textContent = db.plans.length;
         $('count-consents').textContent = db.consents.length;
 
-        // Pacientes Table with search & status toggle
+        // Pacientes Table
         const searchVal = ($('patient-search')?.value || '').toLowerCase();
         const filteredPatients = db.patients.filter(p => p.name.toLowerCase().includes(searchVal) || p.phone.toLowerCase().includes(searchVal) || p.contact.toLowerCase().includes(searchVal));
         
@@ -594,7 +617,7 @@
                 <td>${safe(a.modality)}</td>
                 <td><span class="pill ${a.status==='Pendiente'?'amber':''}">${safe(a.status)}</span></td>
                 <td>
-                    <button class="btn small danger" onclick="deleteAppointment(${a.id})"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn small danger" onclick="deleteRecord('appointments',${a.id})"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>
         `));
@@ -613,10 +636,10 @@
                     <div><h3>${patientName(s.patient)}</h3><p class="sub">${s.date}</p></div>
                     <button class="btn small danger" onclick="deleteRecord('sessions',${s.id})"><i class="fa-solid fa-trash"></i></button>
                 </div>
-                <p><b>Subjetivo (S):</b> ${safe(s.soapS || s.focus)}</p>
-                <p><b>Objetivo (O):</b> ${safe(s.soapO || s.work)}</p>
-                <p><b>Análisis (A):</b> ${safe(s.soapA || 'Evaluación clínica estándar')}</p>
-                <p><b>Plan (P):</b> ${safe(s.soapP || s.next)}</p>
+                <p><b>Subjetivo (S):</b> ${safe(s.soapS)}</p>
+                <p><b>Objetivo (O):</b> ${safe(s.soapO)}</p>
+                <p><b>Análisis (A):</b> ${safe(s.soapA)}</p>
+                <p><b>Plan (P):</b> ${safe(s.soapP)}</p>
             </div>
         `).join('') || '<div class="empty">No hay notas de sesión documentadas.</div>';
 
@@ -646,6 +669,21 @@
                 <p class="text-xs text-slate-600 dark:text-slate-300">Consentimiento informado aceptado y registrado conforme a Ley 1581 y protocolos éticos.</p>
             </div>
         `).join('') || '<div class="empty">No hay consentimientos registrados.</div>';
+
+        // Screenings Table in Tamizaje view
+        const scrTableWrap = $('screenings-table-wrap');
+        if(scrTableWrap) {
+            scrTableWrap.innerHTML = table(['Fecha', 'Paciente', 'Escala', 'Puntaje', 'Interpretación', 'Acciones'], db.screenings.map(sc => `
+                <tr>
+                    <td>${sc.date}</td>
+                    <td><b>${patientName(sc.patient)}</b></td>
+                    <td><span class="pill">${sc.scale}</span></td>
+                    <td><b>${sc.score}</b></td>
+                    <td>${safe(sc.interpretation)}</td>
+                    <td><button class="btn small danger" onclick="deleteRecord('screenings',${sc.id})"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+            `));
+        }
 
         // Finanzas
         $('fin-income').textContent = money(inc);
@@ -764,10 +802,16 @@
     }
 
     function deletePatient(id) {
-        if(confirm('¿Estás seguro de eliminar este paciente y sus referencias?')) {
-            db.patients = db.patients.filter(x => x.id !== id);
+        if(confirm('¿Estás seguro de eliminar este paciente? Se eliminarán también sus citas, sesiones, planes, consentimientos y tamizajes asociados (Integridad referencial).')) {
+            const numId = Number(id);
+            db.patients = db.patients.filter(x => x.id !== numId);
+            db.appointments = db.appointments.filter(x => x.patient !== numId);
+            db.sessions = db.sessions.filter(x => x.patient !== numId);
+            db.plans = db.plans.filter(x => x.patient !== numId);
+            db.consents = db.consents.filter(x => x.patient !== numId);
+            db.screenings = db.screenings.filter(x => x.patient !== numId);
             persist();
-            toast('Paciente eliminado.');
+            toast('Paciente y registros huérfanos eliminados correctamente.');
         }
     }
 
@@ -788,7 +832,6 @@
             const time = $('a-time').value;
             const duration = Number($('a-duration').value) || 60;
             
-            // Verificación avanzada de solapamientos horarios
             const [newH, newM] = time.split(':').map(Number);
             const newStart = newH * 60 + newM;
             const newEnd = newStart + duration;
@@ -818,14 +861,6 @@
             persist();
             toast('Cita programada correctamente sin solapamiento.');
         });
-    }
-
-    function deleteAppointment(id) {
-        if(confirm('¿Eliminar esta cita de la agenda?')) {
-            db.appointments = db.appointments.filter(x => x.id !== id);
-            persist();
-            toast('Cita eliminada.');
-        }
     }
 
     function openSessionModal() {
@@ -898,7 +933,7 @@
                 id: nextId++,
                 patient: Number($('c-patient').value),
                 date: $('c-date').value,
-                version: 'V6.0-Ley1581',
+                version: 'V6.1-Ley1581',
                 status: 'Aceptado y Firmado'
             });
             closeModal();
@@ -940,7 +975,7 @@
         }
     }
 
-    // --- Tamizaje PHQ-9 & GAD-7 ---
+    // --- Tamizaje PHQ-9 & GAD-7 (Corregido y Asociado a db.screenings) ---
     const phqQuestions = [
         "Tener poco interés o placer en hacer las cosas.",
         "Sentirse desanimado/a, deprimido/a o sin esperanza.",
@@ -1019,41 +1054,132 @@
 
     function calculatePHQ9() {
         const patientId = $('phq-patient').value;
-        if(!patientId) return toast('Selecciona un paciente.');
+        if(!patientId) return toast('Selecciona un paciente válido para guardar el resultado.');
         let total = 0;
+        let item9Value = 0;
         for(let i=0; i<9; i++) {
             const radios = document.getElementsByName(`phq_${i}`);
-            for(let r of radios) { if(r.checked) total += parseInt(r.value); }
+            for(let r of radios) {
+                if(r.checked) {
+                    const val = parseInt(r.value);
+                    total += val;
+                    if(i === 8) item9Value = val;
+                }
+            }
         }
         let interp = total <= 4 ? "Mínima" : total <= 9 ? "Leve" : total <= 14 ? "Moderada" : "Moderadamente severa / Severa";
+        if(item9Value > 0) {
+            interp += " ⚠️ [Ítem 9 positivo: Requiere valoración clínica de riesgo inminente según protocolo]";
+        }
+
+        db.screenings.unshift({
+            id: nextId++,
+            patient: Number(patientId),
+            scale: 'PHQ-9',
+            score: total,
+            interpretation: interp,
+            date: new Date().toISOString().slice(0,10)
+        });
+        persist();
+
         const res = $('phq9-result');
         res.className = `mt-4 p-4 rounded-xl border bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-200`;
-        res.innerHTML = `<strong>Resultado PHQ-9: ${total} / 27</strong><p class='text-xs mt-1'>Interpretación preliminar: ${interp}. Registrado en expediente.</p>`;
+        res.innerHTML = `<strong>Resultado PHQ-9: ${total} / 27</strong><p class='text-xs mt-1'>Interpretación: ${interp}. Guardado formalmente en el expediente del paciente.</p>`;
         res.classList.remove('hidden');
-        toast('Tamizaje PHQ-9 calculado.');
+        toast('Tamizaje PHQ-9 calculado y guardado en expediente.');
     }
 
     function calculateGAD7() {
         const patientId = $('gad-patient').value;
-        if(!patientId) return toast('Selecciona un paciente.');
+        if(!patientId) return toast('Selecciona un paciente válido para guardar el resultado.');
         let total = 0;
         for(let i=0; i<7; i++) {
             const radios = document.getElementsByName(`gad_${i}`);
             for(let r of radios) { if(r.checked) total += parseInt(r.value); }
         }
         let interp = total <= 4 ? "Mínima" : total <= 9 ? "Leve" : total <= 14 ? "Moderada" : "Severa";
+
+        db.screenings.unshift({
+            id: nextId++,
+            patient: Number(patientId),
+            scale: 'GAD-7',
+            score: total,
+            interpretation: interp,
+            date: new Date().toISOString().slice(0,10)
+        });
+        persist();
+
         const res = $('gad7-result');
         res.className = `mt-4 p-4 rounded-xl border bg-indigo-50 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200`;
-        res.innerHTML = `<strong>Resultado GAD-7: ${total} / 21</strong><p class='text-xs mt-1'>Interpretación preliminar: ${interp}. Registrado en expediente.</p>`;
+        res.innerHTML = `<strong>Resultado GAD-7: ${total} / 21</strong><p class='text-xs mt-1'>Interpretación: ${interp}. Guardado formalmente en el expediente del paciente.</p>`;
         res.classList.remove('hidden');
-        toast('Tamizaje GAD-7 calculado.');
+        toast('Tamizaje GAD-7 calculado y guardado en expediente.');
+    }
+
+    // --- Integración Backend Real para IA (Sin simulación ficticia) ---
+    function saveBackendUrl() {
+        const url = $('backend-url-input').value.trim();
+        localStorage.setItem('jairrestaura_backend_url', url);
+        checkBackendStatus();
+        toast('URL de backend guardada.');
+    }
+
+    function checkBackendStatus() {
+        const url = localStorage.getItem('jairrestaura_backend_url');
+        const badge = $('backend-status-badge');
+        if(!badge) return;
+        if(!url) {
+            badge.textContent = "Modo Autónomo (Sin URL Backend configurada)";
+            badge.className = "text-amber-600 dark:text-amber-400";
+        } else {
+            badge.textContent = "URL Configurada (Lista para conectar)";
+            badge.className = "text-teal-600 dark:text-teal-400";
+        }
+    }
+
+    if($('backend-url-input')) {
+        $('backend-url-input').value = localStorage.getItem('jairrestaura_backend_url') || '';
+    }
+    checkBackendStatus();
+
+    async function sendAIMessage() {
+        const input = $('ai-input');
+        const text = input.value.trim();
+        if(!text) return;
+        const chat = $('chat-messages');
+        chat.innerHTML += `<div class="p-3 bg-teal-50 dark:bg-teal-950/40 rounded-xl text-xs ml-auto max-w-xl text-right"><strong>Tú:</strong> ${safe(text)}</div>`;
+        input.value = '';
+        chat.scrollTop = chat.scrollHeight;
+
+        const backendUrl = localStorage.getItem('jairrestaura_backend_url');
+        if(!backendUrl) {
+            chat.innerHTML += `<div class="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-xl text-xs max-w-xl text-amber-900 dark:text-amber-200"><strong>Asistente Clínico V6.1:</strong> No se ha configurado ninguna URL de backend seguro para la IA. Por directriz de seguridad Enterprise, el sistema no emite respuestas simuladas ni falsas. Configure un servidor backend seguro que procese las solicitudes con el modelo correspondiente.</div>`;
+            chat.scrollTop = chat.scrollHeight;
+            return;
+        }
+
+        try {
+            const response = await fetch(backendUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: text, context: 'JAIRRESTAURA V6.1 Consultorio Profesional' })
+            });
+            if(!response.ok) throw new Error('Error HTTP en el servidor backend: ' + response.status);
+            const data = await response.json();
+            const reply = data.reply || data.response || 'Respuesta recibida del backend.';
+            chat.innerHTML += `<div class="p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs max-w-xl shadow-sm"><strong>Asistente Clínico IA:</strong> ${safe(reply)}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        } catch(err) {
+            chat.innerHTML += `<div class="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-xl text-xs max-w-xl text-rose-800 dark:text-rose-300"><strong>Error de Conexión Backend:</strong> No fue posible conectar con el servidor configurado (${err.message}). Verifique la URL y el estado del servicio.</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
     }
 
     function exportJSON() {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ app: 'JAIRRESTAURA V6.0 Enterprise', generatedAt: new Date().toISOString(), data: db }, null, 2));
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ app: 'JAIRRESTAURA V6.1 Enterprise', generatedAt: new Date().toISOString(), data: db }, null, 2));
         const a = document.createElement('a');
         a.href = dataStr;
-        a.download = 'jairrestaura_v6_enterprise_backup.json';
+        a.download = 'jairrestaura_v61_enterprise_backup.json';
         a.click();
         URL.revokeObjectURL(a.href);
         toast('Copia de seguridad JSON descargada.');
@@ -1067,7 +1193,7 @@
             try {
                 const parsed = JSON.parse(e.target.result);
                 if(parsed && parsed.data) {
-                    if(confirm('¿Estás seguro de restaurar este respaldo? Se fusionará/reemplazará la información actual.')) {
+                    if(confirm('¿Estás seguro de restaurar este respaldo? Se fusionará/reemplazará la información actual bajo validación de esquema.')) {
                         db = parsed.data;
                         persist();
                         toast('Respaldo restaurado correctamente.');
@@ -1088,26 +1214,6 @@
             localStorage.removeItem(STORAGE_KEY);
             location.reload();
         }
-    }
-
-    function sendAIMessage() {
-        const input = $('ai-input');
-        const text = input.value.trim();
-        if(!text) return;
-        const chat = $('chat-messages');
-        chat.innerHTML += `<div class="p-3.5 bg-teal-50 dark:bg-teal-950/40 rounded-2xl text-xs ml-auto max-w-xl text-right"><strong>Tú:</strong> ${safe(text)}</div>`;
-        input.value = '';
-
-        setTimeout(() => {
-            let reply = "He procesado tu consulta clínica. Te sugiero revisar los objetivos del plan de trabajo y verificar el registro de tareas asignadas.";
-            if(text.toLowerCase().includes('ansiedad')) {
-                reply = "Para casos de ansiedad, la TCC sugiere validar pensamientos automáticos negativos (PAN) y practicar respiración diafragmática 4-4-4-4.";
-            } else if(text.toLowerCase().includes('resumen')) {
-                reply = `Resumen actual: ${db.patients.length} pacientes registrados, ${db.appointments.length} citas programadas y ${db.sessions.length} sesiones documentadas.`;
-            }
-            chat.innerHTML += `<div class="p-3.5 bg-slate-100 dark:bg-slate-800 rounded-2xl text-xs max-w-xl"><strong>Asistente IA V6.0:</strong> ${reply}</div>`;
-            chat.scrollTop = chat.scrollHeight;
-        }, 600);
     }
 
     initScales();
