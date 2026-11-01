@@ -1,1167 +1,1117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAIRRESTAURA - Plataforma de Bienestar y Autogestión V4</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            200: '#99f6e4',
-                            300: '#5eead4',
-                            400: '#2dd4bf',
-                            500: '#14b8a6',
-                            600: '#0d9488',
-                            700: '#0f766e',
-                            800: '#115e59',
-                            900: '#134e4a',
-                        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAIRRESTAURA V6.0 · Consultorio Digital Enterprise</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter', 'sans-serif'] },
+                colors: {
+                    brand: {
+                        50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 
+                        400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 
+                        800: '#115e59', 900: '#134e4a', 950: '#042f2e'
                     }
                 }
             }
         }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-        .whatsapp-float { animation: pulse-wa 2s infinite; }
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-        @media print {
-            header, #disclaimer-banner, button, nav, .whatsapp-float { display:none !important; }
-            body { background:#fff !important; color:#111 !important; }
-            .tab-content { display:block !important; break-inside:avoid; }
-            .tab-content.hidden { display:none !important; }
-        }
-    </style>
+    }
+</script>
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #0f172a; --teal: #0d9488; --bg: #f8fafc; --card: #ffffff;
+        --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.05);
+    }
+    .dark {
+        --navy: #020617; --teal: #14b8a6; --bg: #030712; --card: #0f172a;
+        --ink: #f8fafc; --muted: #94a3b8; --line: #1e293b; --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;transition:background .2s,color .2s}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .shell{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
+    .side{background:linear-gradient(180deg,var(--navy),#090d16);color:#f1f5f9;padding:24px 16px;display:flex;flex-direction:column;gap:16px;border-right:1px solid var(--line)}
+    .brand{padding:4px 8px 16px;border-bottom:1px solid rgba(255,255,255,0.1)}
+    .brand-mark{width:42px;height:42px;border-radius:12px;background:var(--teal);display:grid;place-items:center;font-weight:900;font-size:18px;margin-bottom:10px;color:white;box-shadow:0 4px 12px rgba(13,148,136,0.3)}
+    .brand h1{font-size:18px;font-weight:800;letter-spacing:.5px;margin:0}
+    .brand p{color:#94a3b8;font-size:10px;letter-spacing:1px;margin:2px 0 0;font-weight:600}
+    .nav{display:grid;gap:4px;overflow-y:auto;max-height:calc(100vh - 220px);padding-right:4px}
+    .nav::-webkit-scrollbar{width:4px}
+    .nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:4px}
+    .nav button{border:0;background:transparent;color:#94a3b8;text-align:left;padding:10px 12px;border-radius:10px;display:flex;gap:12px;align-items:center;transition:all .15s;font-size:12px;font-weight:500}
+    .nav button:hover,.nav button.active{background:rgba(255,255,255,0.08);color:#fff}
+    .nav button.active{background:var(--teal);color:#fff;font-weight:600;box-shadow:0 4px 12px rgba(13,148,136,0.3)}
+    .nav i{font-size:14px;width:18px;text-align:center}
+    .side-foot{margin-top:auto;color:#64748b;font-size:10px;padding:8px;border-top:1px solid rgba(255,255,255,0.1)}
+    .main{min-width:0;display:flex;flex-direction:column}
+    .top{height:70px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:4}
+    .crumb{color:var(--muted);font-size:11px;font-weight:500}
+    .top strong{font-size:13px}
+    .top-actions{display:flex;gap:12px;align-items:center}
+    .avatar{background:rgba(13,148,136,0.15);color:var(--teal);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}
+    .content{padding:28px;max-width:1440px;margin:auto;width:100%}
+    .hero{background:linear-gradient(135deg,#0f172a,#134e4a);color:#fff;border-radius:20px;padding:32px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:var(--shadow)}
+    .eyebrow{color:#5eead4;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:1.5px}
+    .hero h2{font-size:26px;line-height:1.2;margin:6px 0}
+    .hero p{color:#cbd5e1;margin:0;max-width:680px;font-size:13px;line-height:1.5}
+    .grid{display:grid;gap:16px}
+    .stats{grid-template-columns:repeat(4,minmax(0,1fr));margin:24px 0}
+    .stat,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+    .stat{padding:18px;display:flex;gap:14px;align-items:center}
+    .stat-icon{width:46px;height:46px;border-radius:14px;background:rgba(13,148,136,0.1);color:var(--teal);display:grid;place-items:center;font-size:20px}
+    .stat small{display:block;color:var(--muted);font-size:11px;font-weight:600}
+    .stat strong{font-size:24px;font-weight:800}
+    .two{grid-template-columns:1.4fr 1fr}
+    .card{padding:22px;margin-bottom:16px}
+    .card h3{margin:0 0 4px;font-size:15px;font-weight:700}
+    .sub{color:var(--muted);font-size:11px;margin:0 0 16px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .section-head h2{font-size:20px;margin:0;font-weight:800}
+    .section-head p{color:var(--muted);margin:2px 0 0;font-size:12px}
+    .btn{border:0;background:var(--teal);color:white;padding:10px 16px;border-radius:10px;font-weight:700;font-size:12px;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+    .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+    .btn.secondary{background:#f1f5f9;color:#334155}
+    .dark .btn.secondary{background:#1e293b;color:#cbd5e1}
+    .btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}
+    .btn.danger{background:#fef2f2;color:#dc2626}
+    .dark .btn.danger{background:rgba(220,38,38,0.15);color:#fca5a5}
+    .btn.small{padding:6px 10px;font-size:11px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .quick{grid-template-columns:repeat(3,1fr)}
+    .quick .card{padding:18px;cursor:pointer;transition:transform .15s,border-color .15s}
+    .quick .card:hover{border-color:var(--teal);transform:translateY(-2px)}
+    .quick .ico{font-size:22px;color:var(--teal);margin-bottom:10px}
+    .quick h3{margin:6px 0 2px;font-size:14px}
+    .quick p{font-size:11px;color:var(--muted);margin:0}
+    .view{display:none}
+    .view.active{display:block}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{text-align:left;color:var(--muted);font-weight:700;background:rgba(0,0,0,0.02);padding:10px 12px;border-bottom:1px solid var(--line)}
+    .dark th{background:rgba(255,255,255,0.02)}
+    td{padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+    .pill{display:inline-flex;align-items:center;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;background:rgba(13,148,136,0.1);color:var(--teal)}
+    .pill.amber{background:rgba(217,119,6,0.1);color:#d97706}
+    .pill.rose{background:rgba(220,38,38,0.1);color:#dc2626}
+    .formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .field{display:grid;gap:6px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:11px;color:var(--muted);font-weight:700}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);color:var(--ink);outline:none;font-size:12px}
+    .field textarea{min-height:90px;resize:vertical}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,0.15)}
+    .empty{padding:32px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;font-size:12px}
+    .kpi{font-size:28px;font-weight:800;color:var(--teal)}
+    .split{display:flex;gap:16px;flex-wrap:wrap}
+    .split>*{flex:1;min-width:160px}
+    .toast{position:fixed;right:24px;bottom:24px;background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);display:none;z-index:99;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,0.1)}
+    .modal{position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal.open{display:flex}
+    .modal-box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;max-width:650px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .modal-head h3{margin:0;font-size:18px;font-weight:800}
+    .close{border:0;background:var(--line);border-radius:8px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+    .bar{height:10px;background:var(--line);border-radius:10px;overflow:hidden}
+    .bar span{display:block;height:100%;background:var(--teal);width:0;transition:width .5s}
+    .footnote{font-size:11px;color:var(--muted);margin-top:24px;text-align:center}
+    .whatsapp-float{animation:pulse-wa 2s infinite}
+    @keyframes pulse-wa {
+        0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+        70% { box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+    @media(max-width:1024px){
+        .shell{grid-template-columns:1fr}.side{display:none}.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}
+    }
+</style>
 </head>
-<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col antialiased transition-colors duration-200">
+<body>
 
-    <!-- Top Privacy & Clinical Disclaimer Banner -->
-    <div id="disclaimer-banner" class="bg-amber-50 dark:bg-amber-950/60 border-b border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-200 text-xs sm:text-sm py-2.5 px-4 text-center flex items-center justify-center space-x-3 shrink-0">
-        <i class="fa-solid fa-shield-halved text-amber-600 dark:text-amber-400 shrink-0 text-base"></i>
-        <span><strong>Aviso JAIRRESTAURA V4:</strong> Herramientas de reflexión y bienestar. Esta versión es un prototipo local; no ofrece diagnóstico, atención de urgencias ni expediente clínico. Los datos del navegador no están cifrados.</span>
-        <button onclick="dismissDisclaimer()" class="ml-2 font-bold hover:underline text-xs bg-amber-200 dark:bg-amber-900 px-2.5 py-1 rounded-lg">Aceptar</button>
-    </div>
-
-    <!-- Header / Navbar -->
-    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('inicio')">
-                <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl shadow-md shadow-brand-600/20">
-                    <i class="fa-solid fa-hands-holding-child"></i>
-                </div>
-                <div>
-                    <span class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">JAIRRESTAURA</span>
-                    <span class="block text-[11px] text-brand-600 dark:text-brand-400 font-semibold tracking-wider uppercase">Escucha • Orientación • Bienestar</span>
-                </div>
-            </div>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden 2xl:flex items-center space-x-1">
-                <button onclick="switchTab('inicio')" id="nav-inicio" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">Inicio</button>
-                <button onclick="switchTab('animo')" id="nav-animo" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">1. Ánimo</button>
-                <button onclick="switchTab('pensamientos')" id="nav-pensamientos" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">2. Diario ABC</button>
-                <button onclick="switchTab('respiracion')" id="nav-respiracion" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">3. Regulación</button>
-                <button onclick="switchTab('habitos')" id="nav-habitos" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">4. Hábitos</button>
-                <button onclick="switchTab('psicoeducacion')" id="nav-psicoeducacion" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">5. Guías</button>
-                <button onclick="switchTab('seguridad')" id="nav-seguridad" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">6. Plan Crisis</button>
-                <button onclick="switchTab('tamizaje')" id="nav-tamizaje" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">7. Tests PHQ/GAD</button>
-                <button onclick="switchTab('asistente')" id="nav-asistente" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800 transition">8. Asistente</button>
-                <button onclick="switchTab('pastor')" id="nav-pastor" class="nav-btn px-3 py-2 rounded-xl text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 transition flex items-center space-x-1">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <span>Pastor Jair</span>
-                </button>
-            </nav>
-
-            <!-- Actions Right -->
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleDarkMode()" class="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition" title="Cambiar Tema">
-                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
-                </button>
-                <button onclick="switchTab('configuracion')" class="p-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition" title="Configuración y Datos">
-                    <i class="fa-solid fa-gear text-lg"></i>
-                </button>
-                <button onclick="toggleMobileMenu()" class="2xl:hidden p-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Drawer -->
-        <div id="mobile-menu" class="hidden 2xl:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-2">
-            <button onclick="switchTab('inicio'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">Inicio</button>
-            <button onclick="switchTab('animo'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">1. Registro de Ánimo</button>
-            <button onclick="switchTab('pensamientos'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">2. Diario de Pensamientos ABC</button>
-            <button onclick="switchTab('respiracion'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">3. Ejercicios de Regulación</button>
-            <button onclick="switchTab('habitos'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">4. Seguimiento de Hábitos</button>
-            <button onclick="switchTab('psicoeducacion'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">5. Guías Psicoeducativas</button>
-            <button onclick="switchTab('seguridad'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">6. Plan de Apoyo y Seguridad</button>
-            <button onclick="switchTab('tamizaje'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">7. Bienestar y escala GAD-7</button>
-            <button onclick="switchTab('asistente'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">8. Asistente JAIRRESTAURA</button>
-            <button onclick="switchTab('pastor'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-900">Pastor y Psicólogo Jair (+WhatsApp)</button>
-            <button onclick="switchTab('configuracion'); toggleMobileMenu();" class="block w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-800">Configuración y Privacidad</button>
-        </div>
-    </header>
-
-    <!-- Floating WhatsApp Action Button -->
-    <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20y%20apoyo%20emocional%20a%20través%20de%20JAIRRESTAURA%20V3." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 text-3xl" title="Contactar por WhatsApp con Pastor y Psicólogo Jair">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- Main Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- TAB: INICIO -->
-        <section id="tab-inicio" class="tab-content space-y-8 fade-in">
-            <!-- Hero Banner -->
-            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-950 dark:from-slate-900 dark:via-slate-900 dark:to-teal-950 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 bottom-0 opacity-10 translate-x-12 translate-y-12">
-                    <i class="fa-solid fa-seedling text-[18rem]"></i>
-                </div>
-                <div class="max-w-3xl relative z-10 space-y-6">
-                    <span class="inline-flex items-center space-x-2 bg-teal-500/20 border border-teal-400/30 text-teal-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-                        <i class="fa-solid fa-shield-heart"></i>
-                        <span>JAIRRESTAURA V4 · Plataforma Profesional</span>
-                    </span>
-                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Restaurando tu equilibrio emocional con ciencia y fe</h1>
-                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
-                        Escucha • Orientación • Bienestar. Herramienta integral de apoyo psicológico para diagnóstico preliminar, tratamiento cognitivo-conductual, autocuidado y acompañamiento directo con el Pastor y Psicólogo Jair.
-                    </p>
-                    <div class="pt-2 flex flex-wrap gap-4">
-                        <button onclick="switchTab('pastor')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-7 py-3.5 rounded-2xl shadow-lg transition flex items-center space-x-2 text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pastor y Psicólogo Jair (+57 312 471 0702)</span>
-                        </button>
-                        <button onclick="switchTab('tamizaje')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3.5 rounded-2xl border border-white/20 transition flex items-center space-x-2 text-sm backdrop-blur-sm">
-                            <i class="fa-solid fa-stethoscope"></i>
-                            <span>Revisar bienestar y escala GAD-7</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Live Dashboard Summary Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-face-smile"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Registros de Ánimo</span>
-                        <span class="text-2xl font-extrabold text-slate-900 dark:text-white" id="dash-mood-count">0</span>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Pensamientos ABC</span>
-                        <span class="text-2xl font-extrabold text-slate-900 dark:text-white" id="dash-thought-count">0</span>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Racha de Hábitos</span>
-                        <span class="text-2xl font-extrabold text-slate-900 dark:text-white" id="dash-streak-count">—</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modules Grid -->
+<div class="shell">
+    <!-- Sidebar Navigation -->
+    <aside class="side">
+        <div class="brand">
+            <div class="brand-mark">JR</div>
             <div>
-                <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Módulos Profesionales V3</h2>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Navega por las diferentes fases de autogestión, tratamiento y bienestar emocional.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div onclick="switchTab('animo')" class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
-                                <i class="fa-solid fa-face-smile"></i>
-                            </div>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-1 mb-2">1. Registro de Ánimo</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Monitorea tu estado emocional diario con notas y visualización gráfica.</p>
-                        </div>
-                        <div class="mt-4 flex items-center text-xs font-semibold text-brand-600 dark:text-brand-400 group-hover:translate-x-1 transition">
-                            <span>Registrar Hoy</span><i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="switchTab('pensamientos')" class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-1 mb-2">2. Pensamientos ABC</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Reestructura pensamientos automáticos negativos aplicando TCC.</p>
-                        </div>
-                        <div class="mt-4 flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition">
-                            <span>Abrir Diario</span><i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="switchTab('respiracion')" class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950 text-teal-600 dark:text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
-                                <i class="fa-solid fa-wind"></i>
-                            </div>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-1 mb-2">3. Regulación & Respiración</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Box Breathing 4-4-4-4 con temporizador para calmar el sistema nervioso.</p>
-                        </div>
-                        <div class="mt-4 flex items-center text-xs font-semibold text-teal-600 dark:text-teal-400 group-hover:translate-x-1 transition">
-                            <span>Iniciar Ejercicio</span><i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="switchTab('habitos')" class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition shadow-sm">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-1 mb-2">4. Hábitos & Rachas</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Crea y mantén hábitos saludables diarios de autocuidado.</p>
-                        </div>
-                        <div class="mt-4 flex items-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition">
-                            <span>Ver Metas</span><i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 1: REGISTRO DE ÁNIMO -->
-        <section id="tab-animo" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">Módulo 1 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Registro Diario de Estado de Ánimo</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 leading-relaxed">Selecciona cómo te sientes hoy, añade una nota reflexiva y observa tu evolución.</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-5">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Nuevo Registro</h3>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">¿Cómo calificas tu energía/ánimo?</label>
-                            <div class="grid grid-cols-5 gap-2">
-                                <button onclick="selectMoodScore(1, '😢')" id="mood-btn-1" class="mood-opt p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center hover:border-brand-500 transition"><span class="text-2xl block">😢</span><span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-1 block">1</span></button>
-                                <button onclick="selectMoodScore(2, '🙁')" id="mood-btn-2" class="mood-opt p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center hover:border-brand-500 transition"><span class="text-2xl block">🙁</span><span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-1 block">2</span></button>
-                                <button onclick="selectMoodScore(3, '😐')" id="mood-btn-3" class="mood-opt p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center hover:border-brand-500 transition"><span class="text-2xl block">😐</span><span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-1 block">3</span></button>
-                                <button onclick="selectMoodScore(4, '🙂')" id="mood-btn-4" class="mood-opt p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center hover:border-brand-500 transition"><span class="text-2xl block">🙂</span><span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-1 block">4</span></button>
-                                <button onclick="selectMoodScore(5, '🌟')" id="mood-btn-5" class="mood-opt p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-center hover:border-brand-500 transition"><span class="text-2xl block">🌟</span><span class="text-[10px] font-bold text-slate-600 dark:text-slate-400 mt-1 block">5</span></button>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nota o pensamiento del día:</label>
-                            <textarea id="mood-note" rows="3" placeholder="Ej. Hoy me sentí más tranquilo gracias a la caminata..." class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
-                        </div>
-                        <button onclick="saveMoodEntry()" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition shadow">Guardar Registro de Ánimo</button>
-                    </div>
-
-                    <div class="lg:col-span-2 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Historial Reciente</h3>
-                        <div id="mood-history-list" class="space-y-3 max-h-[420px] overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 2: DIARIO DE PENSAMIENTOS ABC -->
-        <section id="tab-pensamientos" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Módulo 2 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Diario Cognitivo ABC</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Reestructura pensamientos automáticos negativos aplicando Terapia Cognitivo-Conductual.</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                    <form id="thought-form" onsubmit="saveThoughtEntry(event)" class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Nuevo Registro ABC</h3>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">A. Situación Desencadenante:</label>
-                            <input type="text" id="t-sit" required placeholder="Ej. Tuve una discusión en el trabajo" class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">B. Pensamiento Automático Negativo (PAN):</label>
-                            <input type="text" id="t-pan" required placeholder="Ej. Van a despedirme, no sirvo para esto" class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">C. Consecuencia Emocional / Conductual:</label>
-                            <input type="text" id="t-cons" required placeholder="Ej. Ansiedad extrema (9/10), insomnio" class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">D. Pensamiento Alternativo Equilibrado:</label>
-                            <textarea id="t-alt" required rows="2" placeholder="Ej. Fue un malentendido puntual, puedo hablarlo con calma y resolverlo" class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition shadow">Guardar Registro Cognitivo</button>
-                    </form>
-
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Mis Registros Guardados</h3>
-                        <div id="thought-list" class="space-y-3 max-h-[480px] overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 3: RESPIRACIÓN -->
-        <section id="tab-respiracion" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-3xl mx-auto text-center">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Módulo 3 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Respiración de Caja (Box Breathing 4-4-4-4)</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Técnica recomendada para reducir la ansiedad aguda y el estrés.</p>
-
-                <div class="my-10 relative flex items-center justify-center w-56 h-56 mx-auto">
-                    <div id="breath-circle" class="w-44 h-44 rounded-full bg-teal-600 text-white flex flex-col items-center justify-center font-bold shadow-2xl transition-all duration-1000">
-                        <span id="breath-title" class="text-lg">Listo</span>
-                        <span id="breath-timer" class="text-2xl mt-1">4s</span>
-                    </div>
-                </div>
-
-                <div id="breath-instruction" class="text-sm font-bold text-teal-700 dark:text-teal-300 mb-8">Presiona Iniciar para comenzar el ciclo</div>
-
-                <div class="flex justify-center space-x-4 max-w-xs mx-auto">
-                    <button onclick="startBoxBreathing()" id="breath-start-btn" class="flex-1 py-3.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl transition shadow">Iniciar</button>
-                    <button onclick="stopBoxBreathing()" class="py-3.5 px-6 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl transition">Detener</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 4: HÁBITOS -->
-        <section id="tab-habitos" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Módulo 4 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Hábitos de Autocuidado Diario</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Mantén una rutina saludable que fortalezca tu salud mental y resiliencia.</p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
-                    <div class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 p-6 rounded-3xl text-center">
-                        <div class="text-4xl font-extrabold text-emerald-700 dark:text-emerald-400" id="habit-streak">—</div>
-                        <div class="text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider mt-2">Racha de Bienestar (Días)</div>
-                    </div>
-                    <div class="bg-brand-50 dark:bg-brand-950/40 border border-brand-200 dark:border-brand-900 p-6 rounded-3xl text-center">
-                        <div class="text-4xl font-extrabold text-brand-700 dark:text-brand-400" id="habit-completed-count">0/4</div>
-                        <div class="text-xs font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider mt-2">Completados Hoy</div>
-                    </div>
-                    <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900 p-6 rounded-3xl text-center">
-                        <div class="text-4xl font-extrabold text-indigo-700 dark:text-indigo-400" id="habit-pct">0%</div>
-                        <div class="text-xs font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wider mt-2">Cumplimiento Diario</div>
-                    </div>
-                </div>
-
-                <div class="mt-8 bg-slate-50 dark:bg-slate-800/50 p-7 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4">
-                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Check-in de Hábitos de Hoy</h3>
-                    <div id="habits-container" class="space-y-3"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 5: PSICOEDUCACIÓN -->
-        <section id="tab-psicoeducacion" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">Módulo 5 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Guías Psicoeducativas Basadas en Evidencia</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Artículos breves y prácticos sobre ansiedad, depresión, sueño y bienestar emocional.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 flex items-center justify-center font-bold">1</div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Comprendiendo la Ansiedad</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">La ansiedad es una respuesta natural de alerta. Aprende a reconocer cuándo requiere intervención profesional.</p>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-400 flex items-center justify-center font-bold">2</div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Higiene del Sueño</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">El descanso adecuado es pilar fundamental para la regulación emocional y la recuperación cognitiva.</p>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">3</div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Cuándo Buscar Ayuda Profesional</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Conoce las señales de alerta donde la terapia con el Pastor y Psicólogo Jair marca una diferencia decisiva.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 6: PLAN DE CRISIS -->
-        <section id="tab-seguridad" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-rose-200 dark:border-rose-900/50 shadow-sm">
-                <div class="flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-life-ring"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Módulo 6 · JAIRRESTAURA V4</span>
-                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Plan Personal de Apoyo y Seguridad Emocional</h2>
-                    </div>
-                </div>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-3 leading-relaxed">Completa este plan de autocontrol para tenerlo a mano en momentos de crisis.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <label class="block text-xs font-bold text-slate-800 dark:text-slate-200">1. Señales de alerta temprana:</label>
-                        <textarea id="s-warn" rows="3" placeholder="Ej. Insomnio, irritabilidad..." class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <label class="block text-xs font-bold text-slate-800 dark:text-slate-200">2. Estrategias de afrontamiento:</label>
-                        <textarea id="s-cope" rows="3" placeholder="Ej. Respiración 4-4-4-4, orar..." class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>
-                    </div>
-                    <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <label class="block text-xs font-bold text-slate-800 dark:text-slate-200">3. Contacto de confianza / Pastor Jair:</label>
-                        <textarea id="s-cont" rows="3" placeholder="Ej. Pastor y Psicólogo Jair (+57 312 471 0702)..." class="w-full text-xs p-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>
-                    </div>
-                </div>
-                <div class="mt-6 flex items-center justify-between">
-                    <button onclick="saveSafetyPlan()" class="px-8 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl transition shadow">Guardar Plan de Seguridad</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 7: REFLEXIÓN DE BIENESTAR Y ESCALA GAD-7 -->
-        <section id="tab-tamizaje" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">Módulo 7 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Cuestionarios Clínicos de Tamizaje</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">El primer bloque es una reflexión no estandarizada; el GAD-7 es un instrumento de tamizaje. Ninguno sustituye una valoración profesional.</p>
-
-                <div class="flex border-b border-slate-200 dark:border-slate-800 mt-8 space-x-6">
-                    <button onclick="switchScaleTab('phq9')" id="scale-tab-phq9" class="pb-3.5 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400 transition">Reflexión de bienestar</button>
-                    <button onclick="switchScaleTab('gad7')" id="scale-tab-gad7" class="pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 transition">Escala GAD-7 (Ansiedad)</button>
-                </div>
-
-                <!-- Reflexión de bienestar; no es una escala clínica validada -->
-                <div id="scale-phq9-container" class="mt-8 space-y-6">
-                    <div id="phq9-questions" class="space-y-4"></div>
-                    <button onclick="calculatePHQ9()" class="px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-2xl transition shadow text-sm">Ver resumen de reflexión</button>
-                    <div id="phq9-result" class="hidden mt-6 p-6 rounded-2xl border"></div>
-                </div>
-
-                <!-- GAD-7 Content -->
-                <div id="scale-gad7-container" class="mt-8 space-y-6 hidden">
-                    <div id="gad7-questions" class="space-y-4"></div>
-                    <button onclick="calculateGAD7()" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl transition shadow text-sm">Calcular Puntaje GAD-7</button>
-                    <div id="gad7-result" class="hidden mt-6 p-6 rounded-2xl border"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 8: ASISTENTE INTELIGENTE JAIRRESTAURA -->
-        <section id="tab-asistente" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-4xl mx-auto flex flex-col h-[650px]">
-                <div class="flex items-center space-x-3 pb-6 border-b border-slate-200 dark:border-slate-800">
-                    <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl shadow">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">Módulo 8 · Asistente JAIRRESTAURA V4</span>
-                        <h2 class="text-xl font-extrabold text-slate-900 dark:text-white">Orientación Educativa & Psicoeducación (Reglas Locales)</h2>
-                    </div>
-                </div>
-
-                <!-- Chat Messages Window -->
-                <div id="chat-messages" class="flex-grow overflow-y-auto py-6 space-y-4 pr-2">
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center shrink-0 text-xs font-bold">JR</div>
-                        <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl max-w-lg text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
-                            ¡Hola! Soy el asistente educativo de <strong>JAIRRESTAURA V4</strong>. Puedo orientarte sobre el uso de los módulos, darte pautas de bienestar emocional o ayudarte a preparar preguntas para tu consulta con el Pastor y Psicólogo Jair. ¿En qué te gustaría reflexionar hoy?
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chat Input Form -->
-                <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <form onsubmit="sendAssistantMessage(event)" class="flex space-x-3">
-                        <input type="text" id="chat-input" required placeholder="Escribe tu consulta o tema de interés (ej. ansiedad, sueño, respiración)..." class="flex-grow text-xs sm:text-sm p-4 rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
-                        <button type="submit" class="px-6 py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow flex items-center space-x-2">
-                            <span>Enviar</span><i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </form>
-                    <span class="block text-[10px] text-slate-400 mt-2 text-center">Nota: Este asistente utiliza reglas lógicas educativas locales; no emite diagnósticos clínicos ni reemplaza psicoterapia.</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 9: CONFIGURACIÓN Y EXPORTACIÓN -->
-        <section id="tab-configuracion" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm max-w-3xl mx-auto space-y-6">
-                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">Módulo 9 · JAIRRESTAURA V4</span>
-                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white">Configuración, Informes y Privacidad</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                    Los registros permanecen en este navegador y pueden ser vistos por quien tenga acceso al dispositivo o al perfil del navegador. No introduzcas información que no quieras guardar aquí. Puedes descargar un respaldo JSON e importar uno previamente exportado.
-                </p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Exportar JSON</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Crea una copia local de tus registros para guardarla en un lugar seguro.</p>
-                        <button onclick="exportUserData()" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition shadow">Descargar JSON</button>
-                    </div>
-                    <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Restaurar respaldo</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Valida el archivo JSON antes de reemplazar los datos actuales. La restauración requiere confirmación.</p>
-                        <input id="backup-file" type="file" accept=".json,application/json" class="block w-full text-xs" />
-                        <button onclick="importUserData()" class="w-full py-3 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition shadow">Validar e importar JSON</button>
-                    </div>
-                    <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Generar Reporte PDF</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Abre la vista de impresión optimizada para guardar como PDF.</p>
-                        <button onclick="window.print()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition shadow">Imprimir / Guardar PDF</button>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-rose-50 dark:bg-rose-950/30 rounded-2xl border border-rose-200 dark:border-rose-900/50 space-y-4">
-                    <h3 class="font-bold text-rose-800 dark:text-rose-300 text-base">Borrado Seguro de Datos</h3>
-                    <p class="text-xs text-rose-700 dark:text-rose-400">Elimina permanentemente todos los registros almacenados en este navegador.</p>
-                    <button onclick="clearUserData()" class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl transition shadow">Borrar todos mis datos</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO 10: PASTOR Y PSICÓLOGO JAIR -->
-        <section id="tab-pastor" class="tab-content hidden space-y-8 fade-in">
-            <div class="bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-8 sm:p-12 rounded-3xl text-white shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10">
-                    <i class="fa-brands fa-whatsapp text-[18rem]"></i>
-                </div>
-                <div class="max-w-3xl relative z-10 space-y-6">
-                    <span class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-                        <i class="fa-brands fa-whatsapp text-emerald-400"></i>
-                        <span>Acompañamiento Pastoral y Psicológico</span>
-                    </span>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Pastor y Psicólogo Jair</h2>
-                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
-                        Un espacio seguro y confidencial donde integramos la ciencia psicológica con el apoyo espiritual. No tienes que atravesar tus dificultades en solitario.
-                    </p>
-                    
-                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 space-y-3 max-w-xl">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl font-bold shadow">
-                                <i class="fa-solid fa-phone-alt"></i>
-                            </div>
-                            <div>
-                                <span class="text-xs text-emerald-300 uppercase tracking-wider font-semibold block">Línea Directa WhatsApp</span>
-                                <span class="text-xl sm:text-2xl font-extrabold tracking-wide">+57 312 471 0702</span>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">Disponible para orientación psicológica, consejería pastoral y contención emocional (Sujeto a disponibilidad).</p>
-                    </div>
-
-                    <div class="pt-2 flex flex-wrap gap-4">
-                        <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20visitando%20JAIRRESTAURA%20V3%20y%20necesito%20orientación." target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition flex items-center space-x-3 text-base">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i>
-                            <span>Abrir WhatsApp (+57 312 471 0702)</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 space-y-4 sm:space-y-0">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">JR</div>
-                <span class="font-bold text-slate-900 dark:text-white text-sm">JAIRRESTAURA V4</span>
-                <span>— Pastor y Psicólogo Jair (+57 312 471 0702)</span>
-            </div>
-            <div class="text-center sm:text-right">
-                <span>Escucha • Orientación • Bienestar · Privacidad Local Garantizada.</span>
+                <h1>JAIRRESTAURA V6.0</h1>
+                <p>ESCUCHA · ORIENTACIÓN · BIENESTAR</p>
             </div>
         </div>
-    </footer>
+        <nav class="nav" id="nav">
+            <button class="active" data-view="inicio"><i class="fa-solid fa-chart-pie"></i><span>Panel Principal</span></button>
+            <button data-view="pacientes"><i class="fa-solid fa-user-injured"></i><span>Pacientes & Expedientes</span></button>
+            <button data-view="agenda"><i class="fa-solid fa-calendar-days"></i><span>Agenda Profesional</span></button>
+            <button data-view="sesiones"><i class="fa-solid fa-clipboard-user"></i><span>Sesiones & Notas SOAP</span></button>
+            <button data-view="planes"><i class="fa-solid fa-bullseye"></i><span>Planes Terapéuticos</span></button>
+            <button data-view="consentimientos"><i class="fa-solid fa-file-signature"></i><span>Consentimientos Ley 1581</span></button>
+            <button data-view="tamizaje"><i class="fa-solid fa-stethoscope"></i><span>Tamizaje PHQ-9 / GAD-7</span></button>
+            <button data-view="finanzas"><i class="fa-solid fa-wallet"></i><span>Finanzas & Administración</span></button>
+            <button data-view="informes"><i class="fa-solid fa-file-pdf"></i><span>Informes y Exportación</span></button>
+            <button data-view="asistente"><i class="fa-solid fa-robot text-teal-400"></i><span class="text-teal-300 font-bold">Asistente Clínico IA</span></button>
+            <button data-view="seguridad"><i class="fa-solid fa-shield-halved"></i><span>Seguridad y Respaldo</span></button>
+            <button data-view="pastor"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span class="text-emerald-300 font-bold">Pastor Jair (+WhatsApp)</span></button>
+        </nav>
+        <div class="side-foot">V6.0 Enterprise · Ley 1581 Colombia<br>Pastor y Psicólogo Jair</div>
+    </aside>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // --- Navigation ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            const target = document.getElementById('tab-' + tabId);
-            if(target) target.classList.remove('hidden');
-            document.querySelectorAll('.nav-btn').forEach(el => {
-                el.classList.remove('bg-brand-100','dark:bg-slate-800','text-brand-700','dark:text-brand-300');
-                if(el.id === 'nav-' + tabId) el.classList.add('bg-brand-100','dark:bg-slate-800','text-brand-700','dark:text-brand-300');
-            });
-            const mobileMenu = document.getElementById('mobile-menu');
-            if(mobileMenu) mobileMenu.classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    <!-- Main Content Area -->
+    <main class="main">
+        <header class="top">
+            <div>
+                <div class="crumb">JAIRRESTAURA V6.0 / <strong id="crumb">Panel Principal</strong></div>
+                <strong>Consultorio Digital Profesional Enterprise</strong>
+            </div>
+            <div class="top-actions">
+                <button onclick="toggleDarkMode()" class="btn secondary small" title="Cambiar Tema"><i id="theme-icon" class="fa-solid fa-moon"></i></button>
+                <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.0." target="_blank" class="hidden sm:inline-flex bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold items-center space-x-2 shadow">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>+57 312 471 0702</span>
+                </a>
+                <span class="pill">V6.0 Enterprise</span>
+                <div class="avatar">PJ</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- VIEW: INICIO -->
+            <section class="view active" id="view-inicio">
+                <div class="hero">
+                    <div>
+                        <div class="eyebrow">Enterprise Dashboard · V6.0</div>
+                        <h2>Bienvenido, Pastor y Psicólogo Jair</h2>
+                        <p>Plataforma integral de nivel profesional para expedientes clínicos, agenda con prevención de solapamientos, notas SOAP, planes de trabajo, finanzas e integración de tamizaje clínico.</p>
+                        <div class="actions" style="margin-top:20px">
+                            <button class="btn" onclick="showView('pacientes');openPatientModal()"><i class="fa-solid fa-user-plus mr-1"></i> Registrar nuevo paciente</button>
+                            <button class="btn secondary" onclick="showView('agenda');openAppointmentModal()"><i class="fa-solid fa-calendar-plus mr-1"></i> Programar cita</button>
+                        </div>
+                    </div>
+                    <div class="hidden md:block text-6xl opacity-80"><i class="fa-solid fa-hands-holding-child"></i></div>
+                </div>
+
+                <div class="grid stats">
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-users"></i></div><div><small>Pacientes Activos</small><strong id="stat-patients">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div><div><small>Citas Programadas</small><strong id="stat-appointments">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-clipboard-user"></i></div><div><small>Sesiones Documentadas</small><strong id="stat-sessions">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-wallet"></i></div><div><small>Balance Financiero (COP)</small><strong id="stat-income">$0</strong></div></div>
+                </div>
+
+                <div class="grid two">
+                    <div class="card">
+                        <div class="section-head">
+                            <div><h3>Próximas Citas en Agenda</h3><p class="sub">Control de encuentros presenciales y virtuales</p></div>
+                            <button class="btn secondary small" onclick="showView('agenda')">Ver agenda completa</button>
+                        </div>
+                        <div id="home-appointments"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Indicadores de Gestión</h3>
+                        <p class="sub">Métricas operativas del consultorio</p>
+                        <div class="split">
+                            <div><div class="kpi" id="count-plans">0</div><small class="muted">Planes de trabajo</small></div>
+                            <div><div class="kpi" id="count-consents">0</div><small class="muted">Consentimientos firmados</small></div>
+                        </div>
+                        <div style="margin-top:22px">
+                            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px"><b>Índice de completitud de expedientes</b><span id="completeness">100%</span></div>
+                            <div class="bar"><span id="completeness-bar" style="width:100%"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin:24px 0 12px">Accesos Rápidos Profesionales</h3>
+                <div class="grid quick">
+                    <div class="card" onclick="showView('sesiones');openSessionModal()">
+                        <div class="ico"><i class="fa-solid fa-notes-medical"></i></div>
+                        <h3>Registrar Sesión SOAP</h3>
+                        <p>Documenta evolución subjetiva, objetiva, análisis y plan.</p>
+                    </div>
+                    <div class="card" onclick="showView('tamizaje');">
+                        <div class="ico"><i class="fa-solid fa-stethoscope"></i></div>
+                        <h3>Tamizaje PHQ-9 / GAD-7</h3>
+                        <p>Evalúa depresión y ansiedad con escalas clínicas validadas.</p>
+                    </div>
+                    <div class="card" onclick="showView('asistente')">
+                        <div class="ico"><i class="fa-solid fa-robot"></i></div>
+                        <h3>Asistente Clínico IA</h3>
+                        <p>Soporte profesional para resúmenes y preguntas de exploración.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: PACIENTES -->
+            <section class="view" id="view-pacientes">
+                <div class="section-head">
+                    <div><h2>Gestión de Pacientes & Expedientes</h2><p>Directorio clínico con CRUD completo, filtros de búsqueda y estado del proceso.</p></div>
+                    <button class="btn" onclick="openPatientModal()"><i class="fa-solid fa-user-plus mr-1"></i> Registrar paciente</button>
+                </div>
+                <div class="card">
+                    <div style="margin-bottom:16px;display:flex;gap:10px">
+                        <input id="patient-search" type="text" placeholder="Buscar por nombre, teléfono o correo..." oninput="render()" style="max-width:320px">
+                    </div>
+                    <div class="table-wrap" id="patients-table"></div>
+                </div>
+            </section>
+
+            <!-- VIEW: AGENDA -->
+            <section class="view" id="view-agenda">
+                <div class="section-head">
+                    <div><h2>Agenda Profesional & Citas</h2><p>Programación con prevención de conflictos horarios y relación automática con pacientes.</p></div>
+                    <button class="btn" onclick="openAppointmentModal()"><i class="fa-solid fa-calendar-plus mr-1"></i> Agendar cita</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrap" id="appointments-table"></div>
+                </div>
+            </section>
+
+            <!-- VIEW: SESIONES -->
+            <section class="view" id="view-sesiones">
+                <div class="section-head">
+                    <div><h2>Seguimiento de Sesiones Clínicas (SOAP)</h2><p>Trazabilidad cronológica de atención, intervenciones y estructura SOAP.</p></div>
+                    <button class="btn" onclick="openSessionModal()"><i class="fa-solid fa-notes-medical mr-1"></i> Registrar sesión</button>
+                </div>
+                <div id="sessions-list"></div>
+            </section>
+
+            <!-- VIEW: PLANES -->
+            <section class="view" id="view-planes">
+                <div class="section-head">
+                    <div><h2>Planes de Trabajo Terapéutico</h2><p>Objetivos específicos, técnicas de intervención y cumplimiento.</p></div>
+                    <button class="btn" onclick="openPlanModal()"><i class="fa-solid fa-bullseye mr-1"></i> Crear plan</button>
+                </div>
+                <div id="plans-list"></div>
+            </section>
+
+            <!-- VIEW: CONSENTIMIENTOS -->
+            <section class="view" id="view-consentimientos">
+                <div class="section-head">
+                    <div><h2>Consentimientos Informados (Ley 1581)</h2><p>Registro legal de aceptación de psicoterapia y tratamiento de datos sensibles.</p></div>
+                    <button class="btn" onclick="openConsentModal()"><i class="fa-solid fa-file-signature mr-1"></i> Registrar consentimiento</button>
+                </div>
+                <div id="consents-list"></div>
+            </section>
+
+            <!-- VIEW: TAMIZAJE -->
+            <section class="view" id="view-tamizaje">
+                <div class="section-head">
+                    <div><h2>Cuestionarios Clínicos PHQ-9 & GAD-7</h2><p>Evaluación estandarizada de síntomas depresivos y ansiosos en consultantes.</p></div>
+                </div>
+                <div class="card">
+                    <div class="flex border-b border-slate-200 dark:border-slate-800 mb-6 space-x-6">
+                        <button onclick="switchScaleTab('phq9')" id="scale-tab-phq9" class="pb-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400">PHQ-9 (Depresión)</button>
+                        <button onclick="switchScaleTab('gad7')" id="scale-tab-gad7" class="pb-3 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800">GAD-7 (Ansiedad)</button>
+                    </div>
+                    <div id="scale-phq9-container" class="space-y-4">
+                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="phq-patient">${patientOptions()}</select></div>
+                        <div id="phq9-questions" class="space-y-4"></div>
+                        <button class="btn mt-4" onclick="calculatePHQ9()">Calcular y Guardar Resultado PHQ-9</button>
+                        <div id="phq9-result" class="hidden mt-4 p-4 rounded-xl border"></div>
+                    </div>
+                    <div id="scale-gad7-container" class="space-y-4 hidden">
+                        <div class="field mb-4"><label>Seleccionar Paciente</label><select id="gad-patient">${patientOptions()}</select></div>
+                        <div id="gad7-questions" class="space-y-4"></div>
+                        <button class="btn mt-4" onclick="calculateGAD7()">Calcular y Guardar Resultado GAD-7</button>
+                        <div id="gad7-result" class="hidden mt-4 p-4 rounded-xl border"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: FINANZAS -->
+            <section class="view" id="view-finanzas">
+                <div class="section-head">
+                    <div><h2>Finanzas & Administración</h2><p>Control independiente de ingresos, egresos y balance del consultorio.</p></div>
+                    <button class="btn" onclick="openFinanceModal()"><i class="fa-solid fa-plus mr-1"></i> Nuevo movimiento</button>
+                </div>
+                <div class="grid stats">
+                    <div class="stat"><div><small>Ingresos Totales</small><strong id="fin-income">$0</strong></div></div>
+                    <div class="stat"><div><small>Egresos Totales</small><strong id="fin-expense">$0</strong></div></div>
+                    <div class="stat"><div><small>Balance Neto</small><strong id="fin-balance">$0</strong></div></div>
+                    <div class="stat"><div><small>Movimientos</small><strong id="fin-count">0</strong></div></div>
+                </div>
+                <div class="card">
+                    <div class="table-wrap" id="finance-table"></div>
+                </div>
+            </section>
+
+            <!-- VIEW: INFORMES -->
+            <section class="view" id="view-informes">
+                <div class="section-head">
+                    <div><h2>Informes y Exportación Profesional</h2><p>Generación de resúmenes de atención, fichas y reportes exportables.</p></div>
+                    <div class="actions">
+                        <button class="btn secondary" onclick="exportJSON()"><i class="fa-solid fa-download mr-1"></i> Exportar Respaldo JSON</button>
+                        <button class="btn" onclick="window.print()"><i class="fa-solid fa-print mr-1"></i> Imprimir Informe</button>
+                    </div>
+                </div>
+                <div class="grid two">
+                    <div class="card"><h3>Resumen Ejecutivo de Actividad</h3><div id="report-summary"></div></div>
+                    <div class="card">
+                        <h3>Estándares Enterprise V6.0</h3>
+                        <ul class="text-xs space-y-2 text-slate-600 dark:text-slate-300 list-disc pl-4">
+                            <li>Gestión CRUD completa y validada de pacientes con cálculo de edad.</li>
+                            <li>Prevención automática de cruces en la agenda de citas.</li>
+                            <li>Notas clínicas bajo estructura SOAP configurable.</li>
+                            <li>Planes terapéuticos con indicadores de progreso.</li>
+                            <li>Cumplimiento Ley 1581 de protección de datos en Colombia.</li>
+                            <li>Separación estricta de finanzas y registros clínicos sin duplicación.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: ASISTENTE CLÍNICO IA -->
+            <section class="view" id="view-asistente">
+                <div class="section-head">
+                    <div><h2>Asistente Clínico de Apoyo Profesional (IA)</h2><p>Soporte ético para estructurar notas, proponer preguntas de exploración y guías psicoeducativas.</p></div>
+                </div>
+                <div class="card flex flex-col h-[550px]">
+                    <div id="chat-messages" class="flex-grow overflow-y-auto space-y-3 pr-2 mb-4">
+                        <div class="p-3.5 bg-slate-100 dark:bg-slate-800 rounded-2xl text-xs max-w-xl">
+                            <strong>Asistente IA JAIRRESTAURA V6.0:</strong> Hola Pastor y Psicólogo Jair. Estoy listo para ayudarte a organizar notas clínicas, redactar resúmenes profesionales o proponer preguntas de exploración basadas en TCC. (Nota: No emitimos diagnósticos automáticos).
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="ai-input" type="text" placeholder="Escribe tu consulta o nota para asistencia clínica..." onkeydown="if(event.key==='Enter')sendAIMessage()" class="flex-grow">
+                        <button class="btn" onclick="sendAIMessage()"><i class="fa-solid fa-paper-plane mr-1"></i> Enviar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SEGURIDAD -->
+            <section class="view" id="view-seguridad">
+                <div class="section-head">
+                    <div><h2>Seguridad, Privacidad y Respaldos</h2><p>Cumplimiento normativo y gestión de copias de seguridad seguras.</p></div>
+                </div>
+                <div class="card space-y-4">
+                    <h3><span class="pill">Ley 1581 de 2012 & Decreto 1074</span></h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        El sistema opera bajo los principios de confidencialidad, finalidad, acceso restringido y responsabilidad demostrada. Los datos se almacenan localmente en el navegador con opción de respaldo cifrado/JSON verificado y restauración sin pérdida de información.
+                    </p>
+                    <div class="actions">
+                        <button class="btn secondary" onclick="exportJSON()"><i class="fa-solid fa-download mr-1"></i> Descargar Copia de Seguridad</button>
+                        <button class="btn secondary" onclick="$('import-file').click()"><i class="fa-solid fa-upload mr-1"></i> Restaurar Respaldo</button>
+                        <input type="file" id="import-file" style="display:none" accept=".json" onchange="importJSON(event)">
+                        <button class="btn danger" onclick="clearAllData()"><i class="fa-solid fa-trash mr-1"></i> Restablecer Datos</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: PASTOR JAIR -->
+            <section class="view" id="view-pastor">
+                <div class="bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-8 sm:p-12 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10">
+                        <i class="fa-brands fa-whatsapp text-[18rem]"></i>
+                    </div>
+                    <div class="max-w-3xl relative z-10 space-y-6">
+                        <span class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                            <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                            <span>Acompañamiento Directo</span>
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Pastor y Psicólogo Jair</h2>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                            Espacio de consejería y orientación psicológica profesional con enfoque pastoral. Contáctame directamente a través de WhatsApp para coordinar citas y acompañamiento.
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 space-y-3 max-w-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl font-bold shadow">
+                                    <i class="fa-solid fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-emerald-300 uppercase tracking-wider font-semibold block">Línea Directa WhatsApp</span>
+                                    <span class="text-xl sm:text-2xl font-extrabold tracking-wide">+57 312 471 0702</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20en%20JAIRRESTAURA%20V6.0%20y%20deseo%20más%20información." target="_blank" class="inline-flex bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition items-center space-x-3 text-base">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                <span>Abrir WhatsApp (+57 312 471 0702)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footnote">JAIRRESTAURA V6.0 Enterprise · Consultorio Digital Profesional · Pastor y Psicólogo Jair (+57 312 471 0702)</div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal & Toast Elements -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <div class="modal-head"><h3 id="modal-title">Formulario</h3><button class="close" onclick="closeModal()">✕</button></div>
+        <div id="modal-body"></div>
+    </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V6.0." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 text-3xl" title="Contactar con Pastor y Psicólogo Jair">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- Application Script V6.0 Enterprise -->
+<script>
+    'use strict';
+    const STORAGE_KEY = 'jairrestaura_v6_enterprise';
+    
+    let db = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+        patients: [
+            { id: 1, name: 'Ana María Gómez', contact: 'ana.gomez@example.com', phone: '+57 300 1234567', dob: '1994-05-12', emergencyContact: 'Pedro Gómez (+57 311 0000000)', reason: 'Ansiedad generalizada y estrés laboral', background: 'Sin antecedentes psiquiátricos previos', modality: 'Virtual', status: 'Activo', date: '2026-10-10' },
+            { id: 2, name: 'Carlos Andrés Pérez', contact: 'carlos.perez@example.com', phone: '+57 310 9876543', dob: '1985-09-20', emergencyContact: 'Lucía Pérez (+57 320 1111111)', reason: 'Conflictos familiares y duelo', background: 'Tratamiento médico hipertensión controlada', modality: 'Presencial', status: 'Activo', date: '2026-10-15' }
+        ],
+        appointments: [
+            { id: 1, patient: 1, date: '2026-11-05', time: '10:00', duration: 60, type: 'Seguimiento', modality: 'Virtual', status: 'Confirmada' },
+            { id: 2, patient: 2, date: '2026-11-06', time: '16:00', duration: 60, type: 'Primera entrevista', modality: 'Presencial', status: 'Pendiente' }
+        ],
+        sessions: [
+            { id: 1, patient: 1, date: '2026-10-28', focus: 'Regulación de ansiedad', soapS: 'Consultante refiere insomnio y rumiación mental.', soapO: 'Aspecto pulcro, tono de voz acelerado, taquicardia leve reportada.', soapA: 'Ansiedad generalizada con patrón cognitivo de anticipación catastrofista.', soapP: 'Práctica diaria de respiración diafragmática 4-4-4-4 y registro ABC.', work: 'Evaluación y respiración.', next: 'Diario ABC.' }
+        ],
+        plans: [
+            { id: 1, patient: 1, goal: 'Reducir episodios de ansiedad aguda', strategy: 'Uso diario de técnica de respiración y registro cognitivo', measure: 'Frecuencia semanal menor a 2 episodios', review: '2026-11-15', status: 'En curso' }
+        ],
+        consents: [
+            { id: 1, patient: 1, date: '2026-10-28', version: 'V6.0-Ley1581', status: 'Aceptado y Firmado' }
+        ],
+        finance: [
+            { id: 1, date: '2026-10-28', kind: 'Ingreso', concept: 'Sesión de psicoterapia individual', amount: 120000 },
+            { id: 2, date: '2026-10-29', kind: 'Gasto', concept: 'Material didáctico y papelería', amount: 25000 }
+        ],
+        screenings: []
+    };
+    let nextId = 300;
+
+    const $ = id => document.getElementById(id);
+    const money = n => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n || 0);
+    const safe = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function toast(msg) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 3500);
+    }
+
+    function showView(v) {
+        document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+        $('view-' + v).classList.add('active');
+        document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+        const btnNav = document.querySelector(`[data-view="${v}"] span`);
+        if(btnNav) $('crumb').textContent = btnNav.textContent;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    $('nav').addEventListener('click', e => {
+        const b = e.target.closest('button[data-view]');
+        if(b) showView(b.dataset.view);
+    });
+
+    function persist() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        render();
+    }
+
+    function table(headers, rows) {
+        if(!rows.length) return '<div class="empty">No hay registros en esta sección. Añade uno nuevo.</div>';
+        return `<table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`;
+    }
+
+    function patientName(id) {
+        return db.patients.find(p => p.id === Number(id))?.name || 'Paciente no encontrado';
+    }
+
+    function calculateAge(dob) {
+        if(!dob) return 'N/D';
+        const diff = Date.now() - new Date(dob).getTime();
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.contains('dark');
+        localStorage.setItem('jairrestaura_v6_dark', isDark);
+        $('theme-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    }
+
+    if(localStorage.getItem('jairrestaura_v6_dark') === 'true') {
+        document.documentElement.classList.add('dark');
+        $('theme-icon').className = 'fa-solid fa-sun';
+    }
+
+    function render() {
+        const activePatients = db.patients.filter(p => p.status === 'Activo').length;
+        $('stat-patients').textContent = activePatients;
+        $('stat-appointments').textContent = db.appointments.length;
+        $('stat-sessions').textContent = db.sessions.length;
+
+        const inc = db.finance.filter(x => x.kind === 'Ingreso').reduce((a, x) => a + Number(x.amount || 0), 0);
+        const exp = db.finance.filter(x => x.kind === 'Gasto').reduce((a, x) => a + Number(x.amount || 0), 0);
+        const net = inc - exp;
+        $('stat-income').textContent = money(net);
+
+        $('count-plans').textContent = db.plans.length;
+        $('count-consents').textContent = db.consents.length;
+
+        // Pacientes Table with search & status toggle
+        const searchVal = ($('patient-search')?.value || '').toLowerCase();
+        const filteredPatients = db.patients.filter(p => p.name.toLowerCase().includes(searchVal) || p.phone.toLowerCase().includes(searchVal) || p.contact.toLowerCase().includes(searchVal));
+        
+        $('patients-table').innerHTML = table(['ID', 'Nombre', 'Edad', 'Contacto', 'Teléfono', 'Modalidad', 'Estado', 'Acciones'], filteredPatients.map(p => `
+            <tr>
+                <td>#${p.id}</td>
+                <td><b>${safe(p.name)}</b></td>
+                <td>${calculateAge(p.dob)} años</td>
+                <td>${safe(p.contact)}</td>
+                <td>${safe(p.phone)}</td>
+                <td>${safe(p.modality)}</td>
+                <td><span class="pill ${p.status==='Inactivo'?'rose':''}">${safe(p.status)}</span></td>
+                <td>
+                    <button class="btn small outline" onclick="editPatient(${p.id})"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn small secondary" onclick="togglePatientStatus(${p.id})"><i class="fa-solid fa-power-off"></i></button>
+                    <button class="btn small danger" onclick="deletePatient(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        `));
+
+        // Agenda Table & Home List
+        $('appointments-table').innerHTML = table(['Fecha', 'Hora', 'Duración', 'Paciente', 'Tipo', 'Modalidad', 'Estado', 'Acciones'], db.appointments.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).map(a => `
+            <tr>
+                <td>${a.date}</td>
+                <td>${a.time}</td>
+                <td>${a.duration || 60} min</td>
+                <td><b>${patientName(a.patient)}</b></td>
+                <td>${safe(a.type)}</td>
+                <td>${safe(a.modality)}</td>
+                <td><span class="pill ${a.status==='Pendiente'?'amber':''}">${safe(a.status)}</span></td>
+                <td>
+                    <button class="btn small danger" onclick="deleteAppointment(${a.id})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        `));
+
+        $('home-appointments').innerHTML = db.appointments.slice(0,3).map(a => `
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);gap:10px">
+                <div><b>${patientName(a.patient)}</b><div class="muted" style="font-size:11px">${safe(a.type)} · ${safe(a.modality)}</div></div>
+                <div style="text-align:right"><b>${a.time}</b><div class="muted" style="font-size:11px">${a.date}</div></div>
+            </div>
+        `).join('') || '<div class="empty">No hay citas programadas.</div>';
+
+        // Sesiones SOAP
+        $('sessions-list').innerHTML = db.sessions.map(s => `
+            <div class="card">
+                <div class="section-head">
+                    <div><h3>${patientName(s.patient)}</h3><p class="sub">${s.date}</p></div>
+                    <button class="btn small danger" onclick="deleteRecord('sessions',${s.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <p><b>Subjetivo (S):</b> ${safe(s.soapS || s.focus)}</p>
+                <p><b>Objetivo (O):</b> ${safe(s.soapO || s.work)}</p>
+                <p><b>Análisis (A):</b> ${safe(s.soapA || 'Evaluación clínica estándar')}</p>
+                <p><b>Plan (P):</b> ${safe(s.soapP || s.next)}</p>
+            </div>
+        `).join('') || '<div class="empty">No hay notas de sesión documentadas.</div>';
+
+        // Planes
+        $('plans-list').innerHTML = db.plans.map(p => `
+            <div class="card">
+                <div class="section-head">
+                    <div><h3>${safe(p.goal)}</h3><p class="sub">${patientName(p.patient)} · Revisión: ${p.review}</p></div>
+                    <div class="actions">
+                        <span class="pill">${safe(p.status)}</span>
+                        <button class="btn small danger" onclick="deleteRecord('plans',${p.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <p><b>Estrategia:</b> ${safe(p.strategy)}</p>
+                <p><b>Indicador:</b> ${safe(p.measure)}</p>
+            </div>
+        `).join('') || '<div class="empty">No hay planes de trabajo activos.</div>';
+
+        // Consentimientos
+        $('consents-list').innerHTML = db.consents.map(c => `
+            <div class="card">
+                <div class="section-head">
+                    <b>${patientName(c.patient)}</b>
+                    <button class="btn small danger" onclick="deleteRecord('consents',${c.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <p class="sub">${c.date} (Versión: ${safe(c.version)}) · <span class="pill">${safe(c.status)}</span></p>
+                <p class="text-xs text-slate-600 dark:text-slate-300">Consentimiento informado aceptado y registrado conforme a Ley 1581 y protocolos éticos.</p>
+            </div>
+        `).join('') || '<div class="empty">No hay consentimientos registrados.</div>';
+
+        // Finanzas
+        $('fin-income').textContent = money(inc);
+        $('fin-expense').textContent = money(exp);
+        $('fin-balance').textContent = money(net);
+        $('fin-count').textContent = db.finance.length;
+        $('finance-table').innerHTML = table(['Fecha', 'Tipo', 'Concepto', 'Valor (COP)'], db.finance.map(f => `
+            <tr>
+                <td>${f.date}</td>
+                <td><span class="pill ${f.kind==='Gasto'?'amber':''}">${f.kind}</span></td>
+                <td>${safe(f.concept)}</td>
+                <td><b>${money(f.amount)}</b></td>
+            </tr>
+        `));
+
+        // Informes
+        $('report-summary').innerHTML = `
+            <div class="split">
+                <div><div class="kpi">${db.patients.length}</div><small class="muted">Pacientes Totales</small></div>
+                <div><div class="kpi">${db.appointments.length}</div><small class="muted">Citas</small></div>
+                <div><div class="kpi">${db.sessions.length}</div><small class="muted">Sesiones</small></div>
+            </div>
+            <hr style="border:0;border-top:1px solid var(--line);margin:15px 0">
+            <p>Ingresos Totales: <b>${money(inc)}</b></p>
+            <p>Egresos Totales: <b>${money(exp)}</b></p>
+            <p>Balance Neto: <b>${money(net)}</b></p>
+        `;
+
+        // Actualizar selects de pacientes en formularios
+        const patientSelects = ['s-patient', 'pl-patient', 'c-patient', 'a-patient', 'phq-patient', 'gad-patient'];
+        patientSelects.forEach(id => {
+            const el = $(id);
+            if(el) el.innerHTML = patientOptions();
+        });
+    }
+
+    function openModal(title, html, submitCallback) {
+        $('modal-title').textContent = title;
+        $('modal-body').innerHTML = html;
+        $('modal').classList.add('open');
+        const submitBtn = $('modal-submit');
+        if(submitBtn) {
+            submitBtn.onclick = submitCallback;
         }
+    }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+    function closeModal() {
+        $('modal').classList.remove('open');
+    }
 
-        function dismissDisclaimer() {
-            const banner = document.getElementById('disclaimer-banner');
-            if(banner) banner.style.display = 'none';
-        }
+    function patientOptions() {
+        if(!db.patients.length) return '<option value="">Sin pacientes registrados</option>';
+        return db.patients.map(p => `<option value="${p.id}">${safe(p.name)} (${p.status})</option>`).join('');
+    }
 
-        // --- Dark Mode ---
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            html.classList.toggle('dark');
-            if(html.classList.contains('dark')) {
-                localStorage.setItem('jairrestaura_v3_theme', 'dark');
-                if(icon) icon.className = "fa-solid fa-sun text-lg";
+    function openPatientModal(patient = null) {
+        const isEdit = patient !== null;
+        openModal(isEdit ? 'Editar Paciente' : 'Registrar Nuevo Paciente', `
+            <div class="formgrid">
+                <div class="field"><label>Nombre Completo</label><input id="p-name" value="${isEdit ? safe(patient.name) : ''}" placeholder="Ej. Sofía Martínez" required></div>
+                <div class="field"><label>Fecha de Nacimiento</label><input id="p-dob" type="date" value="${isEdit ? (patient.dob || '1995-01-01') : '1995-01-01'}"></div>
+                <div class="field"><label>Correo Electrónico</label><input id="p-contact" type="email" value="${isEdit ? safe(patient.contact) : ''}" placeholder="correo@example.com"></div>
+                <div class="field"><label>Teléfono / WhatsApp</label><input id="p-phone" value="${isEdit ? safe(patient.phone) : ''}" placeholder="+57 300 1234567"></div>
+                <div class="field"><label>Contacto de Emergencia</label><input id="p-emergency" value="${isEdit ? safe(patient.emergencyContact || '') : ''}" placeholder="Familiar (+57 300 0000000)"></div>
+                <div class="field"><label>Modalidad de Atención</label><select id="p-mode"><option ${isEdit && patient.modality==='Virtual'?'selected':''}>Virtual</option><option ${isEdit && patient.modality==='Presencial'?'selected':''}>Presencial</option></select></div>
+                <div class="field full"><label>Motivo de Consulta</label><textarea id="p-reason">${isEdit ? safe(patient.reason || '') : ''}</textarea></div>
+                <div class="field full"><label>Antecedentes Relevantes</label><textarea id="p-background">${isEdit ? safe(patient.background || '') : ''}</textarea></div>
+            </div>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">${isEdit ? 'Actualizar Paciente' : 'Guardar Paciente'}</button></div>
+        `, () => {
+            const name = $('p-name').value.trim();
+            if(!name) return toast('El nombre es obligatorio.');
+            if(isEdit) {
+                patient.name = name;
+                patient.dob = $('p-dob').value;
+                patient.contact = $('p-contact').value || 'sin-correo@example.com';
+                patient.phone = $('p-phone').value || '+57 300 0000000';
+                patient.emergencyContact = $('p-emergency').value;
+                patient.modality = $('p-mode').value;
+                patient.reason = $('p-reason').value;
+                patient.background = $('p-background').value;
+                toast('Paciente actualizado con éxito.');
             } else {
-                localStorage.setItem('jairrestaura_v3_theme', 'light');
-                if(icon) icon.className = "fa-solid fa-moon text-lg";
-            }
-        }
-
-        if(localStorage.getItem('jairrestaura_v3_theme') === 'dark' || (!localStorage.getItem('jairrestaura_v3_theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            const icon = document.getElementById('theme-icon');
-            if(icon) icon.className = "fa-solid fa-sun text-lg";
-        }
-
-        // --- Estado V4: migración no destructiva desde V3 ---
-        const STORAGE_KEY = 'jairrestaura_v4_data';
-        const LEGACY_KEY = 'jairrestaura_v3_data';
-        function defaultData() { return { moods: [], thoughts: [], habits: { date: new Date().toDateString(), items: [false,false,false,false] }, safetyPlan: { warning:'', coping:'', contact:'' }, goals: [], updatedAt: new Date().toISOString() }; }
-        function isValidData(x) { return !!x && typeof x === 'object' && Array.isArray(x.moods) && Array.isArray(x.thoughts) && typeof x.habits === 'object' && typeof x.safetyPlan === 'object'; }
-        function loadInitialData() {
-            try {
-                const current = localStorage.getItem(STORAGE_KEY);
-                if(current) { const parsed = JSON.parse(current); if(isValidData(parsed)) return parsed; }
-                const legacy = localStorage.getItem(LEGACY_KEY);
-                if(legacy) { const parsed = JSON.parse(legacy); if(isValidData(parsed)) { const migrated = { ...defaultData(), ...parsed, goals: Array.isArray(parsed.goals) ? parsed.goals : [], updatedAt: new Date().toISOString() }; localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); return migrated; } }
-            } catch(err) { console.error('No se pudieron leer los datos guardados:', err); }
-            return defaultData();
-        }
-        let appData = loadInitialData();
-        function saveData() {
-            try { appData.updatedAt = new Date().toISOString(); localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); updateDashboardMetrics(); }
-            catch(err) { showToast('No se pudo guardar. Exporta un respaldo y libera espacio del navegador.'); console.error(err); }
-        }
-        function showToast(msg) {
-            const t = document.createElement('div');
-            t.className = "fixed bottom-6 left-6 bg-slate-900 text-white text-xs sm:text-sm px-5 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 fade-in border border-slate-700";
-            const icon = document.createElement('i'); icon.className = 'fa-solid fa-circle-info text-brand-400 text-base';
-            const span = document.createElement('span'); span.textContent = String(msg);
-            t.append(icon, span); document.body.appendChild(t); setTimeout(() => t.remove(), 3500);
-        }
-
-        function updateDashboardMetrics() {
-            const moodCount = document.getElementById('dash-mood-count');
-            const thoughtCount = document.getElementById('dash-thought-count');
-            const streakCount = document.getElementById('dash-streak-count');
-
-            if(moodCount) moodCount.textContent = appData.moods.length;
-            if(thoughtCount) thoughtCount.textContent = appData.thoughts.length;
-            
-            if(streakCount) {
-                const completed = appData.habits.items.filter(Boolean).length;
-                streakCount.textContent = completed + '/4';
-            }
-        }
-
-        // --- Módulo 1: Ánimo ---
-        let selectedMoodScoreVal = 4;
-        let selectedMoodEmojiVal = '🙂';
-
-        function selectMoodScore(score, emoji) {
-            selectedMoodScoreVal = score;
-            selectedMoodEmojiVal = emoji;
-            document.querySelectorAll('.mood-opt').forEach(el => el.classList.remove('border-brand-500', 'bg-brand-50', 'dark:bg-brand-950'));
-            const btn = document.getElementById(`mood-btn-${score}`);
-            if(btn) btn.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-brand-950');
-        }
-
-        function saveMoodEntry() {
-            const noteInput = document.getElementById('mood-note');
-            const note = noteInput ? noteInput.value.trim() : '';
-            appData.moods.unshift({
-                score: selectedMoodScoreVal,
-                emoji: selectedMoodEmojiVal,
-                note: note || 'Sin nota adicional',
-                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-            });
-            saveData();
-            if(noteInput) noteInput.value = '';
-            renderMoodHistory();
-            showToast("Registro de ánimo guardado con éxito.");
-        }
-
-        function renderMoodHistory() {
-            const list = document.getElementById('mood-history-list');
-            if(!list) return;
-            if(appData.moods.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-400 italic">No hay registros de ánimo todavía.</p>`;
-                return;
-            }
-            list.innerHTML = '';
-            appData.moods.forEach(m => {
-                const card = document.createElement('div');
-                card.className = "p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs";
-                
-                const leftDiv = document.createElement('div');
-                leftDiv.className = "flex items-center space-x-3";
-                
-                const emojiSpan = document.createElement('span');
-                emojiSpan.className = "text-2xl";
-                emojiSpan.textContent = m.emoji;
-                leftDiv.appendChild(emojiSpan);
-
-                const infoDiv = document.createElement('div');
-                const titleSpan = document.createElement('span');
-                titleSpan.className = "font-bold text-slate-900 dark:text-white block";
-                titleSpan.textContent = `Nivel ${m.score}/5`;
-                infoDiv.appendChild(titleSpan);
-
-                const descSpan = document.createElement('span');
-                descSpan.className = "text-slate-500 dark:text-slate-400";
-                descSpan.textContent = m.note;
-                infoDiv.appendChild(descSpan);
-
-                leftDiv.appendChild(infoDiv);
-                card.appendChild(leftDiv);
-
-                const dateSpan = document.createElement('span');
-                dateSpan.className = "text-[10px] text-slate-400";
-                dateSpan.textContent = m.date;
-                card.appendChild(dateSpan);
-
-                list.appendChild(card);
-            });
-        }
-
-        // --- Módulo 2: Pensamientos ABC ---
-        function saveThoughtEntry(e) {
-            e.preventDefault();
-            const sit = document.getElementById('t-sit').value;
-            const pan = document.getElementById('t-pan').value;
-            const cons = document.getElementById('t-cons').value;
-            const alt = document.getElementById('t-alt').value;
-
-            appData.thoughts.unshift({ sit, pan, cons, alt, date: new Date().toLocaleDateString() });
-            saveData();
-            document.getElementById('thought-form').reset();
-            renderThoughts();
-            showToast("Pensamiento registrado y reestructurado.");
-        }
-
-        function renderThoughts() {
-            const list = document.getElementById('thought-list');
-            if(!list) return;
-            if(appData.thoughts.length === 0) {
-                list.innerHTML = `<p class="text-xs text-slate-400 italic">No hay registros en el diario cognitivo.</p>`;
-                return;
-            }
-            list.innerHTML = '';
-            appData.thoughts.forEach(t => {
-                const card = document.createElement('div');
-                card.className = "p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-1.5 text-xs";
-                
-                const topDiv = document.createElement('div');
-                topDiv.className = "flex justify-between font-bold text-slate-900 dark:text-white";
-                
-                const sitSpan = document.createElement('span');
-                sitSpan.textContent = `Sitio: ${t.sit}`;
-                topDiv.appendChild(sitSpan);
-
-                const dateSpan = document.createElement('span');
-                dateSpan.className = "text-[10px] text-slate-400";
-                dateSpan.textContent = t.date;
-                topDiv.appendChild(dateSpan);
-                card.appendChild(topDiv);
-
-                const panP = document.createElement('p');
-                panP.className = "text-rose-600 dark:text-rose-400";
-                panP.textContent = `PAN: ${t.pan}`;
-                card.appendChild(panP);
-
-                const altP = document.createElement('p');
-                altP.className = "text-emerald-600 dark:text-emerald-400";
-                altP.textContent = `Alternativo: ${t.alt}`;
-                card.appendChild(altP);
-
-                list.appendChild(card);
-            });
-        }
-
-        // --- Módulo 3: Box Breathing ---
-        let isBreathing = false;
-
-        function startBoxBreathing() {
-            if(isBreathing) return;
-            isBreathing = true;
-            const title = document.getElementById('breath-title');
-            const timer = document.getElementById('breath-timer');
-            const inst = document.getElementById('breath-instruction');
-            const circle = document.getElementById('breath-circle');
-
-            const steps = [
-                { text: "Inhala", sec: 4, bg: "bg-teal-500" },
-                { text: "Sostén", sec: 4, bg: "bg-teal-700" },
-                { text: "Exhala", sec: 4, bg: "bg-teal-600" },
-                { text: "Sostén", sec: 4, bg: "bg-teal-800" }
-            ];
-
-            let stepIdx = 0;
-            let currentSec = 4;
-
-            function runStep() {
-                if(!isBreathing) return;
-                if(title) title.textContent = steps[stepIdx].text;
-                if(inst) inst.textContent = `${steps[stepIdx].text} profundamente durante 4 segundos`;
-                if(circle) circle.className = `w-44 h-44 rounded-full text-white flex flex-col items-center justify-center font-bold shadow-2xl transition-all duration-1000 ${steps[stepIdx].bg}`;
-
-                currentSec = 4;
-                if(timer) timer.textContent = currentSec + 's';
-
-                const interval = setInterval(() => {
-                    if(!isBreathing) { clearInterval(interval); return; }
-                    currentSec--;
-                    if(timer) timer.textContent = currentSec + 's';
-                    if(currentSec <= 0) {
-                        clearInterval(interval);
-                        stepIdx = (stepIdx + 1) % 4;
-                        runStep();
-                    }
-                }, 1000);
-            }
-            runStep();
-        }
-
-        function stopBoxBreathing() {
-            isBreathing = false;
-            const title = document.getElementById('breath-title');
-            const timer = document.getElementById('breath-timer');
-            const inst = document.getElementById('breath-instruction');
-            const circle = document.getElementById('breath-circle');
-            if(title) title.textContent = "Listo";
-            if(timer) timer.textContent = "4s";
-            if(inst) inst.textContent = "Presiona Iniciar para comenzar el ciclo";
-            if(circle) circle.className = "w-44 h-44 rounded-full bg-teal-600 text-white flex flex-col items-center justify-center font-bold shadow-2xl transition-all duration-1000";
-        }
-
-        // --- Módulo 4: Hábitos ---
-        const habitNames = ["Respiración o oración (5m)", "Caminata o ejercicio (20m)", "Sueño reparador (+7h)", "Contacto positivo con familiar/amigo"];
-
-        function initHabits() {
-            const today = new Date().toDateString();
-            if(appData.habits.date !== today) {
-                appData.habits = { date: today, items: [false, false, false, false] };
-                saveData();
-            }
-            const container = document.getElementById('habits-container');
-            if(!container) return;
-            container.innerHTML = '';
-            habitNames.forEach((name, idx) => {
-                const checked = appData.habits.items[idx];
-                const label = document.createElement('label');
-                label.className = "flex items-center space-x-3 p-3.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition";
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = "checkbox";
-                checkbox.checked = checked;
-                checkbox.onchange = () => toggleHabit(idx);
-                checkbox.className = "w-5 h-5 text-emerald-600 rounded";
-                label.appendChild(checkbox);
-
-                const span = document.createElement('span');
-                span.className = "text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-semibold";
-                span.textContent = name;
-                label.appendChild(span);
-
-                container.appendChild(label);
-            });
-            updateHabitMetrics();
-        }
-
-        function toggleHabit(idx) {
-            appData.habits.items[idx] = !appData.habits.items[idx];
-            saveData();
-            updateHabitMetrics();
-        }
-
-        function updateHabitMetrics() {
-            const completed = appData.habits.items.filter(Boolean).length;
-            const pct = Math.round((completed / habitNames.length) * 100);
-            const streakEl = document.getElementById('habit-streak');
-            const compEl = document.getElementById('habit-completed-count');
-            const pctEl = document.getElementById('habit-pct');
-            
-            if(streakEl) streakEl.textContent = completed === 4 ? '🔥' : '—'; // Muestra un fuego si completa todos
-            if(compEl) compEl.textContent = `${completed}/4`;
-            if(pctEl) pctEl.textContent = `${pct}%`;
-
-            updateDashboardMetrics(); // Sincronizar con el panel de inicio
-        }
-
-        // --- Módulo 6: Plan de Seguridad ---
-        function saveSafetyPlan() {
-            appData.safetyPlan = {
-                warning: document.getElementById('s-warn').value,
-                coping: document.getElementById('s-cope').value,
-                contact: document.getElementById('s-cont').value
-            };
-            saveData();
-            showToast("Plan de seguridad guardado localmente.");
-        }
-
-        function loadSafetyPlan() {
-            if(appData.safetyPlan) {
-                if(document.getElementById('s-warn')) document.getElementById('s-warn').value = appData.safetyPlan.warning || '';
-                if(document.getElementById('s-cope')) document.getElementById('s-cope').value = appData.safetyPlan.coping || '';
-                if(document.getElementById('s-cont')) document.getElementById('s-cont').value = appData.safetyPlan.contact || '';
-            }
-        }
-
-        // --- Módulo 7: reflexión de bienestar y GAD-7 ---
-        const phqQuestions = [
-            "Tener poco interés o placer en hacer las cosas.",
-            "Sentirse desanimado/a, deprimido/a o sin esperanza.",
-            "Problemas para dormir o mantenerse dormido/a, o dormir demasiado.",
-            "Sentirse cansado/a o con poca energía.",
-            "Sin apetito o con comer en exceso.",
-            "Sentir malestar con uno/a mismo/a (sentirse fracasado/a).",
-            "Dificultad para concentrarse en cosas como leer o ver televisión.",
-            "Moverse o hablar tan lento que otros podrían haberlo notado.",
-            "Pregunta sensible de bienestar que debe revisarse en conversación con un profesional."
-        ];
-
-        const gadQuestions = [
-            "Sentirse nervioso/a, ansioso/a o con los nervios de punta.",
-            "No poder dejar de controlar la preocupación.",
-            "Preocuparse demasiado por diferentes cosas.",
-            "Dificultad para relajarse.",
-            "Estar tan inquieto/a que es difícil quedarse quieto/a.",
-            "Fácilmente irritable o molesto/a.",
-            "Sentir miedo como si algo terrible fuera a pasar."
-        ];
-
-        const scaleOpts = ["Nunca (0)", "Varios días (1)", "Más de la mitad (2)", "Casi todos los días (3)"];
-
-        function initScales() {
-            const phqCont = document.getElementById('phq9-questions');
-            if(phqCont) {
-                phqCont.innerHTML = '';
-                phqQuestions.forEach((q, idx) => {
-                    const div = document.createElement('div');
-                    div.className = "p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700";
-                    
-                    const p = document.createElement('p');
-                    p.className = "text-xs sm:text-sm font-semibold text-slate-900 dark:text-white mb-3";
-                    p.textContent = `${idx+1}. ${q}`;
-                    div.appendChild(p);
-
-                    const grid = document.createElement('div');
-                    grid.className = "grid grid-cols-2 sm:grid-cols-4 gap-2";
-                    for(let i=0; i<4; i++) {
-                        const label = document.createElement('label');
-                        label.className = "flex items-center space-x-2 text-xs text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer";
-                        
-                        const radio = document.createElement('input');
-                        radio.type = "radio";
-                        radio.name = `phq_${idx}`;
-                        radio.value = i;
-                        label.appendChild(radio);
-
-                        const span = document.createElement('span');
-                        span.textContent = scaleOpts[i];
-                        label.appendChild(span);
-
-                        grid.appendChild(label);
-                    }
-                    div.appendChild(grid);
-                    phqCont.appendChild(div);
+                db.patients.push({
+                    id: nextId++,
+                    name,
+                    dob: $('p-dob').value,
+                    contact: $('p-contact').value || 'sin-correo@example.com',
+                    phone: $('p-phone').value || '+57 300 0000000',
+                    emergencyContact: $('p-emergency').value,
+                    reason: $('p-reason').value,
+                    background: $('p-background').value,
+                    modality: $('p-mode').value,
+                    status: 'Activo',
+                    date: new Date().toISOString().slice(0,10)
                 });
+                toast('Paciente registrado con éxito.');
             }
+            closeModal();
+            persist();
+        });
+    }
 
-            const gadCont = document.getElementById('gad7-questions');
-            if(gadCont) {
-                gadCont.innerHTML = '';
-                gadQuestions.forEach((q, idx) => {
-                    const div = document.createElement('div');
-                    div.className = "p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700";
-                    
-                    const p = document.createElement('p');
-                    p.className = "text-xs sm:text-sm font-semibold text-slate-900 dark:text-white mb-3";
-                    p.textContent = `${idx+1}. ${q}`;
-                    div.appendChild(p);
+    function editPatient(id) {
+        const p = db.patients.find(x => x.id === id);
+        if(p) openPatientModal(p);
+    }
 
-                    const grid = document.createElement('div');
-                    grid.className = "grid grid-cols-2 sm:grid-cols-4 gap-2";
-                    for(let i=0; i<4; i++) {
-                        const label = document.createElement('label');
-                        label.className = "flex items-center space-x-2 text-xs text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer";
-                        
-                        const radio = document.createElement('input');
-                        radio.type = "radio";
-                        radio.name = `gad_${idx}`;
-                        radio.value = i;
-                        label.appendChild(radio);
-
-                        const span = document.createElement('span');
-                        span.textContent = scaleOpts[i];
-                        label.appendChild(span);
-
-                        grid.appendChild(label);
-                    }
-                    div.appendChild(grid);
-                    gadCont.appendChild(div);
-                });
-            }
+    function togglePatientStatus(id) {
+        const p = db.patients.find(x => x.id === id);
+        if(p) {
+            p.status = p.status === 'Activo' ? 'Inactivo' : 'Activo';
+            persist();
+            toast(`Estado del paciente cambiado a ${p.status}.`);
         }
+    }
 
-        function switchScaleTab(scale) {
-            if(scale === 'phq9') {
-                document.getElementById('scale-phq9-container').classList.remove('hidden');
-                document.getElementById('scale-gad7-container').classList.add('hidden');
-                document.getElementById('scale-tab-phq9').className = "pb-3.5 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400 transition";
-                document.getElementById('scale-tab-gad7').className = "pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 transition";
-            } else {
-                document.getElementById('scale-gad7-container').classList.remove('hidden');
-                document.getElementById('scale-phq9-container').classList.add('hidden');
-                document.getElementById('scale-tab-gad7').className = "pb-3.5 text-sm font-bold border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 transition";
-                document.getElementById('scale-tab-phq9').className = "pb-3.5 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 transition";
-            }
+    function deletePatient(id) {
+        if(confirm('¿Estás seguro de eliminar este paciente y sus referencias?')) {
+            db.patients = db.patients.filter(x => x.id !== id);
+            persist();
+            toast('Paciente eliminado.');
         }
+    }
 
-        function calculatePHQ9() {
-            let total = 0, answered = 0;
-            for(let i=0; i<9; i++) {
-                const selected = document.querySelector(`input[name="phq_${i}"]:checked`);
-                if(selected) { total += Number(selected.value); answered++; }
-            }
-            const res = document.getElementById('phq9-result');
-            if(answered !== 9) { res.textContent = `Faltan ${9-answered} respuestas. Completa todas las preguntas para obtener el total.`; res.className = 'mt-6 p-6 rounded-2xl border bg-amber-50 text-amber-900 border-amber-200'; res.classList.remove('hidden'); return; }
-            res.className = 'mt-6 p-6 rounded-2xl border bg-slate-50 text-slate-800 border-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700';
-            res.textContent = `Suma de respuestas: ${total} / 27. Esta pantalla no debe interpretarse como diagnóstico ni como resultado clínico validado. La escala completa y su interpretación requieren revisión profesional; si algo te preocupa, conversa con una persona adulta de confianza y un profesional cualificado.`;
-            res.classList.remove('hidden');
+    function openAppointmentModal() {
+        if(!db.patients.length) return toast('Primero debes registrar al menos un paciente.');
+        openModal('Programar Cita Terapéutica', `
+            <div class="formgrid">
+                <div class="field full"><label>Paciente</label><select id="a-patient">${patientOptions()}</select></div>
+                <div class="field"><label>Fecha</label><input id="a-date" type="date" value="2026-11-06"></div>
+                <div class="field"><label>Hora</label><input id="a-time" type="time" value="11:00"></div>
+                <div class="field"><label>Duración (min)</label><input id="a-duration" type="number" value="60" min="15" step="15"></div>
+                <div class="field"><label>Tipo de Cita</label><select id="a-type"><option>Primera entrevista</option><option>Seguimiento</option><option>Orientación pastoral</option></select></div>
+                <div class="field"><label>Modalidad</label><select id="a-mode"><option>Virtual (WhatsApp / Video)</option><option>Presencial (Consultorio)</option></select></div>
+            </div>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Programar Cita</button></div>
+        `, () => {
+            const date = $('a-date').value;
+            const time = $('a-time').value;
+            const duration = Number($('a-duration').value) || 60;
+            
+            // Verificación avanzada de solapamientos horarios
+            const [newH, newM] = time.split(':').map(Number);
+            const newStart = newH * 60 + newM;
+            const newEnd = newStart + duration;
+
+            const conflict = db.appointments.some(a => {
+                if(a.date !== date) return false;
+                const [ah, am] = (a.time || '00:00').split(':').map(Number);
+                const aDur = Number(a.duration || 60);
+                const aStart = ah * 60 + am;
+                const aEnd = aStart + aDur;
+                return (newStart < aEnd && newEnd > aStart);
+            });
+
+            if(conflict) return toast('⚠️ Conflicto de horario: Ya existe una cita programada en ese intervalo.');
+
+            db.appointments.push({
+                id: nextId++,
+                patient: Number($('a-patient').value),
+                date,
+                time,
+                duration,
+                type: $('a-type').value,
+                modality: $('a-mode').value,
+                status: 'Confirmada'
+            });
+            closeModal();
+            persist();
+            toast('Cita programada correctamente sin solapamiento.');
+        });
+    }
+
+    function deleteAppointment(id) {
+        if(confirm('¿Eliminar esta cita de la agenda?')) {
+            db.appointments = db.appointments.filter(x => x.id !== id);
+            persist();
+            toast('Cita eliminada.');
         }
+    }
 
-        function calculateGAD7() {
-            let total = 0, answered = 0;
-            for(let i=0; i<7; i++) {
-                const selected = document.querySelector(`input[name="gad_${i}"]:checked`);
-                if(selected) { total += Number(selected.value); answered++; }
-            }
-            const res = document.getElementById('gad7-result');
-            if(answered !== 7) { res.textContent = `Faltan ${7-answered} respuestas. Completa todas las preguntas.`; res.className = 'mt-6 p-6 rounded-2xl border bg-amber-50 text-amber-900 border-amber-200'; res.classList.remove('hidden'); return; }
-            let interp = total <= 4 ? 'Puntuación en el rango inferior de esta escala.' : total <= 9 ? 'Puntuación en rango leve.' : total <= 14 ? 'Puntuación en rango moderado.' : 'Puntuación en rango alto.';
-            res.className = 'mt-6 p-6 rounded-2xl border bg-slate-50 text-slate-800 border-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700';
-            res.textContent = `Puntuación GAD-7: ${total} / 21. ${interp} Es un instrumento de tamizaje, no un diagnóstico. La interpretación depende del contexto y debe revisarla un profesional. Si el malestar interfiere con tu vida diaria, busca apoyo de un adulto de confianza y un profesional cualificado.`;
-            res.classList.remove('hidden');
+    function openSessionModal() {
+        if(!db.patients.length) return toast('Primero debes registrar al menos un paciente.');
+        openModal('Registrar Nota de Sesión (SOAP)', `
+            <div class="formgrid">
+                <div class="field"><label>Paciente</label><select id="s-patient">${patientOptions()}</select></div>
+                <div class="field"><label>Fecha</label><input id="s-date" type="date" value="2026-10-31"></div>
+                <div class="field full"><label>Subjetivo (S) - Lo que reporta el consultante</label><textarea id="s-soapS" placeholder="Opiniones, síntomas referidos..."></textarea></div>
+                <div class="field full"><label>Objetivo (O) - Observación clínica profesional</label><textarea id="s-soapO" placeholder="Conducta observable, afecto, tono..."></textarea></div>
+                <div class="field full"><label>Análisis (A) - Hipótesis / Evaluación TCC</label><textarea id="s-soapA" placeholder="Conceptualización del caso..."></textarea></div>
+                <div class="field full"><label>Plan (P) - Tareas y próximos pasos</label><textarea id="s-soapP" placeholder="Ej. Ejercicios de respiración y autorregulación..."></textarea></div>
+            </div>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar Nota SOAP</button></div>
+        `, () => {
+            db.sessions.unshift({
+                id: nextId++,
+                patient: Number($('s-patient').value),
+                date: $('s-date').value,
+                soapS: $('s-soapS').value,
+                soapO: $('s-soapO').value,
+                soapA: $('s-soapA').value,
+                soapP: $('s-soapP').value
+            });
+            closeModal();
+            persist();
+            toast('Nota SOAP guardada con éxito.');
+        });
+    }
+
+    function openPlanModal() {
+        if(!db.patients.length) return toast('Primero debes registrar al menos un paciente.');
+        openModal('Crear Plan de Trabajo Terapéutico', `
+            <div class="formgrid">
+                <div class="field"><label>Paciente</label><select id="pl-patient">${patientOptions()}</select></div>
+                <div class="field"><label>Fecha de Revisión</label><input id="pl-date" type="date" value="2026-11-20"></div>
+                <div class="field full"><label>Meta Observable</label><input id="pl-goal" placeholder="Ej. Reducir frecuencia de episodios de ansiedad"></div>
+                <div class="field full"><label>Estrategias / Actividades</label><textarea id="pl-strategy" placeholder="Técnicas y pautas acordadas..."></textarea></div>
+                <div class="field full"><label>Indicador de Éxito</label><textarea id="pl-measure" placeholder="Cómo se evaluará el progreso..."></textarea></div>
+            </div>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar Plan</button></div>
+        `, () => {
+            if(!$('pl-goal').value.trim()) return toast('La meta es obligatoria.');
+            db.plans.unshift({
+                id: nextId++,
+                patient: Number($('pl-patient').value),
+                goal: $('pl-goal').value,
+                strategy: $('pl-strategy').value,
+                measure: $('pl-measure').value,
+                review: $('pl-date').value,
+                status: 'En curso'
+            });
+            closeModal();
+            persist();
+            toast('Plan de trabajo creado con éxito.');
+        });
+    }
+
+    function openConsentModal() {
+        if(!db.patients.length) return toast('Primero debes registrar al menos un paciente.');
+        openModal('Registrar Consentimiento Informado (Ley 1581)', `
+            <div class="field"><label>Paciente</label><select id="c-patient">${patientOptions()}</select></div>
+            <div class="field" style="margin-top:12px"><label>Fecha de Aceptación</label><input id="c-date" type="date" value="2026-10-31"></div>
+            <p class="notice" style="margin-top:12px">El paciente acepta los términos de confidencialidad, objetivos terapéuticos y tratamiento de datos personales conforme a la Ley 1581.</p>
+            <label class="checkline"><input type="checkbox" id="c-check" checked> Confirmo que el paciente ha leído y aceptado formalmente el consentimiento informado.</label>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Registrar Consentimiento</button></div>
+        `, () => {
+            if(!$('c-check').checked) return toast('Debes confirmar la aceptación.');
+            db.consents.unshift({
+                id: nextId++,
+                patient: Number($('c-patient').value),
+                date: $('c-date').value,
+                version: 'V6.0-Ley1581',
+                status: 'Aceptado y Firmado'
+            });
+            closeModal();
+            persist();
+            toast('Consentimiento informado registrado.');
+        });
+    }
+
+    function openFinanceModal() {
+        openModal('Registrar Movimiento Financiero', `
+            <div class="formgrid">
+                <div class="field"><label>Tipo</label><select id="f-kind"><option>Ingreso</option><option>Gasto</option></select></div>
+                <div class="field"><label>Fecha</label><input id="f-date" type="date" value="2026-10-31"></div>
+                <div class="field full"><label>Concepto</label><input id="f-concept" placeholder="Ej. Honorarios por sesión individual"></div>
+                <div class="field full"><label>Valor en COP</label><input id="f-amount" type="number" min="1000" value="120000"></div>
+            </div>
+            <div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar Movimiento</button></div>
+        `, () => {
+            const amount = Number($('f-amount').value);
+            if(amount <= 0) return toast('Ingresa un valor válido.');
+            db.finance.unshift({
+                id: nextId++,
+                date: $('f-date').value,
+                kind: $('f-kind').value,
+                concept: $('f-concept').value || 'Movimiento del consultorio',
+                amount
+            });
+            closeModal();
+            persist();
+            toast('Movimiento financiero registrado.');
+        });
+    }
+
+    function deleteRecord(collection, id) {
+        if(confirm('¿Estás seguro de eliminar este registro?')) {
+            db[collection] = db[collection].filter(x => x.id !== id);
+            persist();
+            toast('Registro eliminado.');
         }
+    }
 
-        // --- Módulo 8: Asistente Local ---
-        function sendAssistantMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-input');
-            const q = input.value.trim();
-            if(!q) return;
+    // --- Tamizaje PHQ-9 & GAD-7 ---
+    const phqQuestions = [
+        "Tener poco interés o placer en hacer las cosas.",
+        "Sentirse desanimado/a, deprimido/a o sin esperanza.",
+        "Problemas para dormir o mantenerse dormido/a, o dormir demasiado.",
+        "Sentirse cansado/a o con poca energía.",
+        "Sin apetito o con comer en exceso.",
+        "Sentir malestar con uno/a mismo/a (sentirse fracasado/a).",
+        "Dificultad para concentrarse en cosas como leer o ver televisión.",
+        "Moverse o hablar tan lento que otros podrían haberlo notado.",
+        "Pensamientos de que estarías mejor muerto/a o de lastimarte."
+    ];
 
-            const chatWin = document.getElementById('chat-messages');
+    const gadQuestions = [
+        "Sentirse nervioso/a, ansioso/a o con los nervios de punta.",
+        "No poder dejar de controlar la preocupación.",
+        "Preocuparse demasiado por diferentes cosas.",
+        "Dificultad para relajarse.",
+        "Estar tan inquieto/a que es difícil quedarse quieto/a.",
+        "Fácilmente irritable o molesto/a.",
+        "Sentir miedo como si algo terrible fuera a pasar."
+    ];
 
-            // User msg
-            const userMsg = document.createElement('div');
-            userMsg.className = "flex items-start space-x-3 justify-end";
-            userMsg.innerHTML = `<div class="bg-brand-600 text-white p-4 rounded-2xl max-w-lg text-xs sm:text-sm leading-relaxed">${escapeHTML(q)}</div><div class="w-8 h-8 rounded-xl bg-slate-700 text-white flex items-center justify-center shrink-0 text-xs font-bold">TÚ</div>`;
-            chatWin.appendChild(userMsg);
+    const scaleOpts = ["Nunca (0)", "Varios días (1)", "Más de la mitad (2)", "Casi todos los días (3)"];
 
-            input.value = '';
-            chatWin.scrollTop = chatWin.scrollHeight;
-
-            // Generate Local Rule Response
-            setTimeout(() => {
-                let reply = "Comprendo tu inquietud. En JAIRRESTAURA V4 te recomendamos utilizar nuestros módulos de respiración o diario ABC. Si necesitas consejería personalizada, puedes escribir directamente al Pastor y Psicólogo Jair al WhatsApp +57 312 471 0702.";
-                const lower = q.toLowerCase();
-                if(lower.includes('ansiedad') || lower.includes('ansioso')) {
-                    reply = "La ansiedad es una respuesta de alerta. Te sugiero realizar el ejercicio de Respiración de Caja (Módulo 3) y registrar tus pensamientos en el Diario ABC (Módulo 2).";
-                } else if(lower.includes('depres') || lower.includes('triste')) {
-                    reply = "Lamento que te sientas así hoy. Recuerda que no estás solo. Te invitamos a registrar cómo te has sentido en el módulo de bienestar y contactar al Pastor y Psicólogo Jair.";
-                } else if(lower.includes('sueño') || lower.includes('dormir')) {
-                    reply = "Una buena higiene del sueño implica apagar pantallas 1 hora antes de dormir y mantener horarios constantes. Revisa las guías psicoeducativas (Módulo 5).";
+    function initScales() {
+        const phqCont = $('phq9-questions');
+        if(phqCont) {
+            phqCont.innerHTML = '';
+            phqQuestions.forEach((q, idx) => {
+                let html = `<div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <p class="text-xs font-semibold mb-2">${idx+1}. ${q}</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">`;
+                for(let i=0; i<4; i++) {
+                    html += `<label class="flex items-center space-x-2 text-xs bg-white dark:bg-slate-900 p-2 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="radio" name="phq_${idx}" value="${i}" ${i===0?'checked':''}>
+                        <span>${scaleOpts[i]}</span>
+                    </label>`;
                 }
-
-                const botMsg = document.createElement('div');
-                botMsg.className = "flex items-start space-x-3";
-                botMsg.innerHTML = `<div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center shrink-0 text-xs font-bold">JR</div><div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl max-w-lg text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed">${reply}</div>`;
-                chatWin.appendChild(botMsg);
-                chatWin.scrollTop = chatWin.scrollHeight;
-            }, 600);
+                html += `</div></div>`;
+                phqCont.innerHTML += html;
+            });
         }
 
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
+        const gadCont = $('gad7-questions');
+        if(gadCont) {
+            gadCont.innerHTML = '';
+            gadQuestions.forEach((q, idx) => {
+                let html = `<div class="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <p class="text-xs font-semibold mb-2">${idx+1}. ${q}</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">`;
+                for(let i=0; i<4; i++) {
+                    html += `<label class="flex items-center space-x-2 text-xs bg-white dark:bg-slate-900 p-2 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="radio" name="gad_${idx}" value="${i}" ${i===0?'checked':''}>
+                        <span>${scaleOpts[i]}</span>
+                    </label>`;
+                }
+                html += `</div></div>`;
+                gadCont.innerHTML += html;
+            });
         }
+    }
 
-        // --- Módulo 9: Export & Clear ---
-        function exportUserData() {
-            const payload = { app: 'JAIRRESTAURA', version: 4, exportedAt: new Date().toISOString(), data: appData };
-            const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
-            const url = URL.createObjectURL(blob); const a = document.createElement('a');
-            a.href = url; a.download = 'jairrestaura_v4_respaldo_' + new Date().toISOString().slice(0,10) + '.json';
-            document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showToast('Respaldo JSON preparado. Guárdalo en un lugar privado.');
+    function switchScaleTab(scale) {
+        if(scale === 'phq9') {
+            $('scale-phq9-container').classList.remove('hidden');
+            $('scale-gad7-container').classList.add('hidden');
+            $('scale-tab-phq9').className = "pb-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400";
+            $('scale-tab-gad7').className = "pb-3 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800";
+        } else {
+            $('scale-gad7-container').classList.remove('hidden');
+            $('scale-phq9-container').classList.add('hidden');
+            $('scale-tab-gad7').className = "pb-3 text-sm font-bold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400";
+            $('scale-tab-phq9').className = "pb-3 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800";
         }
-        async function importUserData() {
-            const input = document.getElementById('backup-file'); const file = input?.files?.[0];
-            if(!file) { showToast('Selecciona primero un archivo JSON.'); return; }
+    }
+
+    function calculatePHQ9() {
+        const patientId = $('phq-patient').value;
+        if(!patientId) return toast('Selecciona un paciente.');
+        let total = 0;
+        for(let i=0; i<9; i++) {
+            const radios = document.getElementsByName(`phq_${i}`);
+            for(let r of radios) { if(r.checked) total += parseInt(r.value); }
+        }
+        let interp = total <= 4 ? "Mínima" : total <= 9 ? "Leve" : total <= 14 ? "Moderada" : "Moderadamente severa / Severa";
+        const res = $('phq9-result');
+        res.className = `mt-4 p-4 rounded-xl border bg-brand-50 dark:bg-brand-950/40 text-brand-900 dark:text-brand-200`;
+        res.innerHTML = `<strong>Resultado PHQ-9: ${total} / 27</strong><p class='text-xs mt-1'>Interpretación preliminar: ${interp}. Registrado en expediente.</p>`;
+        res.classList.remove('hidden');
+        toast('Tamizaje PHQ-9 calculado.');
+    }
+
+    function calculateGAD7() {
+        const patientId = $('gad-patient').value;
+        if(!patientId) return toast('Selecciona un paciente.');
+        let total = 0;
+        for(let i=0; i<7; i++) {
+            const radios = document.getElementsByName(`gad_${i}`);
+            for(let r of radios) { if(r.checked) total += parseInt(r.value); }
+        }
+        let interp = total <= 4 ? "Mínima" : total <= 9 ? "Leve" : total <= 14 ? "Moderada" : "Severa";
+        const res = $('gad7-result');
+        res.className = `mt-4 p-4 rounded-xl border bg-indigo-50 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200`;
+        res.innerHTML = `<strong>Resultado GAD-7: ${total} / 21</strong><p class='text-xs mt-1'>Interpretación preliminar: ${interp}. Registrado en expediente.</p>`;
+        res.classList.remove('hidden');
+        toast('Tamizaje GAD-7 calculado.');
+    }
+
+    function exportJSON() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ app: 'JAIRRESTAURA V6.0 Enterprise', generatedAt: new Date().toISOString(), data: db }, null, 2));
+        const a = document.createElement('a');
+        a.href = dataStr;
+        a.download = 'jairrestaura_v6_enterprise_backup.json';
+        a.click();
+        URL.revokeObjectURL(a.href);
+        toast('Copia de seguridad JSON descargada.');
+    }
+
+    function importJSON(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
             try {
-                const parsed = JSON.parse(await file.text()); const candidate = parsed?.data ?? parsed;
-                if(!isValidData(candidate)) throw new Error('Estructura no reconocida');
-                if(!confirm('Se reemplazarán los datos actuales de V4 por el respaldo seleccionado. ¿Deseas continuar?')) return;
-                appData = { ...defaultData(), ...candidate, goals: Array.isArray(candidate.goals) ? candidate.goals : [] };
-                saveData(); renderMoodHistory(); renderThoughts(); initHabits(); loadSafetyPlan(); updateDashboardMetrics();
-                showToast('Respaldo importado. Verifica los registros restaurados.');
-            } catch(err) { showToast('Archivo inválido o incompatible. No se modificaron los datos.'); console.error(err); }
-        }
-
-        function clearUserData() {
-            if(confirm("¿Estás seguro/a de borrar todos tus datos almacenados localmente? Esta acción no se puede deshacer.")) {
-                localStorage.removeItem(STORAGE_KEY);
-                appData = defaultData();
-                renderMoodHistory();
-                renderThoughts();
-                initHabits();
-                loadSafetyPlan();
-                updateDashboardMetrics();
-                showToast("Datos V4 borrados. El respaldo V3 original permanece intacto.");
+                const parsed = JSON.parse(e.target.result);
+                if(parsed && parsed.data) {
+                    if(confirm('¿Estás seguro de restaurar este respaldo? Se fusionará/reemplazará la información actual.')) {
+                        db = parsed.data;
+                        persist();
+                        toast('Respaldo restaurado correctamente.');
+                    }
+                } else {
+                    toast('El archivo no tiene una estructura válida de respaldo.');
+                }
+            } catch(err) {
+                toast('Error al leer el archivo JSON.');
+                console.error(err);
             }
-        }
-
-        // --- Init on Load ---
-        window.onload = function() {
-            renderMoodHistory();
-            renderThoughts();
-            initHabits();
-            loadSafetyPlan();
-            initScales();
-            updateDashboardMetrics();
         };
-    </script>
+        reader.readAsText(file);
+    }
+
+    function clearAllData() {
+        if(confirm('¿Estás seguro/a de restablecer los datos de demostración?')) {
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        }
+    }
+
+    function sendAIMessage() {
+        const input = $('ai-input');
+        const text = input.value.trim();
+        if(!text) return;
+        const chat = $('chat-messages');
+        chat.innerHTML += `<div class="p-3.5 bg-teal-50 dark:bg-teal-950/40 rounded-2xl text-xs ml-auto max-w-xl text-right"><strong>Tú:</strong> ${safe(text)}</div>`;
+        input.value = '';
+
+        setTimeout(() => {
+            let reply = "He procesado tu consulta clínica. Te sugiero revisar los objetivos del plan de trabajo y verificar el registro de tareas asignadas.";
+            if(text.toLowerCase().includes('ansiedad')) {
+                reply = "Para casos de ansiedad, la TCC sugiere validar pensamientos automáticos negativos (PAN) y practicar respiración diafragmática 4-4-4-4.";
+            } else if(text.toLowerCase().includes('resumen')) {
+                reply = `Resumen actual: ${db.patients.length} pacientes registrados, ${db.appointments.length} citas programadas y ${db.sessions.length} sesiones documentadas.`;
+            }
+            chat.innerHTML += `<div class="p-3.5 bg-slate-100 dark:bg-slate-800 rounded-2xl text-xs max-w-xl"><strong>Asistente IA V6.0:</strong> ${reply}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }, 600);
+    }
+
+    initScales();
+    render();
+</script>
 </body>
 </html>
