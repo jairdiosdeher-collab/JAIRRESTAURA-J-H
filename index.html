@@ -673,8 +673,15 @@
         function updateDashboardMetrics() {
             const moodCount = document.getElementById('dash-mood-count');
             const thoughtCount = document.getElementById('dash-thought-count');
+            const streakCount = document.getElementById('dash-streak-count');
+
             if(moodCount) moodCount.textContent = appData.moods.length;
             if(thoughtCount) thoughtCount.textContent = appData.thoughts.length;
+            
+            if(streakCount) {
+                const completed = appData.habits.items.filter(Boolean).length;
+                streakCount.textContent = completed + '/4';
+            }
         }
 
         // --- Módulo 1: Ánimo ---
@@ -903,9 +910,12 @@
             const streakEl = document.getElementById('habit-streak');
             const compEl = document.getElementById('habit-completed-count');
             const pctEl = document.getElementById('habit-pct');
-            if(streakEl) streakEl.textContent = '—';
+            
+            if(streakEl) streakEl.textContent = completed === 4 ? '🔥' : '—'; // Muestra un fuego si completa todos
             if(compEl) compEl.textContent = `${completed}/4`;
             if(pctEl) pctEl.textContent = `${pct}%`;
+
+            updateDashboardMetrics(); // Sincronizar con el panel de inicio
         }
 
         // --- Módulo 6: Plan de Seguridad ---
