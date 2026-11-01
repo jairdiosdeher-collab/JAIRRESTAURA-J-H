@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JAIRRESTAURA V7.0 · Consultorio Digital</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter', 'sans-serif'] },
+                colors: {
+                    brand: {
+                        50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a'
+                    }
+                }
+            }
+        }
+    }
+</script>
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #10253f; --teal: #0f9b8e; --bg: #f3f6fa; --card: #fff;
+        --ink: #172638; --muted: #68788b; --line: #e3eaf1; --shadow: 0 12px 32px #19345112;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+    .side{background:linear-gradient(180deg,var(--navy),#0b1b2d);color:#eaf3fa;padding:24px 16px;display:flex;flex-direction:column;gap:20px}
+    .brand{padding:8px 10px 20px;border-bottom:1px solid #ffffff20}
+    .brand-mark{width:44px;height:44px;border-radius:14px;background:var(--teal);display:grid;place-items:center;font-weight:900;font-size:18px;margin-bottom:12px;color:white}
+    .brand h1{font-size:20px;letter-spacing:.5px;margin:0}
+    .brand p{color:#a9c4d4;font-size:10px;letter-spacing:1.2px;margin:3px 0}
+    .nav{display:grid;gap:6px}
+    .nav button{border:0;background:transparent;color:#c6d5e1;text-align:left;padding:11px 12px;border-radius:10px;display:flex;gap:12px;align-items:center;transition:all .15s}
+    .nav button:hover,.nav button.active{background:#ffffff17;color:#fff}
+    .nav i{font-size:15px;width:20px;text-align:center}
+    .side-foot{margin-top:auto;color:#9bb2c4;font-size:11px;padding:10px}
+    .main{min-width:0}
+    .top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:4}
+    .crumb{color:var(--muted);font-size:12px}
+    .top strong{font-size:14px}
+    .top-actions{display:flex;gap:10px;align-items:center}
+    .avatar{background:#e1f2ef;color:#08796f;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800}
+    .content{padding:28px;max-width:1440px;margin:auto}
+    .notice{padding:12px 15px;border:1px solid #f0d99d;background:#fff8e8;color:#71551c;border-radius:12px;font-size:12px;margin-bottom:22px}
+    .hero{background:linear-gradient(120deg,#10253f,#174e5a);color:#fff;border-radius:18px;padding:28px 30px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:var(--shadow)}
+    .eyebrow{color:#9ce1d7;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:1.5px}
+    .hero h2{font-size:27px;line-height:1.2;margin:7px 0}
+    .hero p{color:#c7d9e5;margin:0;max-width:690px}
+    .hero-mark{font-size:54px;opacity:.8}
+    .grid{display:grid;gap:16px}
+    .stats{grid-template-columns:repeat(4,minmax(0,1fr));margin:20px 0}
+    .stat,.card{background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
+    .stat{padding:17px;display:flex;gap:13px;align-items:center}
+    .stat-icon{width:42px;height:42px;border-radius:12px;background:#e9f5f4;color:#087d73;display:grid;place-items:center;font-size:19px}
+    .stat small{display:block;color:var(--muted);font-size:11px}
+    .stat strong{font-size:25px}
+    .two{grid-template-columns:1.35fr 1fr}
+    .card{padding:20px;margin-bottom:16px}
+    .card h3{margin:0 0 4px;font-size:16px}
+    .sub{color:var(--muted);font-size:12px;margin:0 0 17px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+    .section-head h2{font-size:22px;margin:0}
+    .section-head p{color:var(--muted);margin:3px 0 0;font-size:12px}
+    .btn{border:0;background:var(--teal);color:white;padding:10px 14px;border-radius:9px;font-weight:700;font-size:12px;transition:filter .1s}
+    .btn:hover{filter:brightness(.95)}
+    .btn.secondary{background:#eaf1f6;color:#25445f}
+    .btn.outline{background:white;border:1px solid var(--line);color:#31485e}
+    .btn.danger{background:#fff0ef;color:#a53f3c}
+    .btn.small{padding:7px 10px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .quick{grid-template-columns:repeat(3,1fr)}
+    .quick .card{padding:17px;cursor:pointer;transition:transform .15s}
+    .quick .card:hover{border-color:#9bd5cd;transform:translateY(-1px)}
+    .quick .ico{font-size:22px;color:var(--teal)}
+    .quick h3{margin:8px 0 3px}
+    .quick p{font-size:11px;color:var(--muted);margin:0}
+    .view{display:none}
+    .view.active{display:block}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{text-align:left;color:var(--muted);font-weight:700;background:#f7f9fb}
+    td,th{padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+    .pill{display:inline-block;border-radius:30px;padding:4px 8px;font-size:10px;font-weight:800;background:#e7f6f2;color:#08796f}
+    .pill.amber{background:#fff4dc;color:#8b641b}
+    .formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .field{display:grid;gap:5px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:11px;color:#526477;font-weight:800}
+    .field input,.field select,.field textarea{width:100%;border:1px solid #d9e2eb;border-radius:9px;padding:10px 11px;background:white;color:var(--ink);outline:none}
+    .field textarea{min-height:82px;resize:vertical}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px #0f9b8e18}
+    .empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed #ccd7e1;border-radius:12px}
+    .kpi{font-size:26px;font-weight:800}
+    .muted{color:var(--muted)}
+    .split{display:flex;gap:14px;flex-wrap:wrap}
+    .split>*{flex:1;min-width:180px}
+    .toast{position:fixed;right:22px;bottom:22px;background:#142c43;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:9}
+    .modal{position:fixed;inset:0;background:#0b1d2d88;display:none;align-items:center;justify-content:center;padding:20px;z-index:8}
+    .modal.open{display:flex}
+    .modal-box{background:white;border-radius:16px;padding:22px;max-width:600px;width:100%;max-height:90vh;overflow:auto}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+    .modal-head h3{margin:0}
+    .close{border:0;background:#edf2f6;border-radius:8px;padding:7px 10px}
+    .bar{height:9px;background:#e9eef3;border-radius:9px;overflow:hidden}
+    .bar span{display:block;height:100%;background:var(--teal);width:0}
+    .footnote{font-size:10px;color:#718194;margin-top:18px}
+    .whatsapp-float{animation:pulse-wa 2s infinite}
+    @keyframes pulse-wa {
+        0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+        70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+    @media(max-width:950px){
+        .shell{grid-template-columns:1fr}.side{padding:12px 14px;gap:8px}.brand{display:flex;align-items:center;gap:12px;padding:4px 8px 10px}.brand-mark{margin:0}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;font-size:11px;padding:9px}.side-foot{display:none}.top{padding:0 16px}.content{padding:18px}.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}
+    }
+</style>
+
+<style id="jairrestaura-v5-premium">
+:root{--navy:#0b1830;--teal:#0b8f83;--bg:#f4f7fb;--card:#fff;--ink:#14253d;--muted:#64748b;--line:#e1e8f0;--shadow:0 10px 28px rgba(15,35,65,.055)}
+body{background:radial-gradient(ellipse at 82% -10%,#e1f4f1 0,transparent 34%),var(--bg);letter-spacing:-.012em}
+.shell{grid-template-columns:270px minmax(0,1fr)}
+.side{background:linear-gradient(165deg,#0a1830 0%,#102b46 58%,#0b3b43 130%);padding:26px 17px;box-shadow:8px 0 35px #0c20300a}
+.brand-mark{background:linear-gradient(145deg,#19b6a4,#08776e);box-shadow:0 8px 22px #0fb6a433;border:1px solid #ffffff30}
+.brand h1{letter-spacing:.08em;font-size:18px;font-weight:800}
+.nav{gap:5px}.nav button{padding:12px 13px;border:1px solid transparent;transition:background .18s,border-color .18s,transform .18s}.nav button:hover{transform:translateX(2px);background:#ffffff0d}.nav button.active{background:linear-gradient(100deg,#ffffff20,#ffffff08);border-color:#ffffff15;box-shadow:inset 3px 0 #5ee0ce;color:#fff}
+.top{height:78px;padding:0 clamp(16px,3vw,38px);background:#ffffffeb;backdrop-filter:blur(16px);box-shadow:0 4px 20px #12284206}
+.crumb{font-size:11px;letter-spacing:.035em}.top>div>strong{display:inline-block;margin-top:4px;font-size:15px;letter-spacing:-.025em}
+.content{padding:clamp(16px,2.6vw,34px);max-width:1600px}
+.notice{border-radius:14px;padding:14px 16px;line-height:1.65;border-color:#f0dca9;box-shadow:0 4px 14px #b98a1c08}
+.hero{position:relative;overflow:hidden;border:1px solid #ffffff15;border-radius:24px;padding:clamp(24px,3.2vw,42px);background:radial-gradient(circle at 95% 12%,#4cbcaf55,transparent 25%),linear-gradient(118deg,#0b1b34 0%,#123c50 65%,#0c625d 140%);box-shadow:0 20px 48px #0b29401b}
+.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #ffffff13;border-radius:50%;right:-95px;bottom:-190px;box-shadow:0 0 0 28px #ffffff05,0 0 0 58px #ffffff04;pointer-events:none}
+.hero h2{font-size:clamp(25px,3vw,36px);letter-spacing:-.045em;font-weight:800;max-width:740px}.hero p{line-height:1.75;font-size:14px;max-width:720px}.eyebrow{letter-spacing:.18em;font-size:10px}.hero-mark{font-size:clamp(42px,5vw,70px);color:#a4eee3;filter:drop-shadow(0 8px 20px #0002)}
+.stat,.card{border-color:#e5ebf2;border-radius:18px;box-shadow:0 5px 20px rgba(15,35,65,.035);transition:box-shadow .2s,border-color .2s,transform .2s}.stat{padding:19px;min-height:100px}.stat:hover,.card:hover{box-shadow:0 12px 28px rgba(15,35,65,.07);border-color:#d6e6e7}.stat-icon{border-radius:14px;background:linear-gradient(145deg,#e5f7f4,#eff8fc);width:45px;height:45px}.stat strong{font-size:27px;letter-spacing:-.05em}.stat small{font-weight:600;letter-spacing:.005em}
+.card{padding:clamp(16px,2vw,23px)}.card h3{font-size:15px;letter-spacing:-.02em}.section-head h2{font-weight:800;letter-spacing:-.035em}.sub{line-height:1.55}.btn{border-radius:10px;padding:11px 15px;background:linear-gradient(135deg,#0b9c8e,#08776f);box-shadow:0 5px 12px #0b8f831b;transition:transform .16s,filter .16s,box-shadow .16s}.btn:hover{transform:translateY(-1px);box-shadow:0 8px 16px #0b8f8322}.btn.secondary{box-shadow:none;background:#eaf2f7;color:#27435c}.btn.outline{box-shadow:none}.btn.danger{box-shadow:none}
+.quick .card{min-height:140px;border-radius:16px}.quick .ico{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#e8f7f4;margin-bottom:10px}.quick h3{font-size:14px}.quick p{font-size:12px;line-height:1.6}
+.table-wrap{border:1px solid var(--line);border-radius:13px}table{font-size:12px}th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:#f7f9fc}td,th{padding:13px 12px}tbody tr:hover{background:#f8fbfd}
+.pill{letter-spacing:.015em}.field label{font-size:11px;letter-spacing:.015em}.field input,.field select,.field textarea{border-color:#dce5ed;border-radius:10px;padding:11px 12px;transition:border-color .15s,box-shadow .15s}.field input:focus,.field textarea:focus,.field select:focus{border-color:#0b9c8e;box-shadow:0 0 0 4px #0b9c8e12}
+.modal-box{border:1px solid #ffffff;box-shadow:0 25px 90px #07172c55;border-radius:20px;padding:25px}.toast{border:1px solid #ffffff1a;box-shadow:0 16px 38px #07172c30}
+button:focus-visible,a:focus-visible,[role=button]:focus-visible{outline:3px solid #36bfb0;outline-offset:3px}
+@media(max-width:950px){.shell{grid-template-columns:1fr}.side{padding:12px 14px 10px}.brand{padding-bottom:10px}.nav{padding:3px 0 5px;scrollbar-width:thin}.nav button{border-radius:9px}.top{height:auto;min-height:72px}.content{padding:15px}.hero{border-radius:18px}.hero-mark{display:none}.stats{gap:10px}.stat{padding:13px;gap:9px}.stat strong{font-size:23px}}
+@media(max-width:520px){.top-actions .pill,.top-actions .avatar{display:none}.stats{grid-template-columns:1fr 1fr}.stat{align-items:flex-start;flex-direction:column}.stat-icon{width:36px;height:36px}.hero h2{font-size:25px}.hero .actions{align-items:stretch;flex-direction:column}.hero .btn{width:100%}.quick{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal{padding:10px}.modal-box{padding:17px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+
+<div class="shell">
+    <!-- Sidebar Navigation -->
+    <aside class="side">
+        <div class="brand">
+            <div class="brand-mark">JR</div>
+            <div>
+                <h1>JAIRRESTAURA</h1>
+                <p>ESCUCHA · ORIENTACIÓN · BIENESTAR</p>
+            </div>
+        </div>
+        <nav class="nav" id="nav">
+            <button class="active" data-view="inicio"><i class="fa-solid fa-house"></i><span>Panel principal</span></button>
+            <button data-view="pacientes"><i class="fa-solid fa-user-injured"></i><span>Pacientes</span></button>
+            <button data-view="agenda"><i class="fa-solid fa-calendar-days"></i><span>Agenda</span></button>
+            <button data-view="sesiones"><i class="fa-solid fa-clipboard-user"></i><span>Sesiones</span></button>
+            <button data-view="planes"><i class="fa-solid fa-bullseye"></i><span>Planes de trabajo</span></button>
+            <button data-view="consentimientos"><i class="fa-solid fa-file-signature"></i><span>Consentimientos</span></button>
+            <button data-view="evaluaciones"><i class="fa-solid fa-clipboard-check"></i><span>Evaluaciones PHQ-9 / GAD-7</span></button>
+            <button data-view="asistente"><i class="fa-solid fa-robot"></i><span>Asistente IA Gemini</span></button>
+            <button data-view="finanzas"><i class="fa-solid fa-wallet"></i><span>Administración</span></button>
+            <button data-view="reportes"><i class="fa-solid fa-chart-pie"></i><span>Informes</span></button>
+            <button data-view="seguridad"><i class="fa-solid fa-shield-halved"></i><span>Privacidad y datos</span></button>
+            <button data-view="pastor"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span class="text-emerald-300 font-bold">Pastor Jair (+WhatsApp)</span></button>
+        </nav>
+        <div class="side-foot">V7.0 · Consultorio Digital<br>Pastor y Psicólogo Jair</div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main">
+        <header class="top">
+            <div>
+                <div class="crumb">JAIRRESTAURA V7.0 / <strong id="crumb">Panel principal</strong></div>
+                <strong>Consultorio Digital Profesional</strong>
+            </div>
+            <div class="top-actions">
+                <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V7.0." target="_blank" class="hidden sm:inline-flex bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold items-center space-x-2 shadow">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>+57 312 471 0702</span>
+                </a>
+                <span class="pill">Activo</span>
+                <div class="avatar">PJ</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- VIEW: INICIO -->
+            <section class="view active" id="view-inicio">
+                <div class="hero">
+                    <div>
+                        <div class="eyebrow">CONSULTORIO DIGITAL · V5.1</div>
+                        <h2>Bienvenido, Pastor y Psicólogo Jair</h2>
+                        <p>Un espacio integrado para gestionar pacientes, agenda, sesiones, planes de trabajo, consentimientos e indicadores administrativos desde un solo panel.</p>
+                        <div class="actions" style="margin-top:18px">
+                            <button class="btn" onclick="showView('pacientes');openPatientModal()"><i class="fa-solid fa-user-plus mr-1"></i> Registrar nuevo paciente</button>
+                            <button class="btn secondary" onclick="showView('agenda');openAppointmentModal()"><i class="fa-solid fa-calendar-plus mr-1"></i> Agendar cita</button>
+                        </div>
+                    </div>
+                    <div class="hero-mark"><i class="fa-solid fa-hands-holding-child"></i></div>
+                </div>
+
+                <div class="grid stats">
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-users"></i></div><div><small>Pacientes Registrados</small><strong id="stat-patients">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div><div><small>Citas en Agenda</small><strong id="stat-appointments">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-clipboard-user"></i></div><div><small>Sesiones Documentadas</small><strong id="stat-sessions">0</strong></div></div>
+                    <div class="stat"><div class="stat-icon"><i class="fa-solid fa-wallet"></i></div><div><small>Ingresos del Mes</small><strong id="stat-income">$0</strong></div></div>
+                </div>
+
+                <div class="grid two">
+                    <div class="card">
+                        <div class="section-head">
+                            <div><h3>Próximas Citas</h3><p class="sub">Agenda del consultorio</p></div>
+                            <button class="btn secondary small" onclick="showView('agenda')">Ver toda la agenda</button>
+                        </div>
+                        <div id="home-appointments"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Resumen del Consultorio</h3>
+                        <p class="sub">Indicadores de actividad en JAIRRESTAURA V5.0</p>
+                        <div class="split">
+                            <div><div class="kpi" id="count-plans">0</div><small class="muted">Planes de trabajo</small></div>
+                            <div><div class="kpi" id="count-consents">0</div><small class="muted">Registros de consentimiento</small></div>
+                        </div>
+                        <div style="margin-top:20px">
+                            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px"><b>Índice de completitud de expedientes</b><span id="completeness">100%</span></div>
+                            <div class="bar"><span id="completeness-bar" style="width:100%"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin:22px 0 12px">Accesos Rápidos Profesionales</h3>
+                <div class="grid quick">
+                    <div class="card" onclick="showView('sesiones');openSessionModal()">
+                        <div class="ico"><i class="fa-solid fa-notes-medical"></i></div>
+                        <h3>Registrar Sesión</h3>
+                        <p>Documenta evolución, notas clínicas y tareas asignadas.</p>
+                    </div>
+                    <div class="card" onclick="showView('planes');openPlanModal()">
+                        <div class="ico"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3>Crear Plan de Trabajo</h3>
+                        <p>Define metas observables, estrategias y fecha de revisión.</p>
+                    </div>
+                    <div class="card" onclick="showView('reportes')">
+                        <div class="ico"><i class="fa-solid fa-file-pdf"></i></div>
+                        <h3>Informes y Resumen</h3>
+                        <p>Consulta métricas del consultorio y exporta respaldos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: PACIENTES -->
+            <section class="view" id="view-pacientes">
+                <div class="section-head">
+                    <div><h2>Gestión de Pacientes & Expedientes</h2><p>Directorio clínico del consultorio profesional con operaciones CRUD completas.</p></div>
+                    <button class="btn" onclick="openPatientModal()"><i class="fa-solid fa-user-plus mr-1"></i> Nuevo paciente</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrap" id="patients-table"></div>
+                </div>
+            </section>
+
+            <!-- VIEW: AGENDA -->
+            <section class="view" id="view-agenda">
+                <div class="section-head">
+                    <div><h2>Agenda de Citas & Sesiones</h2><p>Programación de encuentros presenciales o virtuales con control de estado.</p></div>
+                    <button class="btn" onclick="openAppointmentModal()"><i class="fa-solid fa-calendar-plus mr-1"></i> Agendar cita</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrap" id="appointments-table"></div>
+                </div>
+            </section>
+
+            <!-- VIEW: SESIONES -->
+            <section class="view" id="view-sesiones">
+                <div class="section-head">
+                    <div><h2>Seguimiento de Sesiones Clínicas</h2><p>Notas de evolución y notas de intervención terapéutica vinculadas a pacientes.</p></div>
+                    <button class="btn" onclick="openSessionModal()"><i class="fa-solid fa-notes-medical mr-1"></i> Registrar sesión</button>
+                </div>
+                <div id="sessions-list"></div>
+            </section>
+
+            <!-- VIEW: PLANES -->
+            <section class="view" id="view-planes">
+                <div class="section-head">
+                    <div><h2>Planes de Trabajo Terapéutico</h2><p>Objetivos, estrategias, indicadores y fechas de revisión.</p></div>
+                    <button class="btn" onclick="openPlanModal()"><i class="fa-solid fa-bullseye mr-1"></i> Crear plan</button>
+                </div>
+                <div id="plans-list"></div>
+            </section>
+
+            <!-- VIEW: CONSENTIMIENTOS -->
+            <section class="view" id="view-consentimientos">
+                <div class="section-head">
+                    <div><h2>Consentimientos Informados</h2><p>Registro legal y ético de aceptación de psicoterapia conforme a Ley 1581.</p></div>
+                    <button class="btn" onclick="openConsentModal()"><i class="fa-solid fa-file-signature mr-1"></i> Registrar consentimiento</button>
+                </div>
+                <div id="consents-list"></div>
+                <div class="card">
+                    <h3>Pautas del Consentimiento Informado</h3>
+                    <p class="sub">Elementos clave contemplados en el formato:</p>
+                    <ul class="text-xs space-y-1.5 text-slate-600 dark:text-slate-300 list-disc pl-4">
+                        <li>Identificación del Pastor y Psicólogo Jair y del consultante.</li>
+                        <li>Objetivos, metodología y límites de la intervención psicológica y pastoral.</li>
+                        <li>Garantía de confidencialidad y sus excepciones legales (riesgo inminente).</li>
+                        <li>Tratamiento de datos personales sensibles conforme a la Ley 1581 de 2012 (Colombia).</li>
+                        <li>Modalidad de atención, horarios y canales de contacto autorizados.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- VIEW: FINANZAS -->
+            <section class="view" id="view-finanzas">
+                <div class="section-head">
+                    <div><h2>Administración Financiera del Consultorio</h2><p>Control de ingresos por sesiones y gastos operativos.</p></div>
+                    <button class="btn" onclick="openFinanceModal()"><i class="fa-solid fa-plus mr-1"></i> Nuevo movimiento</button>
+                </div>
+                <div class="grid stats">
+                    <div class="stat"><div><small>Ingresos</small><strong id="fin-income">$0</strong></div></div>
+                    <div class="stat"><div><small>Gastos</small><strong id="fin-expense">$0</strong></div></div>
+                    <div class="stat"><div><small>Balance</small><strong id="fin-balance">$0</strong></div></div>
+                    <div class="stat"><div><small>Movimientos</small><strong id="fin-count">0</strong></div></div>
+                </div>
+                <div class="card">
+                    <div class="table-wrap" id="finance-table"></div>
+                </div>
+            </section>
+
+
+            <!-- VIEW: EVALUACIONES V7 -->
+            <section class="view" id="view-evaluaciones">
+              <div class="section-head"><div><h2>Instrumentos de tamizaje</h2><p>Registro orientativo PHQ-9 y GAD-7. No constituyen diagnóstico ni sustituyen una evaluación profesional.</p></div></div>
+              <div class="grid two">
+                <div class="card"><h3>PHQ-9 · Síntomas depresivos</h3><p class="sub">Selecciona una frecuencia por ítem, pensando en las últimas dos semanas.</p><div id="phq-items"></div><div class="actions"><button class="btn" onclick="scoreScale('phq')">Calcular resultado</button></div><div id="phq-result" class="notice" aria-live="polite">Pendiente de completar.</div></div>
+                <div class="card"><h3>GAD-7 · Síntomas de ansiedad</h3><p class="sub">Selecciona una frecuencia por ítem, pensando en las últimas dos semanas.</p><div id="gad-items"></div><div class="actions"><button class="btn" onclick="scoreScale('gad')">Calcular resultado</button></div><div id="gad-result" class="notice" aria-live="polite">Pendiente de completar.</div></div>
+              </div>
+              <div class="notice" style="margin-top:14px">Uso responsable: estos instrumentos son herramientas de tamizaje. Interpreta el resultado junto con entrevista, contexto y criterio profesional. En PHQ-9, cualquier respuesta distinta de cero al ítem 9 requiere exploración clínica cuidadosa y oportuna conforme al protocolo profesional; no se debe dejar al sistema decidir el nivel de riesgo.</div>
+            </section>
+            <!-- VIEW: ASISTENTE IA V7 -->
+            <section class="view" id="view-asistente">
+              <div class="section-head"><div><h2>Asistente IA Gemini</h2><p>Dos vías diferenciadas: abrir tu Gem compartido o conectar un backend API propio.</p></div><span class="pill">V7.0</span></div>
+              <div class="grid two">
+                <div class="card space-y-3"><h3>1. Tu Gem compartido</h3><p class="sub">Este enlace abre Gemini. No es una API ni permite que la aplicación envíe consultas automáticamente.</p><a class="btn" href="https://gemini.google.com/gem/16xOPEh4dqY6bcH9Ey7eJ1CCfXQYaU-Hb?usp=sharing" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square mr-2"></i>Abrir asistente Gemini JAIRRESTAURA</a><div class="notice">La conversación ocurre en Gemini, fuera de esta aplicación.</div></div>
+                <div class="card space-y-3"><h3>2. Conexión API mediante backend</h3><p class="sub">Introduce la URL HTTPS de un backend propio que implemente el contrato indicado en el manual. No pegues aquí el enlace del Gem ni una clave API.</p><label class="field"><span>URL del endpoint backend</span><input id="jr-api-url" type="url" placeholder="https://tu-dominio.com/api/ai/chat" autocomplete="off"></label><div class="actions"><button class="btn secondary" id="jr-save-endpoint">Guardar endpoint</button><button class="btn outline" id="jr-test-endpoint">Comprobar conexión</button></div><div id="jr-api-status" class="notice" role="status">Backend no verificado.</div></div>
+              </div>
+              <div class="card" style="margin-top:16px"><h3>Consulta de apoyo profesional</h3><p class="sub">Utiliza datos ficticios o debidamente anonimizados. No introduzcas nombres, teléfonos, documentos, direcciones ni información que identifique pacientes.</p><label class="field"><span>Consulta</span><textarea id="jr-ai-prompt" rows="5" placeholder="Ej.: Ayúdame a estructurar preguntas de exploración para una consulta sobre dificultades de sueño, sin formular un diagnóstico."></textarea></label><label style="display:flex;gap:9px;align-items:flex-start;font-size:12px;margin:12px 0"><input id="jr-ai-anon" type="checkbox" style="margin-top:3px"> Confirmo que el texto no contiene datos personales identificables ni información clínica que no esté autorizado a compartir.</label><div class="actions"><button class="btn" id="jr-ai-send">Enviar consulta al backend</button><span id="jr-ai-loading" class="muted" aria-live="polite"></span></div><div id="jr-ai-response" class="notice" style="white-space:pre-wrap;margin-top:14px" aria-live="polite">El asistente API está pendiente de configurar y verificar.</div></div>
+              <div class="notice" style="margin-top:14px">La IA es una herramienta de apoyo y no sustituye el juicio profesional. Revisa todas las respuestas. No se garantiza confidencialidad clínica hasta implementar y auditar autenticación, autorización, cifrado, registros, retención y acuerdos con proveedores.</div>
+            </section>
+
+            <!-- VIEW: REPORTES -->
+            <section class="view" id="view-reportes">
+                <div class="section-head">
+                    <div><h2>Informes y Exportación</h2><p>Resumen general de actividad y respaldos de seguridad.</p></div>
+                    <div class="actions">
+                        <button class="btn secondary" onclick="exportJSON()"><i class="fa-solid fa-download mr-1"></i> Exportar JSON</button>
+                        <button class="btn" onclick="window.print()"><i class="fa-solid fa-print mr-1"></i> Imprimir informe</button>
+                    </div>
+                </div>
+                <div class="grid two">
+                    <div class="card"><h3>Resumen de Actividad</h3><div id="report-summary"></div></div>
+                    <div class="card">
+                        <h3>Capacidades de JAIRRESTAURA V4.3</h3>
+                        <ul class="text-xs space-y-2 text-slate-600 dark:text-slate-300 list-disc pl-4">
+                            <li>Registro, edición y archivo de pacientes; el historial asociado se conserva.</li>
+                            <li>Agenda con validación básica de solapamientos según duración.</li>
+                            <li>Seguimiento y notas detalladas de sesiones.</li>
+                            <li>Planes de trabajo con metas observables.</li>
+                            <li>Registro administrativo del estado documental del consentimiento; no genera firmas.</li>
+                            <li>Control financiero, exportación JSON, restauración y exportación CSV.</li>
+                            <li>Enlace directo por WhatsApp con el Pastor y Psicólogo Jair.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SEGURIDAD -->
+            <section class="view" id="view-seguridad">
+                <div class="section-head">
+                    <div><h2>Privacidad, Seguridad y Protección de Datos</h2><p>Información sobre almacenamiento local y límites de seguridad.</p></div>
+                </div>
+                <div class="card space-y-4">
+                    <h3><span class="pill">Ley 1581 de 2012 (Colombia)</span></h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Administra las preferencias de privacidad y las copias de respaldo del consultorio. Para conocer la configuración técnica de almacenamiento y acceso, consulta la documentación de implementación de la plataforma.
+                    </p>
+                    <div class="actions">
+                        <button class="btn secondary" onclick="exportJSON()">Descargar copia de seguridad</button>
+                        <span class="notice">El borrado masivo está deshabilitado en esta versión para proteger los registros. Administra cada registro de forma individual y conserva respaldos.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: PASTOR JAIR -->
+            <section class="view" id="view-pastor">
+                <div class="bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 p-8 sm:p-12 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10">
+                        <i class="fa-brands fa-whatsapp text-[18rem]"></i>
+                    </div>
+                    <div class="max-w-3xl relative z-10 space-y-6">
+                        <span class="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                            <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                            <span>Acompañamiento Directo</span>
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">Pastor y Psicólogo Jair</h2>
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-light">
+                            Espacio de consejería y orientación psicológica profesional con enfoque pastoral. Contáctame directamente a través de WhatsApp para coordinar citas y acompañamiento.
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 space-y-3 max-w-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl font-bold shadow">
+                                    <i class="fa-solid fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-emerald-300 uppercase tracking-wider font-semibold block">Línea Directa WhatsApp</span>
+                                    <span class="text-xl sm:text-2xl font-extrabold tracking-wide">+57 312 471 0702</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20estoy%20en%20JAIRRESTAURA%20V7.0.2%20y%20deseo%20más%20información." target="_blank" class="inline-flex bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition items-center space-x-3 text-base">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                <span>Abrir WhatsApp (+57 312 471 0702)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footnote">JAIRRESTAURA V5.1 · Consultorio Digital Profesional · Pastor y Psicólogo Jair (+57 312 471 0702)</div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal & Toast Elements -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <div class="modal-head"><h3 id="modal-title">Formulario</h3><button class="close" onclick="closeModal()">✕</button></div>
+        <div id="modal-body"></div>
+    </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/573124710702?text=Hola%20Pastor%20y%20Psicólogo%20Jair,%20necesito%20orientación%20a%20través%20de%20JAIRRESTAURA%20V7.0.2." target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl whatsapp-float transition transform hover:scale-110 text-3xl" title="Contactar con Pastor y Psicólogo Jair">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- Application Script: JAIRRESTAURA V4.3 - mejora conservadora -->
+<script>
+'use strict';
+const STORAGE_KEY='jairrestaura_v42_consultorio';
+const today=()=>new Date().toISOString().slice(0,10);
+const initial={patients:[{id:1,name:'Ana María Gómez',contact:'ana.gomez@example.com',phone:'+57 300 1234567',age:32,modality:'Virtual',status:'Activo',demo:true},{id:2,name:'Carlos Andrés Pérez',contact:'carlos.perez@example.com',phone:'+57 310 9876543',age:41,modality:'Presencial',status:'Activo',demo:true}],appointments:[{id:1,patient:1,date:'2026-11-05',time:'10:00',duration:60,type:'Seguimiento',modality:'Virtual',status:'Confirmada',demo:true},{id:2,patient:2,date:'2026-11-06',time:'16:00',duration:60,type:'Primera entrevista',modality:'Presencial',status:'Pendiente',demo:true}],sessions:[{id:1,patient:1,date:'2026-10-28',focus:'Regulación emocional (registro demostrativo)',work:'Registro de ejemplo. No corresponde a una historia clínica real.',next:'Ejemplo de tarea de seguimiento.',demo:true}],plans:[{id:1,patient:1,goal:'Ejemplo de objetivo de trabajo',strategy:'Registro demostrativo; sustituir por información verificada.',measure:'Indicador por definir con el consultante.',review:'2026-11-15',status:'En curso',demo:true}],consents:[{id:1,patient:1,date:'2026-10-28',status:'Registro de demostración — no acredita firma',demo:true}],finance:[{id:1,date:'2026-10-28',kind:'Ingreso',concept:'Movimiento de demostración',amount:120000,demo:true},{id:2,date:'2026-10-29',kind:'Gasto',concept:'Movimiento de demostración',amount:25000,demo:true}]};
+function loadDB(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return structuredClone(initial);const d=JSON.parse(raw);for(const k of Object.keys(initial))if(!Array.isArray(d[k]))d[k]=[];return d;}catch(e){console.error(e);return structuredClone(initial)}}
+let db=loadDB();
+let nextId=Math.max(99,...Object.values(db).flat().map(x=>Number(x.id)||0))+1;
+const $=id=>document.getElementById(id);
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(Number(n)||0);
+const toast=msg=>{const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__jrToast);window.__jrToast=setTimeout(()=>t.style.display='none',3500)};
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(db));render();}catch(e){toast('No se pudo guardar. Exporta una copia y revisa el espacio del navegador.');console.error(e)}}
+function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));const target=$('view-'+v);if(target)target.classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));const nav=document.querySelector(`[data-view="${v}"] span`);if(nav)$('crumb').textContent=nav.textContent;window.scrollTo({top:0,behavior:'smooth'})}
+$('nav').addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(b)showView(b.dataset.view)});
+function table(headers,rows){return rows.length?`<table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table>`:'<div class="empty">No hay registros en esta sección.</div>'}
+function patientName(id){return db.patients.find(p=>p.id===Number(id))?.name||'Paciente no disponible'}
+function patientOptions(selected=''){return db.patients.map(p=>`<option value="${p.id}" ${Number(selected)===p.id?'selected':''}>${safe(p.name)}</option>`).join('')||'<option value="">No hay pacientes</option>'}
+function render(){
+ const inc=db.finance.filter(x=>x.kind==='Ingreso').reduce((a,x)=>a+(Number(x.amount)||0),0),exp=db.finance.filter(x=>x.kind==='Gasto').reduce((a,x)=>a+(Number(x.amount)||0),0);
+ $('stat-patients').textContent=db.patients.length;$('stat-appointments').textContent=db.appointments.length;$('stat-sessions').textContent=db.sessions.length;$('stat-income').textContent=money(inc);$('count-plans').textContent=db.plans.length;$('count-consents').textContent=db.consents.length;
+ const completeness=db.patients.length?Math.round(db.patients.filter(p=>p.name&&p.phone).length/db.patients.length*100):0;$('completeness').textContent=completeness+'%';$('completeness-bar').style.width=completeness+'%';
+ $('patients-table').innerHTML=table(['ID','Nombre','Contacto','Teléfono','Edad','Modalidad','Estado','Acciones'],db.patients.map(p=>`<tr><td>#${p.id}</td><td><b>${safe(p.name)}</b>${p.demo?' <span class="pill amber">Demo</span>':''}</td><td>${safe(p.contact)}</td><td>${safe(p.phone)}</td><td>${safe(p.age)}</td><td>${safe(p.modality)}</td><td>${safe(p.status)}</td><td><div class="actions"><button class="btn small outline" onclick="editPatient(${p.id})">Editar</button><button class="btn small danger" onclick="deletePatient(${p.id})">Archivar</button></div></td></tr>`));
+ const sorted=db.appointments.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+ $('appointments-table').innerHTML=table(['Fecha','Hora','Paciente','Tipo','Modalidad','Estado','Acciones'],sorted.map(a=>`<tr><td>${safe(a.date)}</td><td>${safe(a.time)}</td><td>${safe(patientName(a.patient))}</td><td>${safe(a.type)}</td><td>${safe(a.modality)}</td><td><span class="pill ${a.status==='Pendiente'?'amber':''}">${safe(a.status)}</span></td><td><div class="actions"><button class="btn small outline" onclick="changeAppointmentStatus(${a.id})">Estado</button><button class="btn small danger" onclick="deleteAppointment(${a.id})">Eliminar</button></div></td></tr>`));
+ $('home-appointments').innerHTML=sorted.slice(0,4).map(a=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);gap:10px"><div><b>${safe(patientName(a.patient))}</b><div class="muted" style="font-size:11px">${safe(a.type)} · ${safe(a.modality)}</div></div><div style="text-align:right"><b>${safe(a.time)}</b><div class="muted" style="font-size:11px">${safe(a.date)}</div></div></div>`).join('')||'<div class="empty">No hay citas programadas.</div>';
+ $('sessions-list').innerHTML=db.sessions.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(s=>`<div class="card"><div class="section-head"><div><h3>${safe(patientName(s.patient))}</h3><p class="sub">${safe(s.date)} ${s.demo?'· DEMOSTRACIÓN':''}</p></div><div class="actions"><button class="btn small danger" onclick="deleteRecord('sessions',${s.id})">Eliminar</button></div></div><p><b>Enfoque:</b> ${safe(s.focus)}</p><p><b>Trabajo:</b> ${safe(s.work)}</p><p><b>Seguimiento:</b> ${safe(s.next)}</p></div>`).join('')||'<div class="empty">No hay sesiones.</div>';
+ $('plans-list').innerHTML=db.plans.map(p=>`<div class="card"><div class="section-head"><div><h3>${safe(p.goal)}</h3><p class="sub">${safe(patientName(p.patient))} · Revisión: ${safe(p.review)}</p></div><div class="actions"><span class="pill">${safe(p.status)}</span><button class="btn small danger" onclick="deleteRecord('plans',${p.id})">Eliminar</button></div></div><p><b>Estrategia:</b> ${safe(p.strategy)}</p><p><b>Indicador:</b> ${safe(p.measure)}</p></div>`).join('')||'<div class="empty">No hay planes.</div>';
+ $('consents-list').innerHTML=db.consents.map(c=>`<div class="card"><div class="section-head"><b>${safe(patientName(c.patient))}</b><button class="btn small danger" onclick="deleteRecord('consents',${c.id})">Eliminar</button></div><p class="sub">${safe(c.date)} · ${safe(c.status)}</p><p class="text-xs">Este registro administrativo no sustituye el documento de consentimiento ni acredita por sí mismo una firma.</p></div>`).join('')||'<div class="empty">No hay registros de consentimiento.</div>';
+ $('fin-income').textContent=money(inc);$('fin-expense').textContent=money(exp);$('fin-balance').textContent=money(inc-exp);$('fin-count').textContent=db.finance.length;
+ $('finance-table').innerHTML=table(['Fecha','Tipo','Concepto','Valor','Acciones'],db.finance.map(f=>`<tr><td>${safe(f.date)}</td><td>${safe(f.kind)}</td><td>${safe(f.concept)}</td><td><b>${money(f.amount)}</b></td><td><button class="btn small danger" onclick="deleteRecord('finance',${f.id})">Eliminar</button></td></tr>`));
+ $('report-summary').innerHTML=`<div class="split"><div><div class="kpi">${db.patients.length}</div><small class="muted">Pacientes</small></div><div><div class="kpi">${db.appointments.length}</div><small class="muted">Citas</small></div><div><div class="kpi">${db.sessions.length}</div><small class="muted">Sesiones</small></div></div><hr style="border:0;border-top:1px solid var(--line);margin:15px 0"><p>Ingresos: <b>${money(inc)}</b></p><p>Gastos: <b>${money(exp)}</b></p><p>Balance: <b>${money(inc-exp)}</b></p>`;
+}
+function openModal(title,html,callback){$('modal-title').textContent=title;$('modal-body').innerHTML=html;$('modal').classList.add('open');const b=$('modal-submit');if(b)b.onclick=callback}
+function closeModal(){$('modal').classList.remove('open')}
+function field(label,id,value='',type='text',extra=''){return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${safe(value)}" ${extra}></div>`}
+function editPatient(id){const p=db.patients.find(x=>x.id===id);if(p)openPatientModal(p)}
+function openPatientModal(p=null){const edit=!!p;openModal(edit?'Editar paciente':'Registrar paciente',`<div class="formgrid">${field('Nombre completo','p-name',p?.name||'','text','required')}${field('Correo','p-contact',p?.contact||'','email')}${field('Teléfono','p-phone',p?.phone||'','tel')}${field('Edad','p-age',p?.age||'','number','min="1" max="110"')}<div class="field"><label>Modalidad</label><select id="p-mode"><option ${p?.modality==='Virtual'?'selected':''}>Virtual</option><option ${p?.modality==='Presencial'?'selected':''}>Presencial</option></select></div></div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">${edit?'Guardar cambios':'Crear paciente'}</button></div>`,()=>{const name=$('p-name').value.trim(),age=$('p-age').value;if(!name)return toast('El nombre es obligatorio.');if(age&&(Number(age)<1||Number(age)>110))return toast('Verifica la edad.');if(db.patients.some(x=>x.id!==p?.id&&x.name.trim().toLowerCase()===name.toLowerCase()))return toast('Ya existe un paciente con ese nombre; verifica antes de duplicar.');const obj={...(p||{}),id:p?.id||nextId++,name,contact:$('p-contact').value.trim(),phone:$('p-phone').value.trim(),age:age?Number(age):'',modality:$('p-mode').value,status:p?.status||'Activo',demo:false};if(edit)Object.assign(p,obj);else db.patients.push(obj);closeModal();persist();toast(edit?'Paciente actualizado.':'Paciente registrado.');});}
+function deletePatient(id){const p=db.patients.find(x=>x.id===id);if(!p)return;if(!confirm('Se archivará el paciente para evitar borrar su historial. ¿Continuar?'))return;p.status='Archivado';persist();toast('Paciente archivado; sus referencias se conservaron.');}
+function openAppointmentModal(){if(!db.patients.some(p=>p.status!=='Archivado'))return toast('Registra un paciente activo primero.');openModal('Agendar cita',`<div class="formgrid"><div class="field full"><label>Paciente</label><select id="a-patient">${patientOptions()}</select></div>${field('Fecha','a-date',today(),'date','required')}${field('Hora','a-time','10:00','time','required')}${field('Duración (minutos)','a-duration','60','number','min="15" max="240" step="15"')}<div class="field"><label>Tipo</label><select id="a-type"><option>Primera entrevista</option><option>Seguimiento</option><option>Orientación pastoral</option></select></div><div class="field"><label>Modalidad</label><select id="a-mode"><option>Virtual</option><option>Presencial</option></select></div></div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar cita</button></div>`,()=>{const date=$('a-date').value,time=$('a-time').value,duration=Number($('a-duration').value)||60;if(!date||!time)return toast('Fecha y hora son obligatorias.');const start=mins(time),end=start+duration;const conflict=db.appointments.some(a=>a.date===date&&a.status!=='Cancelada'&&start<mins(a.time)+(Number(a.duration)||60)&&end>mins(a.time));if(conflict)return toast('El horario se cruza con otra cita.');db.appointments.push({id:nextId++,patient:Number($('a-patient').value),date,time,duration,type:$('a-type').value,modality:$('a-mode').value,status:'Pendiente',demo:false});closeModal();persist();toast('Cita guardada.');});}
+function mins(t){const [h,m]=String(t).split(':').map(Number);return h*60+m}
+function changeAppointmentStatus(id){const a=db.appointments.find(x=>x.id===id);if(!a)return;const choices=['Pendiente','Confirmada','Atendida','Cancelada'];const next=choices[(choices.indexOf(a.status)+1)%choices.length];if(confirm(`Cambiar estado de ${a.status} a ${next}?`)){a.status=next;persist()}}
+function deleteAppointment(id){if(confirm('¿Eliminar esta cita?')){db.appointments=db.appointments.filter(x=>x.id!==id);persist()}}
+function openSessionModal(){if(!db.patients.length)return toast('Primero registra un paciente.');openModal('Registrar sesión',`<div class="formgrid"><div class="field"><label>Paciente</label><select id="s-patient">${patientOptions()}</select></div>${field('Fecha','s-date',today(),'date','required')}<div class="field full"><label>Enfoque</label><input id="s-focus" required></div><div class="field full"><label>Intervención / trabajo realizado</label><textarea id="s-work"></textarea></div><div class="field full"><label>Seguimiento acordado</label><textarea id="s-next"></textarea></div></div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar sesión</button></div>`,()=>{const focus=$('s-focus').value.trim();if(!focus)return toast('El enfoque es obligatorio.');db.sessions.unshift({id:nextId++,patient:Number($('s-patient').value),date:$('s-date').value,focus,work:$('s-work').value.trim(),next:$('s-next').value.trim(),demo:false});closeModal();persist();toast('Sesión registrada.');});}
+function openPlanModal(){if(!db.patients.length)return toast('Primero registra un paciente.');openModal('Crear plan de trabajo',`<div class="formgrid"><div class="field"><label>Paciente</label><select id="pl-patient">${patientOptions()}</select></div>${field('Fecha de revisión','pl-date',today(),'date')}<div class="field full"><label>Objetivo observable</label><input id="pl-goal" required></div><div class="field full"><label>Estrategias / actividades</label><textarea id="pl-strategy"></textarea></div><div class="field full"><label>Indicador de seguimiento</label><textarea id="pl-measure"></textarea></div></div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar plan</button></div>`,()=>{const goal=$('pl-goal').value.trim();if(!goal)return toast('El objetivo es obligatorio.');db.plans.unshift({id:nextId++,patient:Number($('pl-patient').value),goal,strategy:$('pl-strategy').value,measure:$('pl-measure').value,review:$('pl-date').value,status:'En curso',demo:false});closeModal();persist();toast('Plan guardado.');});}
+function openConsentModal(){if(!db.patients.length)return toast('Primero registra un paciente.');openModal('Registro administrativo de consentimiento',`<div class="field"><label>Paciente</label><select id="c-patient">${patientOptions()}</select></div>${field('Fecha','c-date',today(),'date')}<div class="notice" style="margin-top:12px">Este módulo registra que existe un documento externo. No genera una firma electrónica ni certifica validez jurídica. Conserva el documento firmado por separado.</div><div class="field"><label>Estado documental</label><select id="c-status"><option>Documento pendiente</option><option>Documento recibido y verificado</option><option>Requiere revisión</option></select></div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar registro</button></div>`,()=>{db.consents.unshift({id:nextId++,patient:Number($('c-patient').value),date:$('c-date').value,status:$('c-status').value,demo:false});closeModal();persist();toast('Registro documental guardado.');});}
+function openFinanceModal(){openModal('Registrar movimiento',`<div class="formgrid"><div class="field"><label>Tipo</label><select id="f-kind"><option>Ingreso</option><option>Gasto</option></select></div>${field('Fecha','f-date',today(),'date')}${field('Concepto','f-concept','','text','required')}${field('Valor COP','f-amount','','number','min="1" step="1" required')}</div><div class="actions" style="margin-top:18px"><button class="btn" id="modal-submit">Guardar movimiento</button></div>`,()=>{const amount=Number($('f-amount').value),concept=$('f-concept').value.trim();if(!Number.isFinite(amount)||amount<=0||!concept)return toast('Completa concepto y valor válido.');db.finance.unshift({id:nextId++,date:$('f-date').value,kind:$('f-kind').value,concept,amount,demo:false});closeModal();persist();toast('Movimiento registrado.');});}
+function deleteRecord(collection,id){if(!confirm('¿Eliminar este registro? Esta acción no se puede deshacer desde la aplicación. Exporta primero una copia si la necesitas.'))return;db[collection]=db[collection].filter(x=>x.id!==id);persist()}
+function exportJSON(){const blob=new Blob([JSON.stringify({app:'JAIRRESTAURA',version:'5.0',generatedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'});downloadBlob(blob,'jairrestaura_respaldo_'+today()+'.json');toast('Respaldo JSON preparado. Guárdalo en un lugar seguro.');}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function importJSON(input){const file=input.files?.[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{const parsed=JSON.parse(r.result),candidate=parsed.data||parsed,keys=['patients','appointments','sessions','plans','consents','finance'];if(!candidate||!keys.every(k=>Array.isArray(candidate[k])))throw Error('Estructura inválida');if(!confirm('RESTAURACIÓN: se va a reemplazar la información local por el contenido del archivo. Primero se descargará una copia de seguridad de los datos actuales. ¿Deseas continuar?'))return;downloadBlob(new Blob([JSON.stringify({app:'JAIRRESTAURA',version:'5.0-pre-restore-backup',generatedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'}),'jairrestaura_respaldo_antes_de_restaurar_'+today()+'.json');if(!confirm('Confirma que deseas continuar con la restauración. Si no guardaste la copia descargada, pulsa Cancelar.'))return;const safeCandidate=Object.fromEntries(keys.map(k=>[k,candidate[k]]));db=safeCandidate;nextId=Math.max(99,...Object.values(db).flat().map(x=>Number(x.id)||0))+1;persist();toast('Restauración aplicada. Revisa manualmente los registros y referencias.');}catch(e){toast('No se pudo restaurar: archivo inválido o incompatible.');console.error(e)}finally{input.value=''}};r.readAsText(file)}
+function exportCSV(){const rows=[['Tipo','ID','Paciente','Fecha','Detalle','Valor COP']];for(const p of db.patients)rows.push(['Paciente',p.id,p.name,'',[p.phone,p.contact].join(' | '),'']);for(const a of db.appointments)rows.push(['Cita',a.id,patientName(a.patient),a.date,`${a.time} ${a.type} ${a.status}`,'']);for(const f of db.finance)rows.push(['Finanzas',f.id,'',f.date,`${f.kind}: ${f.concept}`,f.amount]);const csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'jairrestaura_informe_'+today()+'.csv');}
+function clearAllData(){if(!confirm('ATENCIÓN: esta acción elimina los registros locales. Descarga primero un respaldo. ¿Deseas continuar?'))return;if(!confirm('Confirmación final: ¿borrar definitivamente los datos de este navegador?'))return;db={patients:[],appointments:[],sessions:[],plans:[],consents:[],finance:[]};persist();toast('Datos locales eliminados.');}
+// Añadir controles de respaldo sin alterar el diseño base.
+const securityActions=document.querySelector('#view-seguridad .actions');if(securityActions){const restore=document.createElement('label');restore.className='btn outline';restore.textContent='Restaurar respaldo JSON';const input=document.createElement('input');input.type='file';input.accept='application/json,.json';input.hidden=true;input.onchange=()=>importJSON(input);restore.appendChild(input);restore.onclick=()=>input.click();securityActions.insertBefore(restore,securityActions.firstChild);}
+const reportActions=document.querySelector('#view-reportes .actions');if(reportActions){const csv=document.createElement('button');csv.className='btn secondary';csv.textContent='Exportar CSV';csv.onclick=exportCSV;reportActions.insertBefore(csv,reportActions.firstChild);}
+render();
+</script>
+
+<script>
+// JAIRRESTAURA V7.0: capa adicional no destructiva sobre V5.1.
+(()=>{
+ const GEM_URL='https://gemini.google.com/gem/16xOPEh4dqY6bcH9Ey7eJ1CCfXQYaU-Hb?usp=sharing';
+ const ENDPOINT_KEY='jr_v7_backend_endpoint';
+ const $v=id=>document.getElementById(id);
+ const phq=['Poco interés o placer en hacer cosas','Sentirse decaído, deprimido o sin esperanza','Dificultad para dormir o dormir demasiado','Sentirse cansado o con poca energía','Poco apetito o comer en exceso','Sentirse mal consigo mismo o que ha fallado','Dificultad para concentrarse','Moverse o hablar lentamente, o estar inquieto','Ítem 9: aplicar con el formulario oficial validado y protocolo profesional correspondiente'];
+ const gad=['Sentirse nervioso, ansioso o al límite','No poder dejar de preocuparse','Preocuparse demasiado por diferentes cosas','Dificultad para relajarse','Estar tan inquieto que cuesta permanecer quieto','Molestarse o irritarse fácilmente','Sentir miedo como si algo terrible pudiera pasar'];
+ const opts=['Nunca','Varios días','Más de la mitad de los días','Casi todos los días'];
+ function makeScale(id,items){const host=$v(id);if(!host)return;host.innerHTML=items.map((q,i)=>`<div class="field" style="padding:10px 0;border-bottom:1px solid var(--line)"><label>${i+1}. ${q}</label><select id="${id}-${i}" aria-label="${q}">${opts.map((o,n)=>`<option value="${n}">${n} · ${o}</option>`).join('')}</select></div>`).join('')}
+ makeScale('phq-items',phq);makeScale('gad-items',gad);
+ window.scoreScale=(kind)=>{const items=kind==='phq'?phq:gad;let score=0;for(let i=0;i<items.length;i++){const el=$v(`${kind}-items-${i}`);if(!el)return;score+=Number(el.value)}const bands=kind==='phq'?[[4,'mínima o ausente'],[9,'leve'],[14,'moderada'],[19,'moderadamente grave'],[27,'grave']]:[[4,'mínima o ausente'],[9,'leve'],[14,'moderada'],[21,'grave']];const band=bands.find(x=>score<=x[0])||bands[bands.length-1];$v(`${kind}-result`).textContent=`Puntaje: ${score}. Rango orientativo: ${band[1]}. Este resultado es de tamizaje, no diagnóstico. Documenta contexto y valoración profesional.`;if(kind==='phq'&&Number($v('phq-items-8').value)>0)$v('phq-result').textContent+=' Atención: el ítem 9 requiere aplicación y exploración profesional directa conforme al instrumento validado y al protocolo de seguridad aplicable.';};
+ const endpoint=$v('jr-api-url'),status=$v('jr-api-status'),response=$v('jr-ai-response');
+ try{if(endpoint)endpoint.value=localStorage.getItem(ENDPOINT_KEY)||''}catch(e){}
+ function setStatus(msg,kind='info'){if(!status)return;status.textContent=msg;status.dataset.state=kind}
+ $v('jr-save-endpoint')?.addEventListener('click',()=>{const v=endpoint.value.trim();if(v){try{const u=new URL(v);if(u.protocol!=='https:')throw Error();if(u.hostname==='gemini.google.com')throw Error();}catch(e){setStatus('URL inválida. Usa un endpoint HTTPS de tu backend; el enlace de un Gem no es un endpoint API.','error');return}}try{localStorage.setItem(ENDPOINT_KEY,v);setStatus(v?'Endpoint guardado localmente. Aún no significa que esté conectado.':'Endpoint eliminado.','info')}catch(e){setStatus('No fue posible guardar la configuración en este navegador.','error')}});
+ async function callBackend(payload){const url=(endpoint.value||'').trim();if(!url)throw Error('Configura primero la URL HTTPS de tu backend.');const u=new URL(url);if(u.protocol!=='https:'||u.hostname==='gemini.google.com')throw Error('La URL debe ser un endpoint HTTPS de backend, no un enlace de Gemini Gem.');const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok)throw Error(`El backend respondió HTTP ${r.status}.`);const data=await r.json();const answer=data.answer||data.response||data.text||data.output;if(typeof answer!=='string'||!answer.trim())throw Error('El backend respondió, pero no se encontró answer, response, text u output en el JSON.');return answer}
+ $v('jr-test-endpoint')?.addEventListener('click',async()=>{setStatus('Comprobando endpoint…');try{const answer=await callBackend({action:'health',message:'healthcheck',source:'JAIRRESTAURA_V7'});setStatus('El endpoint respondió. Respuesta: '+answer.slice(0,240),'success')}catch(e){setStatus('No se pudo verificar: '+e.message,'error')}});
+ $v('jr-ai-send')?.addEventListener('click',async()=>{const prompt=$v('jr-ai-prompt').value.trim();if(!prompt){response.textContent='Escribe una consulta.';return}if(!$v('jr-ai-anon').checked){response.textContent='Confirma primero que la consulta está anonimizada y autorizada para compartir.';return}const btn=$v('jr-ai-send');btn.disabled=true;$v('jr-ai-loading').textContent='Procesando…';response.textContent='Esperando respuesta del backend…';try{const answer=await callBackend({action:'chat',message:prompt,source:'JAIRRESTAURA_V7',purpose:'professional_support',language:'es'});response.textContent=answer}catch(e){response.textContent='No se recibió una respuesta de IA. '+e.message+' No se generaron respuestas simuladas.'}finally{btn.disabled=false;$v('jr-ai-loading').textContent=''}});
+ // Ensure the app's destructive wipe action is not exposed through the global scope in this version.
+ const wipe=[...document.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'').includes('clearAllData'));if(wipe)wipe.remove();
+ document.title='JAIRRESTAURA V7.0 · Consultorio Digital';
+})();
+</script>
+
+</body>
+</html>
